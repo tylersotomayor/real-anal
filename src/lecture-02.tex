@@ -1,0 +1,312 @@
+%% ============================================================
+%%  Lecture 2 -- Thursday, 28 May 2026
+%%  Subfile of main.tex: compiles standalone OR as part of the book.
+%%  Built from sources/2026-05-28/ (board-transcript.md [Gate-1 verified], outline.md).
+%% ============================================================
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+
+\beginlecture{2}{Thursday, 28 May 2026}%
+  {Counting the Infinite, and the Geometry of Distance: Countability and Metric Spaces}
+
+\epigraph{No one shall expel us from the paradise that Cantor has created.}{David Hilbert}
+
+\begin{lecturecontents}{Contents of this lecture}
+  \item \hyperlink{2.1}{2.1\quad Counting the infinite: countable and uncountable sets}
+  \item \hyperlink{2.2}{2.2\quad Metric spaces}
+  \item \hyperlink{2.3}{2.3\quad Open sets and open balls}
+\end{lecturecontents}
+
+\bigskip
+\noindent\textbf{Overview.} Lecture~1 built $\mathbb R$ as the complete ordered field and drew from
+completeness the Archimedean property (\xrefL{1.7.1}) and the density of $\mathbb Q$ (\xrefL{1.7.2});
+the same property gives infima as readily as suprema (\xrefL{1.5.3}). Two new questions open here.
+First, \emph{how large} is $\mathbb R$? Cantor's notion of countability lets us compare infinite
+sets, and his diagonal argument shows $\mathbb R$ is strictly larger than $\mathbb Q$---uncountable,
+with $\mathbb Q$ a vanishingly ``thin'' subset. Second, what is the right language for
+\emph{distance}? Metric spaces distil the Euclidean norm into three axioms, and the open sets they
+generate are the gateway to topology, where the rest of the course lives.
+
+\clearpage
+% ============================================================
+\sub{2.1}{Counting the infinite: countable and uncountable sets}
+
+\begin{Obj}{Definition}{2.1.1}{Injective, surjective, bijective}
+Let $f:X\to Y$ be a function.
+\begin{itemize}
+  \item $f$ is \emph{injective} if $f(x)=f(x')\Rightarrow x=x'$ (distinct inputs give distinct outputs);
+  \item $f$ is \emph{surjective} if every $y\in Y$ equals $f(x)$ for some $x\in X$;
+  \item $f$ is \emph{bijective} if it is both. A bijection has a two-sided inverse $f^{-1}:Y\to X$.
+\end{itemize}
+\end{Obj}
+
+\begin{Obj}{Definition}{2.1.2}{Equinumerous sets; finite, countable, uncountable}
+Sets $X$ and $Y$ are \emph{equinumerous}, written $X\sim Y$, if there is a bijection $f:X\to Y$. With
+$J_0=\emptyset$ and $J_n=\{1,\dots,n\}$, a set $X$ is
+\begin{itemize}
+  \item \emph{finite} if $X\sim J_n$ for some $n$, and \emph{infinite} otherwise;
+  \item \emph{countable} if $X\sim\mathbb N$;
+  \item \emph{uncountable} if it is infinite and $X\not\sim\mathbb N$.
+\end{itemize}
+\end{Obj}
+
+\begin{Obj}{Proposition}{2.1.3}{Equinumerosity is an equivalence relation}
+The relation $\sim$ is reflexive, symmetric, and transitive.
+\end{Obj}
+\begin{Prf}{2.1.3}{Direct Proof that Equinumerosity is an Equivalence Relation.}{[Direct]\quad bijections invert and compose, with $(g\circ f)^{-1}=f^{-1}\circ g^{-1}$.}
+\item For reflexivity, the identity $\mathrm{id}_X:X\to X$, $x\mapsto x$, is a bijection, so $X\sim X$.
+\item For symmetry, if $X\sim Y$ via a bijection $f$, then $f^{-1}:Y\to X$ is a bijection, so $Y\sim X$.
+\item For transitivity, if $X\sim Y$ via $f$ and $Y\sim Z$ via $g$, then $g\circ f:X\to Z$ is a
+  bijection (its inverse is $f^{-1}\circ g^{-1}$), so $X\sim Z$.
+\end{Prf}
+
+\begin{ObjL}{Example}{2.1.4}{$\mathbb Z$ is countable}
+The identity shows $\mathbb N$ is countable. For $\mathbb Z$, interleave the signs:
+\[ f:\mathbb N\to\mathbb Z,\qquad f(n)=\begin{cases} n/2 & n\text{ even},\\[2pt] -(n+1)/2 & n\text{ odd},\end{cases} \]
+a bijection that lists $\mathbb Z$ as $0,-1,1,-2,2,-3,3,\dots$.
+\end{ObjL}
+
+\begin{Fig}{2.1.5}{$\mathbb N$ counts $\mathbb Z$}{The bijection of \xref{2.1.4} walks outward from $0$ in alternating steps, reaching every integer exactly once.}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \node[left,cuBlueDk] at (-0.55,1.3){$\mathbb N$};
+  \node[left,cuBlueDk] at (-0.55,0){$\mathbb Z$};
+  \foreach \n/\fz in {0/0,1/{-1},2/1,3/{-2},4/2,5/{-3},6/3}{
+    \node[figTerm] (a\n) at (\n,1.3){\scriptsize$\n$};
+    \node (b\n) at (\n,0){\scriptsize$\fz$};
+    \draw[->,cuBlueDk!70] (a\n)--(b\n);
+  }
+\end{tikzpicture}
+\end{Fig}
+
+\begin{Obj}{Definition}{2.1.6}{Sequences and the listing criterion}
+A \emph{sequence} in a set $X$ is a function $f:\mathbb N\to X$, written $\{x_n\}_{n\in\mathbb N}$ with
+$x_n=f(n)$. Thus $X$ is countable precisely when some sequence lists every element of $X$ exactly once.
+\end{Obj}
+
+\begin{ObjL}{Example}{2.1.7}{$\mathbb Q$ is countable}
+Identifying a fraction with its pair of integers exhibits $\mathbb Q$ inside
+$\mathbb Z\times\mathbb Z$, which a diagonal sweep lists as a single sequence.
+\end{ObjL}
+\begin{Prf}{2.1.7}{Proof by Diagonal Enumeration that $\mathbb Q$ is Countable.}{[Constr]\quad cf.\ \R{2.12}--\R{2.13}.}
+\item Arrange the pairs $(p,q)$ with $q\neq0$ on a grid and traverse them along successive finite
+  diagonals (each diagonal $|p|+|q|=\text{const}$ holds only finitely many pairs).
+\item This runs through every pair; deleting pairs with a common factor and any repeats leaves a
+  sequence that lists each rational exactly once.
+\item Hence $\mathbb Q\sim\mathbb N$ (\xref{2.1.6}).
+\end{Prf}
+
+\begin{Fig}{2.1.8}{Listing the rationals}{Sweeping the lattice of pairs $(p,q)$ along finite diagonals threads them into one sequence; pairs with a common factor (e.g.\ $\tfrac22,\tfrac24$) are skipped (\xref{2.1.7}).}
+\begin{tikzpicture}[x=1.0cm,y=0.9cm]
+  \foreach \q in {1,2,3,4}{\foreach \p in {1,2,3,4}{\filldraw[cuBlueDk] (\q,\p) circle (1pt);}}
+  \node[cuBlueDk,below=1pt] at (2.5,0.6){\scriptsize denominator $q$};
+  \node[cuBlueDk,rotate=90] at (0.45,2.5){\scriptsize numerator $p$};
+  \draw[->,figTerm,thick] (1,1)--(1,2)--(2,1)--(3,1)--(2,2)--(1,3)--(1,4)--(2,3)--(3,2)--(4,1);
+  \foreach \q/\p in {2/2,2/4,4/2,3/3,4/4}{\node[figBad] at (\q,\p){\scriptsize$\times$};}
+\end{tikzpicture}
+\end{Fig}
+
+\begin{Obj}{Proposition}{2.1.9}{An infinite subset of a countable set is countable}
+If $X$ is countable and $A\subseteq X$ is infinite, then $A$ is countable.
+\end{Obj}
+\begin{Prf}{2.1.9}{Proof by Recursive Selection of Indices that the Subset is Countable.}{[A10]\quad the recursion is an induction, justified at each step by $A$ being infinite.}
+\item Write $X=\{x_n\}_{n\in\mathbb N}$, every element listed once (\xref{2.1.6}).
+\item Choose indices recursively: let $n_0$ be the least index with $x_{n_0}\in A$; having chosen
+  $n_0<\cdots<n_k$, let $n_{k+1}$ be the least index $>n_k$ with $x_{n_{k+1}}\in A$. Such an index
+  exists because $A$, being infinite, cannot lie inside the finite set $\{x_0,\dots,x_{n_k}\}$, so
+  some $x_m\in A$ has $m>n_k$.
+\item The map $k\mapsto x_{n_k}$ is strictly increasing, hence injective, and reaches every element
+  of $A$ (each $a=x_m\in A$ is selected no later than stage $m$); so it is a bijection
+  $\mathbb N\to A$, and $A\sim\mathbb N$.
+\end{Prf}
+
+\begin{Obj}{Theorem}{2.1.10}{Cantor: the binary sequences are uncountable}
+The set $2^{\mathbb N}=\{\,f:\mathbb N\to\{0,1\}\,\}$ of infinite binary sequences---equivalently, the
+subsets of $\mathbb N$---is uncountable.
+\end{Obj}
+\begin{Prf}{2.1.10}{Proof by Cantor's Diagonal Argument that the Binary Sequences are Uncountable.}{[A8$+$A9]\quad diagonalisation, by contradiction; cf.\ \R{2.14}.}
+\item Suppose $2^{\mathbb N}$ were countable, listed as $a_1,a_2,a_3,\dots$, each
+  $a_k=(a_k^1,a_k^2,a_k^3,\dots)$ a binary sequence.
+\item Define $\bar b\in 2^{\mathbb N}$ by flipping the diagonal: $\bar b_n=1-a_n^{\,n}$.
+\item For each $n$, $\bar b$ differs from $a_n$ in its $n$th entry ($\bar b_n\neq a_n^{\,n}$), so
+  $\bar b\neq a_n$ for every $n$.
+\item Thus $\bar b$ appears nowhere in the list---contradicting that the list was all of
+  $2^{\mathbb N}$. Hence $2^{\mathbb N}$ is uncountable.
+\end{Prf}
+
+\begin{Fig}{2.1.11}{Cantor's diagonal}{Flipping the boxed diagonal entries yields a sequence $\bar b$ differing from each listed $a_k$ in place $k$, so $\bar b$ is absent from the list (\xref{2.1.10}).}
+\begin{tikzpicture}[x=0.66cm,y=0.6cm]
+  \foreach \row/\digits/\yy in {1/{0,1,1,0,1,0}/5, 2/{1,1,1,1,0,1}/4, 3/{0,0,0,1,0,1}/3,
+                                4/{0,1,1,0,1,0}/2, 5/{1,0,0,0,0,1}/1}{
+    \node[cuBlueDk] at (0,\yy){\scriptsize$a_{\row}$};
+    \foreach \d [count=\c] in \digits {\node at (\c,\yy){\scriptsize$\d$};}
+  }
+  \foreach \c/\yy in {1/5,2/4,3/3,4/2,5/1}{\draw[figBad,thick] (\c,\yy) circle (3.4pt);}
+  \draw[figBad] (0.7,5.3)--(5.3,0.7);
+  \node[figBad] at (0,-0.3){\scriptsize$\bar b$};
+  \foreach \d [count=\c] in {1,0,1,1,1}{\node[figBad] at (\c,-0.3){\scriptsize$\d$};}
+  \node at (6,-0.3){\scriptsize$\cdots$};
+\end{tikzpicture}
+\end{Fig}
+
+\begin{Obj}{Theorem}{2.1.12}{The interval $[0,1]$ is uncountable}
+The interval $[0,1]\subseteq\mathbb R$ is uncountable.
+\end{Obj}
+\begin{Prf}{2.1.12}{Proof by Reduction to Binary Sequences that $[0,1]$ is Uncountable.}{[Direct]\quad uses \xref{2.1.10}; barring an all-$1$ tail makes binary expansions unique ($0.0111\ldots_2=0.1000\ldots_2$), and the barred eventually-all-$1$ sequences are countable.}
+\item Since $[0,1]\supseteq[0,1)$, it suffices to show $[0,1)$ is uncountable. Send each $x\in[0,1)$
+  to the binary expansion $(b_n)\in 2^{\mathbb N}$ that does \emph{not} end in all $1$s; on $[0,1)$
+  this representative exists and is unique, so the map is injective, with image exactly the
+  sequences not ending in all $1$s.
+\item If $[0,1)$ were countable, that image would be countable, so $2^{\mathbb N}$---the image
+  together with the countably many all-$1$-tail sequences---would be countable too (\R{2.12}),
+  contradicting \xref{2.1.10}.
+\item Hence $[0,1)$, and therefore $[0,1]$, is uncountable.
+\end{Prf}
+
+\begin{Obj}{Corollary}{2.1.13}{$\mathbb R$ is uncountable}
+Were $\mathbb R$ countable, its infinite subset $[0,1]$ would be countable too (\xref{2.1.9}); but
+it is not (\xref{2.1.12}). So $\mathbb R$ is uncountable.
+\end{Obj}
+
+\begin{ObjL}{Remark}{2.1.14}{$\mathbb Q$ is thin in $\mathbb R$}
+Thus $\mathbb Q$ is countable yet dense (\xrefL{1.7.2}), while $\mathbb R$ is uncountable: the
+rationals are a vanishingly small part of the line. Made precise by measure, $\mathbb Q$---indeed
+any countable set---has Lebesgue length zero, so a real drawn from any distribution with a density
+is irrational with probability $1$.
+\end{ObjL}
+
+% ============================================================
+\sub{2.2}{Metric spaces}
+
+\noindent The Euclidean distance on $\mathbb R^n$, $d(x,y)=\|x-y\|=\big(\sum_{i=1}^n|x_i-y_i|^2\big)^{1/2}$,
+built from the inner product $\langle x,y\rangle=\sum_i x_iy_i$, is the model. A metric space keeps
+only the features of $d$ that analysis actually uses.
+
+\begin{Obj}{Definition}{2.2.1}{Metric space}
+A \emph{metric space} (\R{2.15}) is a set $X$ with a \emph{metric} (or distance)
+$d:X\times X\to\mathbb R^{\ge0}$ satisfying, for all $x,y,z\in X$:
+\begin{enumerate}
+  \item $d(x,y)\ge0$, with $d(x,y)=0\iff x=y$;
+  \item $d(x,y)=d(y,x)$ \quad(symmetry);
+  \item $d(x,z)\le d(x,y)+d(y,z)$ \quad(the triangle inequality).
+\end{enumerate}
+\end{Obj}
+
+\begin{Fig}{2.2.2}{The triangle inequality}{The direct distance $d(x,z)$ never exceeds the detour $d(x,y)+d(y,z)$ through $y$---axiom~(3) of \xref{2.2.1}.}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \coordinate (x) at (0,0); \coordinate (y) at (4,0); \coordinate (z) at (1.4,2.1);
+  \draw[figTerm,thick] (x)--(z) node[midway,above left]{$d(x,z)$};
+  \draw[cuBlueDk] (x)--(y) node[midway,below]{$d(x,y)$};
+  \draw[cuBlueDk] (y)--(z) node[midway,above right]{$d(y,z)$};
+  \foreach \p/\nm/\pos in {x/x/{below left}, y/y/{below right}, z/z/above}{
+    \filldraw (\p) circle (1.3pt) node[\pos]{$\nm$};}
+\end{tikzpicture}
+\end{Fig}
+
+\begin{ObjL}{Example}{2.2.3}{The standard metrics}
+$(\mathbb R,|\cdot|)$ with $d(x,y)=|x-y|$ is a metric space, as are $(\mathbb Z,|\cdot|)$,
+$(\mathbb N,|\cdot|)$, and $(\mathbb Q,|\cdot|)$. More generally any subset $Y$ of a metric space
+$(X,d)$ is itself a metric space under the restricted distance $d|_{Y\times Y}$. The Euclidean space
+$(\mathbb R^n,d_2)$, $d_2(x,y)=\big(\sum_{i=1}^n|x_i-y_i|^2\big)^{1/2}$, is the prototype.
+\end{ObjL}
+
+\begin{ObjL}{Example}{2.2.4}{The $p$-metrics and the discrete metric}
+On $\mathbb R^n$, for $p\ge1$,\note{The board writes $p>1$; in fact $d_p$ is a metric for every $p\ge1$, with $d_1$ and $d_\infty$ the boundary cases.}
+\[ d_p(x,y)=\Big(\sum_{i=1}^n|x_i-y_i|^p\Big)^{1/p},\qquad d_\infty(x,y)=\max_i|x_i-y_i|. \]
+On any set $X$, the \emph{discrete metric}---$d(x,y)=0$ if $x=y$ and $1$ otherwise---is a metric.
+The triangle inequality for $d_p$ is Minkowski's inequality, taken here as a standard fact.
+\end{ObjL}
+
+\begin{ObjL}{Example}{2.2.5}{Metrics on a function space}
+Let $C=C[0,1]$ be the continuous functions $f:[0,1]\to\mathbb R$. Both
+\[ d_\infty(f,g)=\sup_{[0,1]}|f-g| \qquad\text{and}\qquad d_1(f,g)=\int_0^1|f(x)-g(x)|\,dx \]
+are metrics on $C$. Here $d_\infty$ is finite because a continuous function on $[0,1]$ is bounded,
+and $d_1(f,g)=0$ forces $f=g$ since $|f-g|$ is continuous.
+\end{ObjL}
+
+% ============================================================
+\sub{2.3}{Open sets and open balls}
+
+\noindent Basic \emph{topology} studies a space through its \emph{open subsets}---concepts that can
+be phrased using open sets alone. Everything starts with the open ball.
+
+\begin{Obj}{Definition}{2.3.1}{Open ball}
+In a metric space $(X,d)$, the \emph{open ball} of radius $r>0$ about $p\in X$ is
+\[ B_r(p)=\{\,x\in X:d(x,p)<r\,\}. \]
+\end{Obj}
+
+\begin{Fig}{2.3.2}{An open ball takes the shape of its metric}{Same centre, same radius: an interval in $(\mathbb R,|\cdot|)$, a round disk under $d_2$, a diamond under $d_1$, a square under $d_\infty$---each the set $\{x:d(x,p)<r\}$ of \xref{2.3.1}.}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \begin{scope}[xshift=0cm]
+    \draw[cuBlueDk] (-1.05,0)--(1.05,0);
+    \draw[figTerm,line width=1.2pt] (-0.8,0)--(0.8,0);
+    \draw[figTerm,fill=white] (-0.8,0) circle (1.7pt);
+    \draw[figTerm,fill=white] (0.8,0) circle (1.7pt);
+    \filldraw (0,0) circle (1.1pt) node[above=2pt]{\scriptsize$p$};
+    \node[cuBlueDk] at (0,-1.5){\scriptsize$(\mathbb R,|\cdot|)$};
+  \end{scope}
+  \begin{scope}[xshift=3.3cm]
+    \draw[figTerm,fill=cuBlueLt!35,dashed] (0,0) circle (0.85);
+    \draw[cuBlueDk] (0,0)--(0.85,0) node[midway,below=1pt]{\scriptsize$r$};
+    \filldraw (0,0) circle (1.1pt) node[above=2pt]{\scriptsize$p$};
+    \node[cuBlueDk] at (0,-1.5){\scriptsize$(\mathbb R^2,d_2)$};
+  \end{scope}
+  \begin{scope}[xshift=6.6cm]
+    \draw[figTerm,fill=cuBlueLt!35,dashed] (0,0.88)--(0.88,0)--(0,-0.88)--(-0.88,0)--cycle;
+    \filldraw (0,0) circle (1.1pt) node[above right=-1pt]{\scriptsize$p$};
+    \node[cuBlueDk] at (0,-1.5){\scriptsize$(\mathbb R^2,d_1)$};
+  \end{scope}
+  \begin{scope}[xshift=9.9cm]
+    \draw[figTerm,fill=cuBlueLt!35,dashed] (-0.82,-0.82) rectangle (0.82,0.82);
+    \filldraw (0,0) circle (1.1pt) node[above right=-1pt]{\scriptsize$p$};
+    \node[cuBlueDk] at (0,-1.5){\scriptsize$(\mathbb R^2,d_\infty)$};
+  \end{scope}
+\end{tikzpicture}
+\end{Fig}
+
+\begin{Obj}{Definition}{2.3.3}{Interior point; open set}
+Let $(X,d)$ be a metric space and $E\subseteq X$. A point $p\in E$ is an \emph{interior point} of $E$
+if $B_r(p)\subseteq E$ for some $r>0$, and $E$ is \emph{open in $X$} if every point of $E$ is
+interior (\R{2.18}). Conversely, $p$ fails to be interior exactly when $B_r(p)\not\subseteq E$ for
+\emph{every} $r>0$; so $E$ is \emph{not} open as soon as one of its points is not interior.
+\end{Obj}
+
+\begin{ObjL}{Remark}{2.3.4}{Openness is relative}
+Openness is meaningful only \emph{relative to the ambient space}: one says ``$E$ is open in $X$,''
+never merely ``$E$ is open.'' The same set can be open in one metric space and not in another.
+\end{ObjL}
+
+\begin{Obj}{Proposition}{2.3.5}{Every open ball is open}
+In any metric space $(X,d)$, the ball $B_r(p)$ is open in $X$, for every $p\in X$ and $r>0$.
+\end{Obj}
+\begin{Prf}{2.3.5}{Proof by the Triangle Inequality that Every Open Ball is Open.}{[Direct]\quad the template for openness proofs; uses \xref{2.2.1}; cf.\ \R{2.19}.}
+\item Fix $q\in B_r(p)$; then $d(p,q)<r$, so $r_q:=r-d(p,q)>0$.
+\item Take any $x\in B_{r_q}(q)$. By the triangle inequality,
+  \[ d(x,p)\le d(x,q)+d(q,p)<r_q+d(q,p)=r. \]
+\item Hence $x\in B_r(p)$, so $B_{r_q}(q)\subseteq B_r(p)$. Every $q\in B_r(p)$ is therefore interior,
+  and $B_r(p)$ is open.
+\end{Prf}
+
+\begin{Fig}{2.3.6}{Why a ball is open}{For $q\in B_r(p)$, the radius $r_q=r-d(p,q)$ keeps $B_{r_q}(q)$ inside $B_r(p)$---the triangle inequality at work (proof of \xref{2.3.5}).}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \draw[figTerm,thick] (0,0) circle (2);
+  \filldraw (0,0) circle (1.2pt) node[below left]{$p$};
+  \coordinate (q) at (1.1,0.4);
+  \draw[cuBlueDk,dashed] (0,0)--(q) node[midway,above]{\scriptsize$d(p,q)$};
+  \draw[figLim,thick] (q) circle (0.8);
+  \filldraw (q) circle (1.2pt) node[above right=-1pt]{$q$};
+  \draw[cuBlueDk] (q)--(1.9,0.4) node[midway,below=1pt]{\scriptsize$r_q$};
+  \node[figTerm] at (1.35,-1.6){$B_r(p)$};
+  \node[figLim] at (2.05,1.35){$B_{r_q}(q)$};
+\end{tikzpicture}
+\end{Fig}
+
+\begin{ObjL}{Remark}{2.3.7}{A recipe for proving openness}
+To show $E$ is open in $X$: (1)~take an arbitrary $p\in E$; (2)~produce a radius $r_p>0$ (guided by
+the geometry); (3)~verify $B_{r_p}(p)\subseteq E$. The proof of \xref{2.3.5} is the model.
+\end{ObjL}
+
+% per-lecture Index of Objects -- standalone compile only; the book uses the master index.
+\ifSubfilesClassLoaded{\clearpage\objindex}{}
+
+\end{document}

@@ -1,0 +1,479 @@
+%% ============================================================
+%%  Lecture 6 -- Thursday, 11 June 2026
+%%  Subfile of main.tex: compiles standalone OR as part of the book.
+%% ============================================================
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+
+\beginlecture{6}{Thursday, 11 June 2026}%
+  {Monotone Convergence, the Squeeze Theorem, and the Upper and Lower Limits}
+
+\epigraph{Of the small there is no smallest, but always a smaller; and of the large
+there is always a larger.}{Anaxagoras, fragment B3 (5th c.\ bce)}
+
+\begin{lecturecontents}{Contents of this lecture}
+  \item \hyperlink{6.1}{6.1\quad Review of Completeness and Cauchy Sequences}
+  \item \hyperlink{6.2}{6.2\quad Monotone sequences}
+  \item \hyperlink{6.3}{6.3\quad Comparison and squeeze}
+  \item \hyperlink{6.4}{6.4\quad The upper and lower limits}
+  \item \hyperlink{6.5}{6.5\quad Some standard limits}
+  \item \hyperlink{6.6}{6.6\quad Introduction to series}
+\end{lecturecontents}
+
+\bigskip
+\noindent\textbf{Overview.} Picking up from completeness, this lecture assembles the basic
+machinery for limits of real sequences. Monotonicity plus boundedness already forces
+convergence; the comparison and squeeze principles let limits be read off from neighbours;
+and for sequences that oscillate, the upper and lower limits $\limsup$ and $\liminf$ record
+the band the sequence is eventually trapped in, coinciding exactly when the sequence
+converges. After recording four limits that recur throughout the subject, we open the theory
+of series: convergence through partial sums, the Cauchy criterion, and the first divergence test.
+
+\clearpage
+% ============================================================
+\sub{6.1}{Review of Completeness and Cauchy Sequences}
+
+\begin{Obj}{Definition}{6.1.1}{Complete metric space}
+A metric space $(X,d)$ is \emph{complete} if every Cauchy sequence in $X$ converges to a
+point of $X$.
+\end{Obj}
+
+\begin{ObjL}{Example}{6.1.2}{Complete and incomplete spaces}
+\begin{itemize}[leftmargin=1.3em,topsep=2pt,itemsep=1pt,label=\textbullet]
+  \item Compact metric spaces are complete.
+  \item $\mathbb R^k$ is complete.
+  \item $\mathbb Q$ and $(0,1)$ are \emph{not} complete.
+\end{itemize}
+\end{ObjL}
+
+\begin{ObjL}{Remark}{6.1.3}{Testing convergence without the limit}
+\emph{In a complete space} --- in particular in $\mathbb R^k$ --- it is enough to check whether a
+sequence is Cauchy; there is no need to know the limit in advance. In an incomplete space such as
+$\mathbb Q$ this fails: a Cauchy sequence may have no limit (\xref{6.1.2}).
+\end{ObjL}
+
+% ============================================================
+\sub{6.2}{Monotone sequences}
+
+\begin{Obj}{Definition}{6.2.1}{Monotonic sequences}
+A sequence $\{s_n\}$ is
+\begin{itemize}[leftmargin=1.3em,topsep=2pt,itemsep=1pt,label=\textbullet]
+  \item \emph{monotonic increasing} if $s_n\le s_{n+1}$ for all $n$;
+  \item \emph{monotonic decreasing} if $s_n\ge s_{n+1}$ for all $n$.
+\end{itemize}
+``Monotonic'' means either increasing or decreasing.
+\end{Obj}
+
+\begin{Obj}{Theorem}{6.2.2}{Monotone convergence}
+If $\{s_n\}\subseteq\mathbb R$ is monotonic and bounded, then $\{s_n\}$ converges.
+\end{Obj}
+\begin{Prf}{6.2.2}{Proof by a Supremum Argument of the Monotone Convergence Theorem.}{[A5]\quad the decreasing case follows by applying the increasing case to $\{-s_n\}$.}
+\item Treat the increasing case (the decreasing case is analogous). Since $\{s_n\}$ is bounded above, the least-upper-bound property of $\mathbb R$ provides
+  \[ s := \sup_n s_n . \]
+\item Let $\eps>0$. Because $s-\eps<s$, the number $s-\eps$ is not an upper bound of $\{s_n\}$, so there is $N_\eps$ with
+  \[ s_{N_\eps} > s-\eps . \]
+\item As the sequence is increasing and $s$ is an upper bound, for every $n\ge N_\eps$
+  \[ s-\eps < s_{N_\eps} \le s_n \le s , \]
+  hence $|s_n-s|<\eps$. Therefore $s_n\to s$.
+\end{Prf}
+
+\begin{Fig}{6.2.3}{Climbing to the supremum}{An increasing sequence bounded above closes in on $s=\sup_n s_n$: the terms rise but never cross the dashed bound, and from some $N_\eps$ on they all lie in the band $(s-\eps,\,s]$.}
+\begin{tikzpicture}[x=0.62cm,y=1.75cm]
+  \fill[figLim!12] (0,1.26) rectangle (9,1.5);
+  \draw[->] (0,0) -- (9.3,0) node[right] {$n$};
+  \draw[->] (0,0) -- (0,1.78) node[above] {$s_n$};
+  \draw[figLim,dashed,thick] (0,1.5) -- (9,1.5);
+  \node[left,figLim] at (0,1.5) {$s$};
+  \draw[figLim,dotted,thick] (0,1.26) -- (9,1.26);
+  \node[left,figLim] at (0,1.26) {\small $s-\eps$};
+  \foreach \n/\y in {1/0.5,2/0.84,3/1.06,4/1.19,5/1.31,6/1.385,7/1.43,8/1.46} {
+     \filldraw[figTerm] (\n,\y) circle (1.15pt);
+     \draw (\n,0.022) -- (\n,-0.022) node[below] {\scriptsize $\n$};
+  }
+\end{tikzpicture}
+\end{Fig}
+
+% ============================================================
+\sub{6.3}{Comparison and squeeze}
+
+\begin{Obj}{Proposition}{6.3.1}{Order is preserved in the limit}
+Let $\{s_n\}$ and $\{t_n\}$ be convergent real sequences with $s_n\le t_n$ for all $n$. Then
+\[ \lim_{n\to\infty}s_n \;\le\; \lim_{n\to\infty}t_n . \]
+\end{Obj}
+
+\noindent\emph{Idea.} Suppose instead that $s:=\lim s_n$ and $t:=\lim t_n$ satisfy $s>t$.
+Separate $s$ and $t$ by disjoint $\eps$-balls, with $\eps<\tfrac12|s-t|$, so that $\Beps(t)$
+and $\Beps(s)$ sit on opposite sides of the midpoint $\tfrac{s+t}{2}$.
+
+\begin{Fig}{6.3.2}{Separating the limits}{With $\eps<\tfrac12|s-t|$, the balls $\Beps(t)$ and $\Beps(s)$ fall on opposite sides of the midpoint $\tfrac{s+t}{2}$, which is impossible once $s_n\le t_n$.}
+\begin{tikzpicture}[scale=1.1]
+  \draw[->] (-0.5,0) -- (8.2,0);
+  % left ball around t
+  \draw[figLim,thick] (1.2,0) -- (2.8,0);
+  \draw[figLim] (1.2,0.12) -- (1.2,-0.12);
+  \draw[figLim] (2.8,0.12) -- (2.8,-0.12);
+  \node[above,figLim] at (2,0.5) {$\Beps(t)$};
+  \filldraw (2,0) circle (1.4pt) node[below=4pt] {$t$};
+  % t_n is caught in the left ball, since t_n < t+eps
+  \draw[figTerm] (2.5,0.1) -- (2.5,-0.1);
+  \node[above=1pt,figTerm] at (2.5,0.1) {\small $t_n$};
+  % midpoint
+  \filldraw (4,0) circle (1pt) node[below=5pt] {$\dfrac{s+t}{2}$};
+  % right ball around s
+  \draw[figLim,thick] (5.2,0) -- (6.8,0);
+  \draw[figLim] (5.2,0.12) -- (5.2,-0.12);
+  \draw[figLim] (6.8,0.12) -- (6.8,-0.12);
+  \node[above,figLim] at (6,0.5) {$\Beps(s)$};
+  \filldraw (6,0) circle (1.4pt) node[below=4pt] {$s$};
+  % s_n is caught in the right ball, since s_n > s-eps
+  \draw[figTerm] (5.5,0.1) -- (5.5,-0.1);
+  \node[above=1pt,figTerm] at (5.5,0.1) {\small $s_n$};
+  % the resulting contradiction, drawn clear of the midpoint fraction
+  \draw[figBad,dotted,thin] (2.5,-0.12) -- (2.5,-1.32);
+  \draw[figBad,dotted,thin] (5.5,-0.12) -- (5.5,-1.32);
+  \draw[figBad,<->] (2.5,-1.32) -- (5.5,-1.32);
+  \node[below=1pt,figBad] at (4,-1.32) {\footnotesize forces $t_n<s_n$, contradicting $s_n\le t_n$};
+\end{tikzpicture}
+\end{Fig}
+
+\begin{Prf}{6.3.1}{Proof by Contradiction that Order Passes to the Limit.}{[A9]}
+\item Write $s=\lim s_n$, $t=\lim t_n$, and suppose for contradiction $s>t$. Since $s-t>0$, choose
+  \[ 0 < \eps < \tfrac12|s-t| = \tfrac12(s-t). \]
+\item By convergence there are $N_1,N_2$ with $|s_n-s|<\eps$ for $n\ge N_1$ and $|t_n-t|<\eps$ for $n\ge N_2$. With $N=\max\{N_1,N_2\}$, for every $n\ge N$
+  \[ s_n > s-\eps \qquad\text{and}\qquad t_n < t+\eps . \]
+\item The choice of $\eps$ puts these on opposite sides of the midpoint:
+  \[ t+\eps < t+\tfrac12(s-t) = \frac{s+t}{2} = s-\tfrac12(s-t) < s-\eps . \]
+\item Chaining the inequalities, for every $n\ge N$,
+  \[ t_n < t+\eps < \frac{s+t}{2} < s-\eps < s_n , \]
+  so $t_n<s_n$, contradicting $s_n\le t_n$. Hence $s\le t$, i.e.\ $\lim s_n\le\lim t_n$.
+\end{Prf}
+
+\begin{Obj}{Proposition}{6.3.3}{Squeeze theorem}
+Suppose $r_n\le s_n\le t_n$ for all $n$, where $r_n\to\ell$ and $t_n\to\ell$. Then $s_n\to\ell$.
+\end{Obj}
+
+\begin{Fig}{6.3.4}{The squeeze}{Once $r_n$ and $t_n$ lie in $(\ell-\eps,\ell+\eps)$, the trapped term $s_n$ must lie there too.}
+\begin{tikzpicture}[scale=1.1]
+  \fill[figLim!12] (1,-0.16) rectangle (5,0.16);
+  \draw[->] (-0.5,0) -- (7.2,0);
+  \node[figLim] at (1,0) {\large $($};
+  \node[figLim] at (5,0) {\large $)$};
+  \node[below=3pt,figLim] at (1,0) {$\ell-\eps$};
+  \node[below=3pt,figLim] at (5,0) {$\ell+\eps$};
+  \filldraw[figLim] (3,0) circle (1pt) node[below=3pt,figLim] {$\ell$};
+  \draw[figTerm] (1.9,0.12) -- (1.9,-0.12);
+  \filldraw[figTerm] (2.7,0) circle (1.3pt);
+  \draw[figTerm] (3.6,0.12) -- (3.6,-0.12);
+  \node[above,figTerm] at (1.9,0.12) {$r_n$};
+  \node[above,figTerm] at (2.7,0.14) {$s_n$};
+  \node[above,figTerm] at (3.6,0.12) {$t_n$};
+\end{tikzpicture}
+\end{Fig}
+
+\begin{Prf}{6.3.3}{Proof by an $\eps$--$N$ Estimate of the Squeeze Theorem.}{[A2]}
+\item Let $\eps>0$. Since $r_n\to\ell$ and $t_n\to\ell$, there is $N$ with, for all $n\ge N$,
+  \[ |r_n-\ell|<\eps \qquad\text{and}\qquad |t_n-\ell|<\eps , \]
+  so $r_n,t_n\in(\ell-\eps,\ell+\eps)$.
+\item Using $r_n\le s_n\le t_n$, for every $n\ge N$
+  \[ \ell-\eps < r_n \le s_n \le t_n < \ell+\eps , \]
+  hence $|s_n-\ell|<\eps$. As $\eps>0$ was arbitrary, $s_n\to\ell$.
+\end{Prf}
+
+% ============================================================
+\sub{6.4}{The upper and lower limits}
+
+\noindent Convergence $s_n\to\ell$ says that for every $\eps>0$ there is $N$ with
+$s_n\in(\ell-\eps,\ell+\eps)$ for $n\ge N$. For a bounded sequence that does \emph{not}
+converge, no single $\ell$ works. Instead there are two values $\ell^-\le\ell^+$ such that the
+sequence is eventually trapped in any $\eps$-enlargement of the band $[\ell^-,\ell^+]$:
+\[ \forall\,\eps>0\ \ \exists\,N\ \text{ s.t. }\ s_n\in(\ell^--\eps,\ \ell^++\eps)\quad\text{for }n\ge N . \]
+We write $\ell^-=\liminf s_n$ and $\ell^+=\limsup s_n$.
+
+\begin{Fig}{6.4.1}{The trapping band}{For a bounded sequence, every $\eps$-enlargement of $[\ell^-,\ell^+]$ eventually contains all the terms.}
+\begin{tikzpicture}[scale=1.1]
+  \fill[figLim!10] (1,-0.16) rectangle (5.5,0.16);
+  \draw[->] (-0.3,0) -- (7.2,0);
+  \node[figLim] at (1,0) {\large $($};
+  \node[figLim] at (5.5,0) {\large $)$};
+  \node[below=3pt,figLim] at (1,0) {$\ell^- - \eps$};
+  \node[below=3pt,figLim] at (5.5,0) {$\ell^+ + \eps$};
+  \draw[figLim,very thick] (2,0) -- (4.5,0);
+  \draw[figLim] (2,0.12) -- (2,-0.12);
+  \draw[figLim] (4.5,0.12) -- (4.5,-0.12);
+  \node[above=2pt,figLim] at (2,0.12) {$\ell^-$};
+  \node[above=2pt,figLim] at (4.5,0.12) {$\ell^+$};
+  \filldraw[figTerm] (3.2,0) circle (1.2pt);
+  \node[above=2pt,figTerm] at (3.2,0.12) {$s_n$};
+\end{tikzpicture}
+\end{Fig}
+
+\noindent The two coincide exactly when the sequence converges:
+\[ s_n\to\ell \iff \liminf s_n = \limsup s_n = \ell . \]
+
+\begin{ObjL}{Example}{6.4.2}{An oscillating sequence}
+For $s_n=(-1)^n\dfrac{n}{n-1}$ (with $n\ge2$), the even terms approach $+1$ from above and the
+odd terms approach $-1$ from below. Hence $\liminf s_n=-1$ and $\limsup s_n=+1$, and the
+sequence does not converge, since these differ.
+\end{ObjL}
+
+\begin{Fig}{6.4.3}{Two limit points}{The oscillating sequence $s_n=(-1)^n\frac{n}{n-1}$ has no limit: the even terms fall toward $\ell^+=\limsup s_n=1$ from above and the odd terms rise toward $\ell^-=\liminf s_n=-1$ from below. Every $\eps$-enlargement of the shaded band $[\ell^-,\ell^+]$ eventually traps the whole tail.}
+\begin{tikzpicture}[x=0.66cm,y=0.92cm]
+  \fill[figLim!12] (1,-1) rectangle (10,1);
+  \draw[figLim,dashed,thick] (1,1) -- (10,1);
+  \draw[figLim,dashed,thick] (1,-1) -- (10,-1);
+  \node[anchor=east,font=\scriptsize,figLim] at (0.9,1) {$\ell^+\!=\!1$};
+  \node[anchor=east,font=\scriptsize,figLim] at (0.9,-1) {$\ell^-\!=\!-1$};
+  \draw[->] (1,0) -- (10.5,0) node[right] {$n$};
+  \draw[->] (1,-1.8) -- (1,2.4) node[above] {$s_n$};
+  \draw[figTerm!55,thin] (2,2) -- (3,-1.5) -- (4,1.3333) -- (5,-1.25) -- (6,1.2)
+     -- (7,-1.1667) -- (8,1.1429) -- (9,-1.125);
+  \foreach \n/\y in {2/2,3/-1.5,4/1.3333,5/-1.25,6/1.2,7/-1.1667,8/1.1429,9/-1.125}{
+     \filldraw[figTerm] (\n,\y) circle (1.15pt);
+     \draw (\n,0.06) -- (\n,-0.06) node[below=1pt] {\scriptsize $\n$};
+  }
+\end{tikzpicture}
+\end{Fig}
+
+\begin{Obj}{Definition}{6.4.4}{Divergence to $\pm\infty$}
+For a real sequence $\{t_n\}$,
+\begin{itemize}[leftmargin=1.3em,topsep=2pt,itemsep=1pt,label=\textbullet]
+  \item $t_n\to+\infty$ means: for every $M>0$ there is $N$ with $t_n>M$ for all $n\ge N$;
+  \item $t_n\to-\infty$ means: for every $M>0$ there is $N$ with $t_n<-M$ for all $n\ge N$.
+\end{itemize}
+Such sequences diverge, but in a specific, controlled way.
+\end{Obj}
+
+\begin{Obj}{Definition}{6.4.5}{Limit inferior and limit superior}
+The \emph{upper} and \emph{lower limits} of a real sequence $\{s_n\}$ are defined by the tail
+extrema
+\[ \limsup s_n=\lim_{n\to\infty}\Big(\sup_{k\ge n}s_k\Big),\qquad
+   \liminf s_n=\lim_{n\to\infty}\Big(\inf_{k\ge n}s_k\Big). \]
+The tails are nested, $\{s_k:k\ge n+1\}\subseteq\{s_k:k\ge n\}$, so $\sup_{k\ge n}s_k$ is
+non-increasing in $n$ (and $\inf_{k\ge n}s_k$ non-decreasing); hence both limits always exist in
+the extended reals $[-\infty,+\infty]$. Two characterizations follow.
+\begin{enumerate}[label=\textbf{(\arabic*)},leftmargin=2.2em,topsep=3pt,itemsep=5pt]
+  \item \textbf{Subsequential limits.} If $\{s_n\}$ is bounded and $E$ is its set of
+        subsequential limits, then
+        \[ \liminf s_n=\min E,\qquad \limsup s_n=\max E . \]
+  \item \textbf{Eventual trapping} (finite $\liminf,\limsup$). For every $\eps>0$ there is
+        $N_\eps$ with
+        \[ s_n\in\big(\liminf s_n-\eps,\ \limsup s_n+\eps\big)\qquad\text{for }n\ge N_\eps , \]
+        and $[\liminf s_n,\ \limsup s_n]$ is the smallest closed interval with this property.
+\end{enumerate}
+\end{Obj}
+
+\begin{ObjL}{Remark}{6.4.6}{The extreme limits are attained}
+For a \emph{bounded} sequence, $E$ is closed, bounded, and nonempty, so it contains its own
+extrema: $\inf E\in E$ and $\sup E\in E$. Hence $\liminf s_n$ and $\limsup s_n$ are themselves
+subsequential limits of $\{s_n\}$. (For an unbounded sequence this holds in the extended reals,
+with $\pm\infty$ admitted as subsequential limits.)
+\end{ObjL}
+
+\begin{ObjL}{Remark}{6.4.7}{Existence}
+If $\{s_n\}$ is bounded, then $E$ is bounded and nonempty, so $\liminf s_n$ and $\limsup s_n$
+exist as finite reals. If $\{s_n\}$ is unbounded, then $E$ may include $+\infty$ and/or
+$-\infty$, and $\liminf s_n,\limsup s_n$ may equal $\pm\infty$.
+\end{ObjL}
+
+% ============================================================
+\sub{6.5}{Some standard limits}
+
+\begin{Obj}{Proposition}{6.5.1}{Four standard limits}
+\begin{enumerate}[label=\textup{(\alph*)},leftmargin=2em,topsep=2pt,itemsep=2pt]
+  \item If $|x|<1$, then $x^n\to0$.
+  \item If $p>0$, then $\dfrac{1}{n^p}\to0$.
+  \item If $p>1$, then $\sqrt[n]{p}\to1$.
+  \item $\sqrt[n]{n}\to1$.
+\end{enumerate}
+\end{Obj}
+\begin{Prf}{6.5.1.a}{Proof by the Binomial Inequality of $x^n\to0$.}{[A2]}
+\item If $x=0$ then $x^n=0\to0$, so assume $0<|x|<1$. Then $1/|x|>1$, so $|x|=\dfrac{1}{1+p}$ for a unique $p>0$ (the map $p\mapsto\frac{1}{1+p}$ is a bijection $(0,\infty)\to(0,1)$).
+\item By the binomial theorem, keeping the nonnegative $k=0,1$ terms,
+  \[ (1+p)^n=\sum_{k=0}^n\binom{n}{k}p^k\ \ge\ 1+np . \]
+\item Hence
+  \[ |x|^n=\frac{1}{(1+p)^n}\le\frac{1}{1+np}\xrightarrow[n\to\infty]{}0 , \]
+  and since $|x^n|=|x|^n\to0$, we conclude $x^n\to0$.
+\end{Prf}
+\begin{Prf}{6.5.1.b}{Proof by an $\eps$--$N$ Estimate of $1/n^p\to0$.}{[A2]}
+\item Let $\eps>0$ and choose $N$ with $N>(1/\eps)^{1/p}$, equivalently $\dfrac{1}{N^p}<\eps$.
+\item Then for every $n\ge N$,
+  \[ \frac{1}{n^p}\le\frac{1}{N^p}<\eps , \]
+  so $\dfrac{1}{n^p}\to0$.
+\end{Prf}
+\begin{Prf}{6.5.1.c}{Proof by the Squeeze Theorem of $\sqrt[n]{p}\to1$.}{[A2]\quad uses \xref{6.3.3}.}
+\item Assume $p>1$ and set $x_n=\sqrt[n]{p}-1\ge0$. By the binomial inequality from (a),
+  \[ 1+n x_n\le(1+x_n)^n=p , \]
+  so $0\le x_n\le\dfrac{p-1}{n}$.
+\item Since $\dfrac{p-1}{n}\to0$, the squeeze theorem (\xref{6.3.3}) gives $x_n\to0$, i.e.\ $\sqrt[n]{p}=1+x_n\to1$.
+\end{Prf}
+\begin{Prf}{6.5.1.d}{Proof by the Squeeze Theorem of $\sqrt[n]{n}\to1$.}{[A2]\quad keep the $k=2$ binomial term; uses \xref{6.3.3}.}
+\item Set $x_n=\sqrt[n]{n}-1\ge0$, so $n=(1+x_n)^n$. The linear term is too weak, so keep the $k=2$ term:
+  \[ n=(1+x_n)^n\ge\binom{n}{2}x_n^2=\frac{n(n-1)}{2}\,x_n^2\qquad(n\ge2). \]
+\item Rearranging, $x_n^2\le\dfrac{2}{n-1}$, hence $0\le x_n\le\sqrt{\dfrac{2}{n-1}}$.
+\item Since $\sqrt{\tfrac{2}{n-1}}\to0$, the squeeze theorem (\xref{6.3.3}) gives $x_n\to0$, i.e.\ $\sqrt[n]{n}=1+x_n\to1$.
+\end{Prf}
+
+\begin{ObjL}{Remark}{6.5.2}{The case $0<p<1$ in (c)}
+For $0<p<1$, apply part~(c) to $\sigma=1/p>1$: since $\sqrt[n]{\sigma}\to1$, also
+$\sqrt[n]{p}=1/\sqrt[n]{\sigma}\to1$ (and $\sqrt[n]{1}=1$). Hence $\sqrt[n]{p}\to1$ for every $p>0$.
+\end{ObjL}
+
+% ============================================================
+\sub{6.6}{Introduction to series}
+
+{\itshape\small (Not covered on the midterm.)}\par\smallskip
+\noindent As a field, $\mathbb R$ hands us directly only the polynomials $1,x,x^2,\dots$ and,
+as their quotients, the rational functions $P(x)/Q(x)$. What about $e^x$, $\sin x$, $\cos x$?
+These are reached not by field operations but by infinite sums --- for instance
+\[ e=\sum_{k=0}^\infty\frac{1}{k!}. \]
+To make sense of such a sum we must first say what an infinite sum \emph{is}.
+
+\begin{Obj}{Definition}{6.6.1}{Series and partial sums}
+Given a sequence $\{a_n\}$ in $\mathbb R$, its \emph{$k$-th partial sum} is
+\[ s_k=a_1+\dots+a_k=\sum_{i=1}^k a_i\qquad(s_0=0,\text{ the empty sum}). \]
+If $s_k\to s$, the \emph{series} $\sum a_n$ \emph{converges}, and we write
+\[ \sum_{i=1}^\infty a_i=\lim_{k\to\infty}s_k=s . \]
+A series may instead be indexed from any starting point---often $n=0$, as for $\sum c_n x^n$---with
+the partial sums adjusted accordingly.
+\end{Obj}
+
+\begin{Obj}{Theorem}{6.6.2}{Cauchy criterion for series}
+A series $\sum a_n$ converges if and only if for every $\eps>0$ there is $N$ such that
+\[ \Bigl|\sum_{k=m}^{n}a_k\Bigr|<\eps \qquad\text{for all } n\ge m\ge N . \]
+\end{Obj}
+\begin{Prf}{6.6.2}{Proof by Completeness of $\mathbb R$ of the Cauchy Criterion.}{[Direct]\quad the partial sums converge iff they are Cauchy, and $\mathbb R$ is complete.}
+\item For $n\ge m\ge1$ one has $s_n-s_{m-1}=\sum_{k=m}^{n}a_k$ (with $s_0=0$), so the displayed condition says precisely that the partial sums $\{s_k\}$ form a Cauchy sequence.
+\item Since $\mathbb R$ is complete (\xref{6.1.1}), $\{s_k\}$ converges if and only if it is Cauchy. Hence $\sum a_n$ converges if and only if the criterion holds.
+\end{Prf}
+
+\begin{Obj}{Corollary}{6.6.3}{Vanishing of the terms}
+If $\sum a_n$ converges, then $a_n\to0$.
+\end{Obj}
+\begin{Prf}{6.6.3}{Proof by the Cauchy Criterion with $m=n$.}{[Direct]}
+\item Take $m=n$ in the criterion (\xref{6.6.2}): for every $\eps>0$ there is $N$ with
+  \[ |a_n|=\Bigl|\sum_{k=n}^{n}a_k\Bigr|<\eps\qquad\text{for all }n\ge N . \]
+\item Therefore $a_n\to0$.
+\end{Prf}
+
+\noindent So $a_n\to0$ is \emph{necessary} for convergence. Is it \emph{sufficient}? No.
+
+\begin{Obj}{Proposition}{6.6.4}{The harmonic series diverges}
+Although $\dfrac{1}{n}\to0$, the harmonic series $\displaystyle\sum_{n=1}^\infty\frac1n$ diverges.
+\end{Obj}
+\begin{Prf}{6.6.4}{Proof by Dyadic Grouping of the Divergence of the Harmonic Series.}{[Direct]\quad Cauchy condensation; each dyadic block sums to $\tfrac12$.}
+\item Round each term down to the next power of $\tfrac12$: replace $\tfrac13$ by $\tfrac14$; then $\tfrac15,\tfrac16,\tfrac17$ by $\tfrac18$; and so on. If $s'_k$ denotes the resulting partial sums, then $s_k\ge s'_k$ for every $k$.
+\item The rounded series groups into dyadic blocks of equal weight:
+  \[ 1+\tfrac12+\Bigl(\tfrac14+\tfrac14\Bigr)+\Bigl(\tfrac18+\tfrac18+\tfrac18+\tfrac18\Bigr)+\cdots
+     = 1+\tfrac12+\tfrac12+\tfrac12+\cdots , \]
+  each block summing to $\tfrac12$; hence $s'_{2^m}=1+\tfrac{m}{2}$.
+\item Therefore $s_{2^m}\ge s'_{2^m}=1+\tfrac{m}{2}\to\infty$, so the partial sums $\{s_n\}$ have a subsequence diverging to $+\infty$ and cannot converge. Thus $\textstyle\sum\frac1n$ diverges.
+\end{Prf}
+
+\begin{Obj}{Proposition}{6.6.5}{The $p$-series}
+The series $\displaystyle\sum_{n=1}^\infty\frac{1}{n^p}$ converges for $p>1$.
+\end{Obj}
+\PrfRef{6.6.5}{Proof of the Convergence of the $p$-Series.}{Stated in lecture as a fact, for use as a comparison series.}
+
+\begin{Obj}{Proposition}{6.6.6}{A nonnegative series converges when bounded}
+A series $\sum a_n$ of nonnegative terms ($a_n\ge0$) converges if and only if its partial sums
+are bounded.
+\end{Obj}
+\begin{Prf}{6.6.6}{Proof by Monotone Convergence for a Series of Nonnegative Terms.}{[A5]\quad the partial sums increase; apply \xref{6.2.2}.}
+\item Since $a_{n+1}\ge0$, the partial sums satisfy $s_{n+1}=s_n+a_{n+1}\ge s_n$, so $\{s_n\}$ is increasing.
+\item If the partial sums are bounded, then $\{s_n\}$ is increasing and bounded, hence converges by the monotone convergence theorem (\xref{6.2.2}); that is, $\sum a_n$ converges. Conversely, a convergent sequence is bounded.
+\end{Prf}
+
+\begin{Obj}{Proposition}{6.6.7}{The geometric series}
+For $|x|<1$,
+\[ \sum_{n=0}^\infty x^n = \frac{1}{1-x} . \]
+\end{Obj}
+\begin{Prf}{6.6.7}{Proof by the Partial-Sum Formula of the Geometric Series.}{[Direct]\quad uses $|x|^{k}\to0$ for $|x|<1$ (\xref{6.5.1}).}
+\item For $x\ne1$ the partial sums have the closed form
+  \[ s_k = 1+x+\dots+x^k = \frac{1-x^{k+1}}{1-x} . \]
+\item Since $|x|<1$ gives $|x|^{k+1}\to0$, we have $x^{k+1}\to0$ and hence
+  \[ s_k \xrightarrow[k\to\infty]{} \frac{1}{1-x} , \]
+  so $\displaystyle\sum_{n=0}^\infty x^n = \frac{1}{1-x}$.
+\end{Prf}
+
+\begin{Obj}{Theorem}{6.6.8}{Comparison test for series}
+\begin{enumerate}[label=\textup{(\alph*)},leftmargin=2em,topsep=2pt,itemsep=2pt]
+  \item If $|a_n|\le c_n$ for all $n\ge N_0$ and $\sum c_n$ converges, then $\sum a_n$ converges.
+  \item If $a_n\ge d_n\ge0$ for all $n$ and $\sum d_n$ diverges, then $\sum a_n$ diverges.
+\end{enumerate}
+\end{Obj}
+\begin{Prf}{6.6.8}{Proof by the Cauchy Criterion of the Comparison Test.}{[A4]\quad bound the tail of $\sum a_n$ by that of $\sum c_n$.}
+\item For (a), let $\eps>0$. Since $\sum c_n$ converges, the Cauchy criterion (\xref{6.6.2}) gives some $N\ge N_0$ with $\sum_{k=m}^n c_k<\eps$ for all $n\ge m\ge N$. Then for such $n,m$,
+  \[ \Bigl|\sum_{k=m}^n a_k\Bigr| \le \sum_{k=m}^n |a_k| \le \sum_{k=m}^n c_k < \eps , \]
+  so $\sum a_n$ meets the Cauchy criterion and therefore converges.
+\item For (b), suppose instead $\sum a_n$ converged. Since $0\le d_n\le a_n=|a_n|$, part~(a) (with $c_n=a_n$) would force $\sum d_n$ to converge --- contradicting that it diverges. Hence $\sum a_n$ diverges.
+\end{Prf}
+
+\noindent The natural series to compare against is the geometric one. Comparing $\sum a_n$ to a
+geometric $\sum b_n$: if the ratio $b_{n+1}/b_n$ is constant we are led to the \emph{ratio test},
+and if the root $\sqrt[n]{b_n}$ is constant, to the \emph{root test}.
+
+\begin{Obj}{Theorem}{6.6.9}{Root test}
+Given $\sum a_n$, set $\alpha=\limsup_{n\to\infty}\sqrt[n]{|a_n|}$. Then
+\begin{itemize}[leftmargin=1.3em,topsep=2pt,itemsep=1pt,label=\textbullet]
+  \item if $\alpha<1$, $\sum a_n$ converges;
+  \item if $\alpha>1$, $\sum a_n$ diverges;
+  \item if $\alpha=1$, the test is inconclusive.
+\end{itemize}
+\end{Obj}
+\begin{Prf}{6.6.9}{Proof by Comparison with a Geometric Series of the Root Test.}{[A1]\quad uses the comparison test (\xref{6.6.8}).}
+\item If $\alpha<1$, choose $\beta$ with $\alpha<\beta<1$. Then $\sqrt[n]{|a_n|}<\beta$ for all large $n$, so $|a_n|<\beta^n$; as $\sum\beta^n$ converges, the comparison test (\xref{6.6.8}) gives convergence.
+\item If $\alpha>1$, then $\sqrt[n]{|a_n|}>1$ for infinitely many $n$, so $|a_n|>1$ infinitely often and $a_n\not\to0$; by \xref{6.6.3} the series diverges. For $\alpha=1$ the test decides nothing: both $\sum\frac1n$ (divergent) and $\sum\frac1{n^2}$ (convergent) have $\alpha=1$.
+\end{Prf}
+
+\begin{Obj}{Theorem}{6.6.10}{Ratio test}
+Suppose $a_n\neq0$ for all large $n$. Then $\sum a_n$ converges if
+$\displaystyle\limsup_{n\to\infty}\Bigl|\frac{a_{n+1}}{a_n}\Bigr|<1$, and diverges if there is
+$N$ with $\Bigl|\dfrac{a_{n+1}}{a_n}\Bigr|\ge1$ for all $n\ge N$.
+\end{Obj}
+\begin{Prf}{6.6.10}{Proof by Comparison with a Geometric Series of the Ratio Test.}{[A1]\quad uses the comparison test (\xref{6.6.8}).}
+\item If $\limsup|a_{n+1}/a_n|<1$, choose $\beta$ in between; then $|a_{n+1}/a_n|<\beta$ for $n\ge N$, so $|a_n|\le|a_N|\,\beta^{\,n-N}$ for $n\ge N$. Comparison with the geometric series (\xref{6.6.8}) gives convergence.
+\item If $|a_{n+1}/a_n|\ge1$ for all $n\ge N$, then $|a_n|\ge|a_N|>0$ for $n\ge N$, so $a_n\not\to0$ and the series diverges (\xref{6.6.3}).
+\end{Prf}
+
+\begin{Obj}{Definition}{6.6.11}{Power series and radius of convergence}
+A \emph{power series} is a function defined by
+\[ f(x)=\sum_{n=0}^\infty c_n x^n = c_0+c_1x+c_2x^2+c_3x^3+\cdots . \]
+Fix $x\neq0$ and apply the root test (\xref{6.6.9})\note{The root test is used here because it is
+strictly more general than the ratio test; for the precise relationship see the appendix,
+\appref{6.A.1}.} to $\sum c_n x^n$. With
+$\alpha:=\limsup_{n\to\infty}\sqrt[n]{|c_n|}$,
+\[ \beta:=\limsup_{n\to\infty}\sqrt[n]{|c_n x^n|}=|x|\,\alpha , \]
+so the series converges when $\beta=|x|\,\alpha<1$ and diverges when $|x|\,\alpha>1$. Hence it
+converges for $|x|<R$, where
+\[ R:=\frac{1}{\alpha}\qquad\bigl(R:=+\infty\ \text{if}\ \alpha=0,\qquad R:=0\ \text{if}\ \alpha=+\infty\bigr). \]
+$R$ is the \emph{radius of convergence}: the series converges on $(-R,R)$ and diverges for
+$|x|>R$; at $x=0$ it is just $f(0)=c_0$, and the endpoints $|x|=R$ require separate analysis.
+\end{Obj}
+
+\begin{ObjL}{Example}{6.6.12}{The exponential series}
+For $f(x)=\displaystyle\sum_{n=0}^\infty\frac{x^n}{n!}$ the ratios have a limit, so they compute
+$\alpha$ (the valid case for the ratio shortcut):
+\[ \lim_{n\to\infty}\frac{1/(n+1)!}{1/n!}=\lim_{n\to\infty}\frac{1}{n+1}=0=\alpha , \]
+so $R=1/\alpha=+\infty$: the series converges for every $x$. This function is $f(x)=e^x$.
+\end{ObjL}
+
+% ============================================================
+\lectureappendix
+
+\begin{ObjL}{Supplement}{6.A.1}{The root test subsumes the ratio test}
+For any sequence $\{c_n\}$ with $c_n\neq0$,
+\[ \liminf_{n}\Bigl|\tfrac{c_{n+1}}{c_n}\Bigr|\ \le\ \liminf_n\sqrt[n]{|c_n|}\ \le\
+   \limsup_n\sqrt[n]{|c_n|}\ \le\ \limsup_n\Bigl|\tfrac{c_{n+1}}{c_n}\Bigr| \]
+(\R{3.37}). Hence whenever the ratio test settles convergence the root test settles it too, but
+not conversely; and \emph{if} $\lim_n|c_{n+1}/c_n|=L$ exists then the root quantity tends to $L$
+as well, so the ratio test gives the same radius $R=1/L$ (the converse fails --- the radii can
+agree without the ratio limit existing). This is why \xref{6.6.11} fixes $R$ through the root
+quantity $\alpha=\limsup_n\sqrt[n]{|c_n|}$.
+\end{ObjL}
+
+% per-lecture Index of Objects -- only when compiling this lecture on its own;
+% in the book the master index in main.tex covers all lectures.
+\ifSubfilesClassLoaded{\clearpage\objindex}{}
+
+\end{document}

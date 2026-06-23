@@ -1,0 +1,162 @@
+% ============================================================
+%  Notes in Modern Analysis  (MATH S4061)
+%  Book master. Compile this file (two passes) to build the
+%  whole book; compile an individual lecture-XX.tex on its own
+%  while drafting (it inherits this preamble via subfiles).
+% ============================================================
+\documentclass[11pt,twoside]{book}
+\usepackage{analysisnotes}   % shared house style (all macros)
+\usepackage{subfiles}        % each lecture compiles standalone or as part of the book
+
+\newif\ifclassedition
+\ifnum\pdfstrcmp{\jobname}{main-class}=0
+  \classeditiontrue
+\else
+  \classeditionfalse
+\fi
+
+\providecommand{\LatestVersionURL}{}
+\IfFileExists{publication-config.tex}{\input{publication-config.tex}}{}
+
+\ifclassedition
+\hypersetup{
+  pdftitle={Notes in Modern Analysis (Class Edition)},
+  pdfauthor={Tyler Sotomayor (student); lectures by Andre Carneiro},
+  pdfsubject={MATH S4061 -- Introduction to Modern Analysis I}
+}
+\else
+\hypersetup{
+  pdftitle={Notes in Modern Analysis},
+  pdfauthor={Tyler Sotomayor (student); lectures by Andre Carneiro},
+  pdfsubject={MATH S4061 -- Introduction to Modern Analysis I}
+}
+\fi
+
+\begin{document}
+
+\frontmatter
+
+% ============================================================
+%  TITLE PAGE  (Columbia seal, cuBlue rules -- matches the
+%  real-analysis master project)
+% ============================================================
+\begin{titlepage}
+  \begingroup
+  \centering
+  \setlength{\parindent}{0pt}\setlength{\parskip}{0pt}
+
+  \vspace*{0.4cm}
+  \IfFileExists{figures/ColumbiaSeal.png}{%
+    \includegraphics[width=0.20\textwidth]{ColumbiaSeal.png}\par\vspace{0.5cm}}{}
+  {\LARGE\bfseries COLUMBIA UNIVERSITY}\par
+  \vspace{0.15cm}{\large Department of Mathematics}\par
+
+  \vspace{1.5cm}
+  {\rule{0.7\textwidth}{0.5pt}}\par
+  \vspace{1.0cm}
+  {\normalfont\scshape\Huge Notes in Modern Analysis}\par
+  \vspace{0.55cm}
+  {\normalfont\itshape\large Based on the Lectures of Andre Carneiro}\par
+  \vspace{1.0cm}
+  {\rule{0.7\textwidth}{0.5pt}}\par
+
+  \vspace{1.4cm}
+  {\normalfont\Large\bfseries MATH~S4061}\par
+  \vspace{0.22cm}{\normalfont\Large\bfseries Introduction to Modern Analysis I}\par
+  \vspace{0.35cm}{\normalfont\large Summer 2026}\par
+
+  \vspace{1.9cm}
+  \makebox[\textwidth][c]{%
+    \begin{minipage}[t]{0.46\textwidth}\centering
+      {\normalfont\footnotesize\scshape Student}\par\vspace{0.12cm}
+      {\large\bfseries Tyler Sotomayor}\par\vspace{0.1cm}
+      \href{mailto:tyler.sotomayor@columbia.edu}{\texttt{\small tyler.sotomayor@columbia.edu}}\par
+    \end{minipage}\hfill
+    \begin{minipage}[t]{0.46\textwidth}\centering
+      {\normalfont\footnotesize\scshape Instructor}\par\vspace{0.12cm}
+      {\large\bfseries Andre Carneiro}\par\vspace{0.1cm}
+      \href{mailto:arc2142@columbia.edu}{\texttt{\small arc2142@columbia.edu}}\par
+    \end{minipage}}\par
+
+  \vfill
+  {\normalfont\small This version compiled \today
+  \if\relax\detokenize\expandafter{\LatestVersionURL}\relax\else
+    \footnote{For latest version: \href{\LatestVersionURL}{\texttt{\detokenize\expandafter{\LatestVersionURL}}}}%
+  \fi
+  \par}
+  \endgroup
+\end{titlepage}
+
+\cleardoublepage
+% Long lecture titles wrap in the contents; forbid hyphenation there so words
+% (e.g. "Countability") break only at spaces.
+\begingroup
+\hyphenpenalty=10000\exhyphenpenalty=10000
+\tableofcontents
+\endgroup
+
+% ---- front-matter apparatus: the proof-tag legend ----
+\cleardoublepage
+\phantomsection\addcontentsline{toc}{chapter}{Modes of Argument}
+\markboth{Modes of Argument}{Modes of Argument}
+\thispagestyle{plain}
+{\LARGE\bfseries Modes of Argument}\par\smallskip
+\noindent\rule{\linewidth}{0.4pt}\par\medskip
+\noindent Each proof in these notes is tagged, in its caption, by its dominant \emph{mode of
+argument}---the kind of reasoning it turns on. The letter \emph{A} abbreviates \emph{argument};
+a proof that blends two is written, e.g., \textsf{[A2$+$A4]}. The tags are keyed below, and will
+eventually link to a chapter on proof-writing.\par\medskip
+\noindent\begin{tabular}{@{}l@{\hspace{0.9em}}p{0.78\linewidth}@{}}
+\textbf{A1}  & $\eps$-of-room (forcing): a nonnegative quantity below every $\eps>0$ must be $0$.\\[3pt]
+\textbf{A2}  & $\eps$--$N$: convergence of a sequence---given $\eps$, produce a threshold $N$.\\[3pt]
+\textbf{A3}  & $\eps$--$\delta$: limits and continuity of functions.\\[3pt]
+\textbf{A4}  & Triangle inequality, with an added-and-subtracted middle term.\\[3pt]
+\textbf{A5}  & Supremum / infimum (least-upper-bound) argument.\\[3pt]
+\textbf{A6}  & Open cover $\to$ finite subcover (compactness).\\[3pt]
+\textbf{A7}  & Bisection / nested intervals closing on a point, via completeness.\\[3pt]
+\textbf{A8}  & Subsequence extraction and diagonalisation.\\[3pt]
+\textbf{A9}  & Contradiction, or the contrapositive.\\[3pt]
+\textbf{A10} & Induction.\\[3pt]
+\textbf{A11} & Negating a quantifier to unfold the failure of a definition.\\[3pt]
+\textbf{A12} & Cases, or reduction ``without loss of generality.''\\[3pt]
+\textbf{Constr} & Explicit construction of the required object.\\[3pt]
+\textbf{Direct} & A direct chain of implications, with no special device.\\
+\end{tabular}
+
+\mainmatter
+
+% ---- Part I: lecture notes ----
+\bookpart{Lecture Notes}{}
+
+% ---- course preliminaries: precedes Lecture 1 while preserving 0.* ids ----
+\subfile{chapter-00}   % Foundations: logic, sets, functions, the craft of proof
+% ---- lectures (one \subfile line per lecture, in order) ----
+\subfile{lecture-01}   % Tuesday, 26 May 2026    (content complete)
+\subfile{lecture-02}   % Thursday, 28 May 2026   (content complete)
+\subfile{lecture-03}   % Tuesday, 2 June 2026    (content complete)
+\subfile{lecture-04}   % Thursday, 4 June 2026   (content complete)
+\subfile{lecture-05}   % Tuesday, 9 June 2026    (content complete)
+\subfile{lecture-06}
+\subfile{lecture-07}
+
+% ---- Part II: problem sets, with worked solutions & reflections ----
+\bookpart{Problem Sets}{}
+
+\subfile{exercises-facts}   % part opener + convention note
+\subfile{exercises-hw1}     % Homework 1 (gold-standard family)
+\subfile{exercises-hw2}     % Homework 2 (Rudin Ch.2 topology)
+\subfile{exercises-hw3}     % Homework 3 (Rudin Ch.3 solved; Ch.4 deferred)
+
+% Part III (Practice Exams and Exams) is omitted from this public class edition.
+
+% ---- master Index of Objects across the whole book ----
+\backmatter
+% ---- Part IV: back-matter reference apparatus ----
+\bookpart{Resources and References}{}
+
+\subfile{course-facts}
+\clearpage
+\objindex
+\printgeneralindex
+
+\end{document}

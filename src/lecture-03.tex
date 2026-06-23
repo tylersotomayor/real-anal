@@ -1,0 +1,295 @@
+%% ============================================================
+%%  Lecture 3 -- Tuesday, 2 June 2026
+%%  Subfile of main.tex: compiles standalone OR as part of the book.
+%%  Built from sources/2026-06-02/ (board-transcript.md [Gate-1 verified], outline.md).
+%% ============================================================
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+
+\beginlecture{3}{Tuesday, 2 June 2026}%
+  {The Topology of Metric Spaces: Open and Closed Sets, and Compactness}
+
+\epigraph{Topology is precisely the mathematical discipline that allows the passage from local to global.}{René Thom}
+
+\begin{lecturecontents}{Contents of this lecture}
+  \item \hyperlink{3.1}{3.1\quad The algebra of open sets}
+  \item \hyperlink{3.2}{3.2\quad Limit points and closed sets}
+  \item \hyperlink{3.3}{3.3\quad The subspace topology}
+  \item \hyperlink{3.4}{3.4\quad Compactness}
+\end{lecturecontents}
+
+\bigskip
+\noindent\textbf{Overview.} Lecture~2 introduced metric spaces and the open ball (\xrefL{2.3.1}).
+This lecture builds the \emph{topology} they generate: which sets are open---closed under arbitrary
+unions and \emph{finite} intersections---then the limit (cluster) points that define \emph{closed}
+sets, the clean duality $E$ open $\iff E^c$ closed, how openness is \emph{relative} to a subspace,
+and finally \emph{compactness}: the open-cover/finite-subcover property that, unlike open or closed,
+is \emph{intrinsic} to a set. One method recurs throughout: to show a set is open, write it as a
+union of balls centred at its own points.
+
+\clearpage
+% ============================================================
+\sub{3.1}{The algebra of open sets}
+
+\begin{Obj}{Definition}{3.1.1}{Indexed unions and intersections}
+Let $A$ be an index set and $V_\alpha\subseteq X$ for each $\alpha\in A$. The \emph{union} and
+\emph{intersection} are
+\[ \bigcup_{\alpha\in A}V_\alpha=\{x:x\in V_\alpha\text{ for some }\alpha\},\qquad
+   \bigcap_{\alpha\in A}V_\alpha=\{x:x\in V_\alpha\text{ for every }\alpha\}; \]
+in particular $p\in\bigcap_{\alpha}V_\alpha \iff p\in V_\alpha$ for all $\alpha$.
+\end{Obj}
+
+\begin{Obj}{Proposition}{3.1.2}{Unions and finite intersections of open sets}
+Let $(X,d)$ be a metric space with $V_\alpha\subseteq X$ open for every $\alpha\in A$.
+\begin{enumerate}
+  \item $\bigcup_{\alpha\in A}V_\alpha$ is open (any union of open sets is open);
+  \item $V_{\alpha_1}\cap\cdots\cap V_{\alpha_n}$ is open (any \emph{finite} intersection is open).
+\end{enumerate}
+\end{Obj}
+\begin{Prf}{3.1.2}{Direct Proof that Unions and Finite Intersections of Open Sets Are Open.}{[Direct]\quad uses \xrefL{2.3.3}; finiteness enters in (2); cf.\ \R{2.24}.}
+\item For the union, let $p\in\bigcup_\alpha V_\alpha$, say $p\in V_\beta$. As $V_\beta$ is open, some
+  $B_{r_p}(p)\subseteq V_\beta\subseteq\bigcup_\alpha V_\alpha$; so $p$ is interior and the union is open.
+\item For a finite intersection, let $p\in V_{\alpha_1}\cap\cdots\cap V_{\alpha_n}$. Each $V_{\alpha_i}$
+  open gives $r_i>0$ with $B_{r_i}(p)\subseteq V_{\alpha_i}$. Put $r=\min(r_1,\dots,r_n)>0$; then
+  $B_r(p)\subseteq V_{\alpha_i}$ for every $i$, so $B_r(p)\subseteq\bigcap_i V_{\alpha_i}$. The
+  minimum of \emph{finitely} many positive numbers is positive---this is where finiteness is used.
+\end{Prf}
+
+\begin{ObjL}{Example}{3.1.3}{Infinite intersections can fail}
+The bound $r=\min r_i$ becomes an infimum that may vanish. In $(\mathbb R,|\cdot|)$ the open
+intervals $I_n=(-\tfrac1n,\tfrac1n)$ satisfy
+\[ \bigcap_{n\ge1} I_n=\{0\}, \]
+which is not open in $\mathbb R$. So "finite" in \xref{3.1.2}(2) cannot be dropped.
+\end{ObjL}
+
+\begin{Obj}{Proposition}{3.1.4}{$X$ and $\emptyset$ are open}
+In any metric space $(X,d)$, both $X$ and $\emptyset$ are open in $X$.
+\end{Obj}
+\begin{Prf}{3.1.4}{Direct Proof that $X$ and $\emptyset$ Are Open, the Second Case Vacuously.}{[Direct]}
+\item For any $p\in X$ and any $r>0$, $B_r(p)\subseteq X$, so every point of $X$ is interior: $X$ is open.
+\item $\emptyset$ has no points, so "every point is interior" holds vacuously: $\emptyset$ is open.
+\end{Prf}
+
+\begin{Obj}{Proposition}{3.1.5}{Open sets are exactly unions of open balls}
+A set $V\subseteq X$ is open if and only if it is a union of open balls.
+\end{Obj}
+\begin{Prf}{3.1.5}{Constructive Proof that Open Sets Are Exactly Unions of Open Balls.}{[Constr]\quad balls are open by \xrefL{2.3.5}; the converse uses \xref{3.1.2}.}
+\item If $V$ is open, each $p\in V$ has an $r_p>0$ with $B_{r_p}(p)\subseteq V$. Every ball lies in
+  $V$, and each $p$ lies in its own ball, so
+  \[ V=\bigcup_{p\in V}B_{r_p}(p), \]
+  a union of open balls.
+\item Conversely any union of open balls is open: each ball is open (\xrefL{2.3.5}), and a union of
+  open sets is open (\xref{3.1.2}).
+\end{Prf}
+
+% ============================================================
+\sub{3.2}{Limit points and closed sets}
+
+\begin{Obj}{Definition}{3.2.1}{Cluster (limit) point}
+Let $(X,d)$ be a metric space and $E\subseteq X$. A point $p\in X$ is a \emph{cluster point}\note{Also
+called a \emph{limit point} (Rudin's term) or \emph{accumulation point}. Because every ball holds a
+point of $E\setminus\{p\}$, it in fact holds infinitely many points of $E$: a ball with only
+finitely many would have a least positive distance from $p$ among them, so a smaller ball meets
+$E\setminus\{p\}$ nowhere (cf.\ \R{2.20}).} of $E$
+if every open ball $B_r(p)$ contains a point of $E$ other than $p$:\quad for all $r>0$ there is
+$q\in E$ with $q\in B_r(p)$ and $q\neq p$. Consequently a finite set has no cluster points.
+\end{Obj}
+
+\begin{Obj}{Definition}{3.2.2}{Isolated point}
+A point $p\in E$ is an \emph{isolated point} of $E$ if some ball meets $E$ only at $p$: there is
+$r>0$ with $B_r(p)\cap E=\{p\}$.
+\end{Obj}
+
+\begin{Fig}{3.2.3}{Isolated versus cluster points}{Left: $p$ is \emph{isolated} --- a ball meets $E$ only at $p$. Right: $p$ is a \emph{cluster point} --- every ball, however small, meets $E$ away from $p$ (\xref{3.2.1}, \xref{3.2.2}).}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \begin{scope}[xshift=0cm]
+    \foreach \pt in {(-0.15,0.35),(0.15,0.5),(0.05,0.1),(0.35,0.3),(-0.25,0.05)}{\filldraw[figTerm] \pt circle (1.1pt);}
+    \node[cuBlueDk] at (-0.55,0.55){$E$};
+    \filldraw[figTerm] (1.95,-0.15) circle (1.4pt) node[right=2pt,cuBlueDk]{$p$};
+    \draw[figTerm,dashed] (1.95,-0.15) circle (0.5);
+    \node[cuBlueDk,below=1pt] at (1.95,-0.65){\scriptsize$B_r(p)\cap E=\{p\}$};
+    \node[cuBlueDk] at (1.0,-1.35){\scriptsize\itshape isolated point of $E$};
+  \end{scope}
+  \begin{scope}[xshift=5.4cm]
+    \draw[figTerm,dashed] (0.4,0) circle (0.78);
+    \foreach \dx in {0.66,0.43,0.28,0.18,0.10}{\filldraw[figTerm] (0.4+\dx,0) circle (1pt);}
+    \draw[figLim,thick,fill=white] (0.4,0) circle (1.7pt) node[above=4pt,figLim]{$p$};
+    \node[cuBlueDk,below=1pt] at (0.4,-0.8){\scriptsize every ball meets $E\setminus\{p\}$};
+    \node[cuBlueDk] at (0.4,-1.35){\scriptsize\itshape cluster point};
+  \end{scope}
+\end{tikzpicture}
+\end{Fig}
+
+\begin{Obj}{Definition}{3.2.4}{Closed set}
+$E$ is \emph{closed in $X$} if it contains all of its cluster points: whenever $p\in X$ is a cluster
+point of $E$, $p\in E$. To prove $E$ is \emph{not} closed, exhibit one cluster point of $E$ lying
+outside $E$.
+\end{Obj}
+
+\begin{ObjL}{Example}{3.2.5}{Cluster points and closedness}
+In $(\mathbb R,|\cdot|)$:
+\begin{itemize}
+  \item $E=\{\tfrac1n:n\ge1\}$ has $0$ as its only cluster point\note{Each $\tfrac1n$ is isolated,
+    and any $p\notin\{0\}\cup E$ has a neighbourhood missing $E$; so $0$ is the sole cluster point.}
+    (every $B_r(0)$ contains some $\tfrac1n$, by the Archimedean property, \xrefL{1.7.1}); since
+    $0\notin E$, $E$ is \emph{not} closed, whereas $\{0\}\cup\{\tfrac1n\}$ \emph{is}.
+  \item $\mathbb Z$ is closed because it has \emph{no} cluster points: each integer is isolated, and
+    any $p\notin\mathbb Z$ has $\operatorname{dist}(p,\mathbb Z)>0$, so a small ball about $p$ misses
+    $\mathbb Z$. Vacuously, $\mathbb Z$ holds all its cluster points.
+  \item Every real is a cluster point of $\mathbb Q$ (by density, \xrefL{1.7.2}); $\mathbb Q$ is far
+    from closed.
+\end{itemize}
+\end{ObjL}
+
+\begin{Fig}{3.2.6}{The cluster point of $\{1/n\}$}{The points $1/n$ bunch arbitrarily close to $0$, so every ball about $0$ meets $E=\{1/n\}$; yet $0\notin E$, so $E$ is not closed (\xref{3.2.5}).}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \draw[->] (-0.5,0)--(5.7,0) node[right]{$\mathbb R$};
+  \draw[figLim,thick,fill=white] (0,0) circle (2pt) node[below=4pt,figLim]{$0$};
+  \foreach \n in {1,2,3,4,5,6,8,12,18}{\filldraw[figTerm] ({5/\n},0) circle (1.1pt);}
+  \node[figTerm,above=3pt] at (5,0){$1$};
+  \node[figTerm,above=3pt] at (2.5,0){$\tfrac12$};
+  \node[figTerm,above=3pt] at ({5/3},0){$\tfrac13$};
+\end{tikzpicture}
+\end{Fig}
+
+\begin{ObjL}{Remark}{3.2.7}{Open, closed, neither, both}
+"Closed" is relative: say "$E$ is closed \emph{in} $X$." And open and closed are not opposites---in
+$(\mathbb R,|\cdot|)$ a set may be open, closed, neither, or both (here $p<q$). The interval $(p,q)$ is open;
+$[p,q]$ is closed; $(p,q]$ is neither; $\mathbb Q$ is neither; and $\emptyset$ and $X$ are
+\emph{both} ("clopen").
+\end{ObjL}
+
+\begin{Obj}{Theorem}{3.2.8}{$E$ open $\iff E^c$ closed}
+For $E\subseteq X$ with complement $E^c=\{p\in X:p\notin E\}$: $E$ is open in $X$ if and only if
+$E^c$ is closed in $X$.
+\end{Obj}
+\begin{Prf}{3.2.8}{Proof via Cluster Points that $E$ Is Open $\iff E^c$ Is Closed.}{[Direct]\quad cf.\ \R{2.23}; recall $(E^c)^c=E$.}
+\item ($\Rightarrow$) Let $E$ be open and $p\in E$. Some $B_r(p)\subseteq E$, so $B_r(p)\cap E^c=
+  \emptyset$ and $p$ is \emph{not} a cluster point of $E^c$. Thus no point of $E$ is a cluster point
+  of $E^c$: every cluster point of $E^c$ lies in $E^c$, i.e.\ $E^c$ is closed.
+\item ($\Leftarrow$) Let $E^c$ be closed and $p\in E$. Then $p\notin E^c$; since $E^c$ holds all its
+  cluster points, $p$ is not one, so some $B_r(p)\cap E^c=\emptyset$, i.e.\ $B_r(p)\subseteq E$.
+  Hence $p$ is interior and $E$ is open.
+\end{Prf}
+
+\begin{Obj}{Lemma}{3.2.9}{De Morgan}
+For any family $\{E_\alpha\}_{\alpha\in A}$ of subsets of $X$,
+\[ \Big(\bigcup_{\alpha}E_\alpha\Big)^c=\bigcap_\alpha E_\alpha^c,\qquad
+   \Big(\bigcap_{\alpha}E_\alpha\Big)^c=\bigcup_\alpha E_\alpha^c. \]
+\end{Obj}
+\begin{Prf}{3.2.9}{Proof of De Morgan's Laws by Element-Chasing.}{[Direct]\quad cf.\ \R{2.22}.}
+\item For the first identity,
+  \[ p\in\Big(\bigcup_\alpha E_\alpha\Big)^c \iff p\notin\bigcup_\alpha E_\alpha
+     \iff p\notin E_\alpha\ \forall\alpha \iff p\in E_\alpha^c\ \forall\alpha
+     \iff p\in\bigcap_\alpha E_\alpha^c. \]
+\item The second follows by replacing each $E_\alpha$ with $E_\alpha^c$ and taking complements.
+\end{Prf}
+
+\begin{Obj}{Proposition}{3.2.10}{Intersections and finite unions of closed sets}
+Let $F_\alpha\subseteq X$ be closed in $X$ for every $\alpha\in A$.
+\begin{enumerate}
+  \item $\bigcap_{\alpha\in A}F_\alpha$ is closed (any intersection of closed sets is closed);
+  \item $F_{\alpha_1}\cup\cdots\cup F_{\alpha_n}$ is closed (any \emph{finite} union is closed).
+\end{enumerate}
+\end{Obj}
+\begin{Prf}{3.2.10}{Proof by Dualising the Open Case that Intersections and Finite Unions of Closed Sets Are Closed.}{[Direct]\quad via \xref{3.2.8}, \xref{3.2.9}, \xref{3.1.2}; cf.\ \R{2.24}. A proof straight from the cluster-point definition (the board's exercise) also works.}
+\item For the intersection, de Morgan gives $\big(\bigcap_\alpha F_\alpha\big)^c=\bigcup_\alpha F_\alpha^c$.
+  Each $F_\alpha^c$ is open (\xref{3.2.8}), and a union of open sets is open (\xref{3.1.2}); so the
+  complement is open and $\bigcap_\alpha F_\alpha$ is closed (\xref{3.2.8}).
+\item For a finite union, $\big(F_{\alpha_1}\cup\cdots\cup F_{\alpha_n}\big)^c=F_{\alpha_1}^c\cap
+  \cdots\cap F_{\alpha_n}^c$ is a \emph{finite} intersection of open sets, hence open (\xref{3.1.2});
+  so the union is closed. (Infinite unions can fail, dually to \xref{3.1.3}.)
+\end{Prf}
+
+% ============================================================
+\sub{3.3}{The subspace topology}
+
+\begin{Obj}{Proposition}{3.3.1}{Relative openness}
+Let $(X,d)$ be a metric space, $Y\subseteq X$ a subspace, and $E\subseteq Y$. Then $E$ is open in
+$Y$ if and only if $E=Y\cap G$ for some $G$ open in $X$. (Here the ball in $Y$ is
+$B_r^Y(p)=\{x\in Y:d(x,p)<r\}=B_r(p)\cap Y$.)
+\end{Obj}
+\begin{Prf}{3.3.1}{Proof of Relative Openness by Carving $Y$-balls from $X$-balls.}{[Direct]\quad cf.\ \R{2.30}.}
+\item ($\Leftarrow$) Suppose $E=Y\cap G$, $G$ open in $X$. For $p\in E$ we have $p\in G$, so some
+  $B_{r_p}(p)\subseteq G$; intersecting with $Y$, $B_{r_p}^Y(p)=B_{r_p}(p)\cap Y\subseteq G\cap Y=E$.
+  Thus $p$ is interior in $Y$, and $E$ is open in $Y$.
+\item ($\Rightarrow$) Suppose $E$ is open in $Y$: each $p\in E$ has $r_p>0$ with $B_{r_p}^Y(p)\subseteq
+  E$. Put $G=\bigcup_{p\in E}B_{r_p}(p)$, open in $X$ as a union of $X$-balls (\xref{3.1.5}). Then
+  \[ G\cap Y=\bigcup_{p\in E}\big(B_{r_p}(p)\cap Y\big)=\bigcup_{p\in E}B_{r_p}^Y(p)=E. \]
+\end{Prf}
+
+\begin{Fig}{3.3.2}{Open in a subspace}{$E$ is open in $Y$ exactly when $E=Y\cap G$ for some $G$ open in the whole space $X$: an $X$-ball $G$ meets the subspace $Y$ in the relative set $E$ (\xref{3.3.1}).}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \draw[cuBlueDk] (-0.2,-1.2) rectangle (5.6,1.6);
+  \node[cuBlueDk] at (5.25,1.3){$X$};
+  \draw[cuBlueDk,thick] (0.2,-0.6)--(5.3,0.9) node[right]{$Y$};
+  \draw[figTerm,dashed,fill=cuBlueLt!25] (2.7,0.13) circle (0.78);
+  \node[figTerm] at (2.7,1.05){$G$};
+  \draw[figLim,line width=1.7pt] (2.0,-0.07)--(3.4,0.34);
+  \node[figLim,below=1pt] at (4.05,-0.4){$E=Y\cap G$};
+\end{tikzpicture}
+\end{Fig}
+
+\begin{ObjL}{Remark}{3.3.3}{Openness by balls at its own points}
+The recurring method, used in \xref{3.1.5} and \xref{3.3.1}: to prove a set is open, write it as a
+union of open balls centred at its own points.
+\end{ObjL}
+
+% ============================================================
+\sub{3.4}{Compactness}
+
+\begin{Obj}{Definition}{3.4.1}{Open cover; compact set}
+Let $(X,d)$ be a metric space and $K\subseteq X$. An \emph{open cover} of $K$ is a family
+$\{V_\alpha\}$ of sets open in $X$ with $K\subseteq\bigcup_\alpha V_\alpha$. The set $K$ is
+\emph{compact} if every open cover of $K$ admits a \emph{finite subcover}: indices
+$\alpha_1,\dots,\alpha_n$ with $K\subseteq V_{\alpha_1}\cup\cdots\cup V_{\alpha_n}$.\note{The naive
+candidate "closed and bounded" depends on the ambient space and the metric; the open-cover
+definition is \emph{intrinsic} (\xref{3.4.4}) and survives passage to continuous images, which is
+why it is the right notion.}
+\end{Obj}
+
+\begin{ObjL}{Example}{3.4.2}{Two non-compact sets}
+In $(\mathbb R,|\cdot|)$:
+\begin{itemize}
+  \item $\mathbb R$ is not compact: the cover $V_n=(-n,n)$ ($n\ge1$) has $\bigcup_n V_n=\mathbb R$,
+    but any finite subfamily lies in $V_N$ with $N=\max n_i$, missing all $|x|\ge N$.
+  \item $(-1,1)$ is not compact: $V_n=(-1+\tfrac1n,1-\tfrac1n)$ ($n\ge2$) cover $(-1,1)$, yet any
+    finite subfamily is contained in the largest $V_N$, missing points near $\pm1$.
+\end{itemize}
+\end{ObjL}
+
+\begin{Fig}{3.4.3}{An open cover with no finite subcover}{The intervals $V_n=(-1+\tfrac1n,1-\tfrac1n)$ cover $(-1,1)$, but each stops short of $\pm1$; a finite subfamily reaches only the largest $V_N$ --- so $(-1,1)$ is not compact (\xref{3.4.2}).}
+\begin{tikzpicture}[x=2.2cm,y=1cm]
+  \draw[cuBlueDk] (-1.25,0)--(1.25,0);
+  \draw[figLim,fill=white] (-1,0) circle (1.6pt) node[below=3pt,cuBlueDk]{$-1$};
+  \draw[figLim,fill=white] (1,0) circle (1.6pt) node[below=3pt,cuBlueDk]{$1$};
+  \foreach \n/\yy in {2/0.38,3/0.66,5/0.94}{
+    \pgfmathsetmacro{\a}{-1+1/\n}\pgfmathsetmacro{\b}{1-1/\n}
+    \draw[figTerm,thick] (\a,\yy)--(\b,\yy);
+    \draw[figTerm,thick] (\a,\yy-0.07)--(\a,\yy+0.07);
+    \draw[figTerm,thick] (\b,\yy-0.07)--(\b,\yy+0.07);
+    \node[figTerm,right=1pt] at (\b,\yy){\scriptsize$V_{\n}$};
+  }
+\end{tikzpicture}
+\end{Fig}
+
+\begin{Obj}{Proposition}{3.4.4}{Compactness is intrinsic}
+Let $K\subseteq Y\subseteq X$, where $(X,d)$ is a metric space and $Y$ carries the subspace metric
+$d|_{Y\times Y}$. Then $K$ is compact in $Y$ if
+and only if $K$ is compact in $X$. So one may say simply "$K$ is compact," with no ambient space.
+\end{Obj}
+\begin{Prf}{3.4.4}{Proof that Compactness Is Intrinsic by Trading $Y$-covers for $X$-covers.}{[Direct]\quad uses \xref{3.3.1}; cf.\ \R{2.33}.}
+\item ($\Leftarrow$) Assume $K$ compact in $X$. Let $\{V_\alpha\}$ be a $Y$-open cover of $K$. By
+  \xref{3.3.1} each $V_\alpha=G_\alpha\cap Y$ with $G_\alpha$ open in $X$, and $\{G_\alpha\}$ covers
+  $K$. By $X$-compactness, $K\subseteq G_{\alpha_1}\cup\cdots\cup G_{\alpha_n}$; intersecting with $Y$
+  (and using $K\subseteq Y$), $K\subseteq V_{\alpha_1}\cup\cdots\cup V_{\alpha_n}$.
+\item ($\Rightarrow$) Assume $K$ compact in $Y$. Let $\{G_\alpha\}$ be an $X$-open cover of $K$. Set
+  $V_\alpha=G_\alpha\cap Y$, open in $Y$ (\xref{3.3.1}) and covering $K$. By $Y$-compactness,
+  $K\subseteq V_{\alpha_1}\cup\cdots\cup V_{\alpha_n}\subseteq G_{\alpha_1}\cup\cdots\cup G_{\alpha_n}$.
+\end{Prf}
+
+% per-lecture Index of Objects -- standalone compile only; the book uses the master index.
+\ifSubfilesClassLoaded{\clearpage\objindex}{}
+
+\end{document}

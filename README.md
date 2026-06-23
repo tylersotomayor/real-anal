@@ -6,11 +6,13 @@ Student notes by Tyler Sotomayor.
 
 **Read online:** https://tylersotomayor.github.io/real-anal/
 
-This repository hosts the published PDFs only:
+This repository hosts:
 
-- `notes-in-modern-analysis.pdf` — the complete notes (class edition)
-- `chapter-00.pdf` — Foundations (course preliminaries)
-- `lecture-01.pdf` … `lecture-07.pdf` — individual lectures
+- **Published PDFs** (repo root):
+  - `notes-in-modern-analysis.pdf` — the complete notes (class edition)
+  - `chapter-00.pdf` — Foundations (course preliminaries)
+  - `lecture-01.pdf` … `lecture-07.pdf` — individual lectures
+- **LaTeX source** ([`src/`](src/)) — build it yourself with `make` (see `src/README.md`).
 
-The PDFs are built from a separate (private) LaTeX source repository. Exam material
-is intentionally not included in this public edition.
+Exam material is intentionally **not** included in this public edition; the full
+source (with exams) lives in a separate private repository.

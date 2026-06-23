@@ -1,0 +1,1013 @@
+%% ============================================================
+%%  Exercises -- Homework 1 (assignment family).
+%%  Subfile of main.tex. Problems verbatim; improved Solutions in
+%%  the house proof style; Reflections that read the problem, cite
+%%  the notes + facts, and walk every step -- organised into
+%%  distinct idea-blocks (no labelled headers).
+%% ============================================================
+\documentclass[main.tex]{subfiles}
+\begin{document}
+
+\beginunittoc{Homework 1}{HOMEWORK 1}{Rudin Ch.\,1--2, Induction, an Equivalence Relation, an Ordered-Field Obstruction}{The Real Numbers}{Homework 1 \textendash\ The Real Numbers}
+\hypertarget{hw-1}{}
+
+\begin{lecturecontents}{Problems in This Set}
+  \item \hyperlink{prob:A1}{Problem A1\quad Rudin Ch.\,1, Ex.\,1 --- A Rational Plus an Irrational}
+  \item \hyperlink{prob:A2}{Problem A2\quad Rudin Ch.\,1, Ex.\,2 --- No Rational Squares to $12$}
+  \item \hyperlink{prob:A3}{Problem A3\quad Rudin Ch.\,1, Ex.\,3 --- Multiplicative Cancellation Laws}
+  \item \hyperlink{prob:A4}{Problem A4\quad Rudin Ch.\,1, Ex.\,4 --- A Lower Bound Is at Most an Upper Bound}
+  \item \hyperlink{prob:A5}{Problem A5\quad Rudin Ch.\,1, Ex.\,5 --- $\inf A=-\sup(-A)$}
+  \item \hyperlink{prob:A6}{Problem A6\quad Rudin Ch.\,1, Ex.\,6 --- Real Powers from Rational Powers}
+  \item \hyperlink{prob:A7}{Problem A7\quad Rudin Ch.\,1, Ex.\,7 --- Logarithms from Completeness}
+  \item \hyperlink{prob:A8}{Problem A8\quad Rudin Ch.\,1, Ex.\,8 --- $\mathbb C$ Admits No Order}
+  \item \hyperlink{prob:A9}{Problem A9\quad Rudin Ch.\,1, Ex.\,9 --- Lexicographic Order on $\mathbb C$}
+  \item \hyperlink{prob:A10}{Problem A10\quad Rudin Ch.\,1, Ex.\,10 --- Complex Square Roots}
+  \item \hyperlink{prob:A11}{Problem A11\quad Rudin Ch.\,1, Ex.\,11 --- Polar Decomposition}
+  \item \hyperlink{prob:A12}{Problem A12\quad Rudin Ch.\,1, Ex.\,12 --- The Finite Triangle Inequality}
+  \item \hyperlink{prob:A13}{Problem A13\quad Rudin Ch.\,1, Ex.\,13 --- The Reverse Triangle Inequality}
+  \item \hyperlink{prob:A14}{Problem A14\quad Rudin Ch.\,1, Ex.\,14 --- A Unit-Circle Identity}
+  \item \hyperlink{prob:A15}{Problem A15\quad Rudin Ch.\,1, Ex.\,15 --- Equality in Schwarz}
+  \item \hyperlink{prob:A16}{Problem A16\quad Rudin Ch.\,1, Ex.\,16 --- Intersecting Two Spheres}
+  \item \hyperlink{prob:A17}{Problem A17\quad Rudin Ch.\,1, Ex.\,17 --- The Parallelogram Identity}
+  \item \hyperlink{prob:A18}{Problem A18\quad Rudin Ch.\,1, Ex.\,18 --- Orthogonal Vectors}
+  \item \hyperlink{prob:A19}{Problem A19\quad Rudin Ch.\,1, Ex.\,19 --- An Apollonius Sphere}
+  \item \hyperlink{prob:A20}{Problem A20\quad Rudin Ch.\,1, Ex.\,20 --- Cuts Without the No-Largest Condition}
+  \item \hyperlink{prob:B}{Problem B\quad Induction: $3\mid n^3+2n$}
+  \item \hyperlink{prob:C}{Problem C\quad Induction: $2^n>n^2$ for $n>4$}
+  \item \hyperlink{prob:D}{Problem D\quad The Defining Relation of $\mathbb Q$ Is an Equivalence Relation}
+  \item \hyperlink{prob:E}{Problem E\quad $ab=c\Rightarrow a\le\sqrt c$ or $b\le\sqrt c$}
+  \item \hyperlink{prob:F}{Problem F\quad Rudin Ch.\,2, Ex.\,2 --- The Algebraic Numbers Are Countable}
+\end{lecturecontents}
+
+% ------------------------------------------------------------
+\prob{A1}{Rudin, Chapter 1, Exercise 1}
+If $r$ is rational $(r\neq 0)$ and $x$ is irrational, prove that $r+x$ and $rx$ are irrational.
+
+\begin{Solution}
+Recall that $\mathbb Q$ is a field: it is closed under subtraction and multiplication, and every
+nonzero rational has a rational inverse.
+
+Suppose, toward a contradiction, that $r+x$ is rational. Since $r$ is rational and $\mathbb Q$ is
+closed under subtraction, $x=(r+x)-r\in\mathbb Q$, contradicting that $x$ is irrational. Hence $r+x$
+is irrational.
+
+Suppose instead that $rx$ is rational. Since $r\neq 0$, its inverse $r^{-1}$ is rational, so
+$x=(rx)\,r^{-1}\in\mathbb Q$, again a contradiction. Hence $rx$ is irrational. The hypothesis $r\neq 0$
+is used exactly once, to form $r^{-1}$; without it the product claim is false, since $0\cdot x=0$.
+\end{Solution}
+
+\begin{Reflection}
+The word that sets the strategy is \emph{irrational}. It is a negative property---it says a number is
+\emph{not} in $\mathbb Q$---and a negative conclusion gives a direct proof nothing to push on, so the
+reflex is contradiction (\xrefL{0.5.5}): assume the conclusion fails and manufacture a rational number
+that has no right to exist. The only other ingredient on offer is that $r$ is a nonzero rational, which
+is exactly the raw material such a contradiction runs on, because $\mathbb Q$ is a field
+(\xrefL{1.3.1}; the quotable \factref{q-ordered-field}{``$\mathbb Q$ is an ordered field''}): closed
+under the operations, with an inverse for every nonzero element.
+
+So the plan writes itself---assume rationality and undo the rational part with a field operation:
+\begin{enumerate}[leftmargin=1.7em,itemsep=3pt,topsep=2pt,label=\textnormal{(\arabic*)}]
+  \item if $r+x\in\mathbb Q$, then $x=(r+x)-r$ is rational by closure under subtraction, and the
+        contradiction is immediate;
+  \item if $rx\in\mathbb Q$, then $x=(rx)\,r^{-1}$ is rational---and here $r\neq 0$ earns its keep,
+        since $r^{-1}$ exists exactly when $r\neq 0$.
+\end{enumerate}
+
+Seeing where each hypothesis is spent shows the statement is sharp in both directions: drop ``$r$
+rational'' and it collapses ($\sqrt2+(-\sqrt2)=0$, $\sqrt2\cdot\sqrt2=2$); drop $r\neq 0$ and the
+product fails, since $rx=0$ for every $x$.
+
+The lasting lesson is how to handle ``irrational'' at all. The irrationals have no closure of their
+own, so you rarely argue with them head-on: assume rationality, isolate the known irrational using only
+operations that keep you inside $\mathbb Q$, and let field closure spring the trap.
+\end{Reflection}
+
+% ------------------------------------------------------------
+\prob{A2}{Rudin, Chapter 1, Exercise 2}
+Prove that there is no rational number whose square is $12$.
+
+\begin{SolutionBlue}
+Suppose, toward a contradiction, that $p\in\mathbb Q$ and $p^2=12$. Write $p=m/n$ in lowest terms,
+with $m,n\in\mathbb Z$, $n\neq 0$, and no prime dividing both $m$ and $n$. Then
+\[
+m^2=12n^2=3\cdot 4n^2.
+\]
+Thus $3\mid m^2$, hence $3\mid m$ by Euclid's lemma. Write $m=3k$. Substituting back gives
+\[
+9k^2=12n^2,\qquad\text{so}\qquad 3k^2=4n^2.
+\]
+The right-hand side is divisible by $3$, so $3\mid n^2$, hence $3\mid n$. This contradicts that
+$m/n$ was in lowest terms. Therefore no rational number has square $12$.
+\end{SolutionBlue}
+
+\begin{Reflection}
+This is the same descent obstruction as the standard proof that $\sqrt2$ is irrational
+(\xrefL{1.4.1}). A square equal to $12$ would force the prime $3$ into the numerator, and then the
+same equation forces it into the denominator. The contradiction is not about the size of the number;
+it is about unique prime divisibility being incompatible with a fraction already reduced to lowest
+terms.
+\end{Reflection}
+
+% ------------------------------------------------------------
+\prob{A3}{Rudin, Chapter 1, Exercise 3}
+Prove Rudin's Proposition~1.15: in any field, if $x\neq 0$ then multiplication by $x$ can be
+cancelled, the multiplicative identity is unique, inverses are unique, and $1/(1/x)=x$.
+
+\begin{SolutionBlue}
+Let $F$ be a field and let $x\in F$ with $x\neq 0$.
+
+For cancellation, suppose $xy=xz$. Multiplying both sides by $1/x$ and using associativity,
+commutativity, and the identity law gives
+\[
+y=1y=\bigl((1/x)x\bigr)y=(1/x)(xy)=(1/x)(xz)=\bigl((1/x)x\bigr)z=1z=z.
+\]
+This proves: if $x\neq 0$ and $xy=xz$, then $y=z$.
+
+If $xy=x$, then $xy=x\cdot 1$, so cancellation gives $y=1$. If $xy=1$, then also
+$x(1/x)=1$, so cancellation gives $y=1/x$. Finally, since $x(1/x)=1$ and multiplication is
+commutative, $(1/x)x=1$; by uniqueness of the inverse of $1/x$, we have
+\[
+\frac{1}{1/x}=x.
+\]
+\end{SolutionBlue}
+
+\begin{Reflection}
+The proof is the multiplicative twin of Rudin's additive Proposition~1.14. The condition $x\neq 0$ is
+the only new issue: it lets us multiply by $1/x$, and after that the field axioms reduce every clause
+to the same cancellation step. Once cancellation is proved, the remaining parts are just special
+cases: cancel $x$ from $xy=x\cdot 1$, cancel it from $xy=x(1/x)$, and read the last statement as
+uniqueness of the inverse of $1/x$.
+\end{Reflection}
+
+% ------------------------------------------------------------
+\prob{A4}{Rudin, Chapter 1, Exercise 4}
+Let $E$ be a nonempty subset of an ordered set; suppose $\alpha$ is a lower bound of $E$ and $\beta$
+is an upper bound of $E$. Prove that $\alpha\le\beta$.
+
+\begin{Solution}
+Because $E$ is nonempty, fix some $t\in E$. Since $\alpha$ is a lower bound of $E$ we have
+$\alpha\le t$, and since $\beta$ is an upper bound of $E$ we have $t\le\beta$. Chaining these by
+transitivity of the order, $\alpha\le t\le\beta$, gives $\alpha\le\beta$.
+\end{Solution}
+
+\begin{Reflection}
+The tell here is that the hypotheses never relate $\alpha$ and $\beta$ to each other: $\alpha$ is tied
+only to the elements of $E$, as a lower bound, and $\beta$ only to the elements of $E$, as an upper
+bound (\xrefL{1.5.1}). When two quantities share no direct link but each speaks to a common set,
+compare them \emph{through} a member of that set. That single idea also picks out the hypothesis that
+does the work---$E\neq\varnothing$, which is what lets you draw a witness $t\in E$; the rest is reading
+$\alpha\le t$ and $t\le\beta$ off the two conditions and chaining by transitivity (\xrefL{1.3.2}).
+
+Nonemptiness is the crux, not a technicality, and you see that by asking what breaks without it. Over
+the empty set both bound conditions hold vacuously (\xrefL{0.1.6}), so \emph{every} pair would qualify,
+including $\alpha>\beta$---in $\mathbb R$ both $1$ and $0$ vacuously bound $\varnothing$. Arguing by
+contradiction instead ($\beta<\alpha$ gives $\beta<\alpha\le t\le\beta$) spends the same witness and
+the same nonemptiness, good evidence that the format is cosmetic and the real ingredient is the element
+of $E$.
+
+Carry the principle: to compare two things each pinned only to a common set, route the comparison
+through a witness drawn from the set---and confirm the set is nonempty before you reach in.
+\end{Reflection}
+
+% ------------------------------------------------------------
+\prob{A5}{Rudin, Chapter 1, Exercise 5}
+Let $A$ be a nonempty set of real numbers which is bounded below. Let $-A$ be the set of all numbers
+$-x$, where $x\in A$. Prove that $\inf A=-\sup(-A)$.
+
+\begin{Solution}
+Because $A$ is bounded below it has a lower bound $m$; write $-A=\{-x:x\in A\}$.
+
+The set $-A$ is nonempty and bounded above: nonempty because $A$ is, and bounded above because
+negating $m\le x$ (which reverses the order) gives $-x\le -m$ for every $x\in A$, so $-m$ is an upper
+bound. By the least-upper-bound property the number $\beta:=\sup(-A)$ exists in $\mathbb R$, and we
+show $\inf A=-\beta$ by checking that $-\beta$ is the greatest lower bound of $A$.
+
+First, $-\beta$ is a lower bound: for each $x\in A$ we have $-x\in -A$, so $-x\le\beta$, and negating
+gives $-\beta\le x$. Second, it is the greatest one: if $\gamma$ is any lower bound of $A$, then
+$-x\le-\gamma$ for every $x\in A$, so $-\gamma$ is an upper bound of $-A$; since $\beta$ is the
+\emph{least} upper bound, $\beta\le-\gamma$, and negating gives $\gamma\le-\beta$.
+
+Thus $-\beta$ is a lower bound of $A$ at least as large as every other, so $\inf A=-\beta=-\sup(-A)$.
+\end{Solution}
+
+\begin{Reflection}
+Two words in the statement fix the whole approach. The first is \emph{infimum}: the only tool in our
+notes that conjures a supremum or infimum out of a bare set is the least-upper-bound property
+(\xrefL{1.6.1}), so the moment a problem asks you to \emph{produce} an infimum, that property is your
+destination. The second is the set $-A$, handed to you unbidden---ask why the statement bothers to
+name the reflection of $A$ through $0$. Because negation reverses order (\xrefL{1.3.3}), it ought to
+trade lower bounds for upper bounds and $\inf$ for $\sup$, and our completeness tool speaks only of
+suprema: the statement is quietly telling you to cross to the supremum side, prove the thing there, and
+cross back. And ``prove $\inf A=\cdots$'' asks you to \emph{certify} a number as the infimum, whose
+only certificate is the definition (\xrefL{1.5.3})---a greatest lower bound, two conditions, not one.
+
+Believe it before proving it. With $A=[2,\infty)$ we get $\inf A=2$, while $-A=(-\infty,-2]$ has
+supremum $-2$ and $-(-2)=2$. Reflecting $A$ across the origin turned its bottom edge into the top edge
+of $-A$; that one picture is the whole content.
+
+Now watch what each step rests on:
+\begin{enumerate}[leftmargin=1.7em,itemsep=4pt,topsep=2pt,label=\textnormal{(\arabic*)}]
+  \item naming a lower bound $m$ is legitimate only because $A$ is bounded below, and passing from
+        $m\le x$ to $-x\le -m$ is the order-reversal of \xrefL{1.3.3}, which makes $-m$ an upper bound
+        of $-A$;
+  \item with $-A$ nonempty (from $A\neq\varnothing$) and bounded above, the least-upper-bound property
+        (\xrefL{1.6.1}; \factref{lub}{List of Facts}) produces $\beta=\sup(-A)$---the one and only use
+        of completeness;
+  \item reading the definition of supremum (\xrefL{1.5.2}) one way, $\beta$ bounds $-A$ above, so
+        $-x\le\beta$ and hence $-\beta\le x$: the easy half, that $-\beta$ is \emph{a} lower bound;
+  \item the crux is the other half---for any lower bound $\gamma$, the number $-\gamma$ is an upper
+        bound of $-A$, and because $\beta$ is the \emph{least}, $\beta\le-\gamma$, i.e.\
+        $\gamma\le-\beta$. Everything hinges on ``least''; drop it and $-\beta$ is merely \emph{a}
+        lower bound, not the infimum.
+\end{enumerate}
+
+Two checks finish honestly. Both clauses of ``greatest lower bound'' (\xrefL{1.5.3}) are present, and
+stopping after the first is the usual way this is half-solved and lost; and each hypothesis is
+load-bearing---without $A\neq\varnothing$ the set $-A$ is empty with no supremum, and without ``bounded
+below'' there is no $m$ and $\inf A$ need not exist. Nothing is circular: we never assumed the infimum
+existed, we built it from a supremum.
+
+That last fact is the lesson. It is exactly how the notes secure the greatest-lower-bound property with
+no second axiom---a set bounded below has an infimum because its reflection has a supremum, which is
+why infimum sits beside supremum at \xrefL{1.5.3}. Keep the technique: when a claim about infima
+resists you, reflect the set through $0$ into a statement about suprema, settle it there, and reflect
+back. Negation is an order-reversing mirror that swaps $\inf$ with $\sup$.
+\end{Reflection}
+
+% ------------------------------------------------------------
+\prob{A6}{Rudin, Chapter 1, Exercise 6}
+Fix $b>1$.
+\begin{enumerate}[leftmargin=1.7em,itemsep=3pt,topsep=2pt,label=\textnormal{(\alph*)}]
+  \item If $m,n,p,q$ are integers, $n>0$, $q>0$, and $m/n=p/q$, prove that
+  \[
+  (b^m)^{1/n}=(b^p)^{1/q}.
+  \]
+  Hence it makes sense to define $b^r=(b^m)^{1/n}$ for $r=m/n$.
+  \item Prove that $b^{r+s}=b^r b^s$ if $r$ and $s$ are rational.
+  \item If $x$ is real, define $B(x)$ to be the set of all numbers $b^t$, where $t$ is rational and
+  $t\le x$. Prove that $b^r=\sup B(r)$ when $r$ is rational. Hence it makes sense to define
+  \[
+  b^x=\sup B(x)
+  \]
+  for every real $x$.
+  \item Prove that $b^{x+y}=b^x b^y$ for all real $x$ and $y$.
+\end{enumerate}
+
+\begin{SolutionBlue}
+For (a), write $r=m/n=p/q$. Then $mq=np$. Both numbers in question are positive, and their
+$(nq)$th powers agree:
+\[
+\bigl((b^m)^{1/n}\bigr)^{nq}=b^{mq}=b^{np}=\bigl((b^p)^{1/q}\bigr)^{nq}.
+\]
+Uniqueness of positive roots gives $(b^m)^{1/n}=(b^p)^{1/q}$, so $b^r$ is well defined.
+
+For (b), write $r=m/n$ and $s=p/q$. By (a), use the common denominator $nq$:
+\[
+b^r=(b^{mq})^{1/(nq)},\qquad b^s=(b^{np})^{1/(nq)}.
+\]
+The root product rule gives
+\[
+b^r b^s=(b^{mq+np})^{1/(nq)}=b^{(mq+np)/(nq)}=b^{r+s}.
+\]
+
+For (c), first note that rational powers are increasing: if $t<r$, then
+\[
+b^r=b^t b^{r-t}>b^t,
+\]
+because $r-t>0$ and $b^{r-t}>1$. Hence every element of $B(r)$ is at most $b^r$, and $b^r\in B(r)$.
+Thus $b^r$ is actually the maximum of $B(r)$, so $b^r=\sup B(r)$. For arbitrary real $x$, the set
+$B(x)$ is nonempty and bounded above: choose rationals below and above $x$ using density of
+$\mathbb Q$ in $\mathbb R$ (\xrefL{1.7.2}). Therefore completeness gives $\sup B(x)$, and the
+definition $b^x=\sup B(x)$ makes sense.
+
+For (d), use rational approximation from below. If $r<x$ and $s<y$ are rational, then
+\[
+b^r b^s=b^{r+s}\le b^{x+y},
+\]
+so taking suprema first over $r$ and then over $s$ gives $b^x b^y\le b^{x+y}$.
+Conversely, first suppose $t<x+y$ is rational. Choose a rational $r$ with $t-y<r<x$; then
+$s=t-r$ is rational and $s<y$, so
+\[
+b^t=b^r b^s\le b^x b^y.
+\]
+If $t=x+y$ is rational, the same argument applied to $t-1/n$ gives $b^{t-1/n}\le b^x b^y$ for every
+large $n$. If $b^t>b^x b^y$, put $c=b^t/(b^x b^y)>1$; the elementary estimate $b^{1/n}\to 1$ gives
+some $n$ with $b^{1/n}<c$, and then $b^{t-1/n}=b^t/b^{1/n}>b^x b^y$, a contradiction. Thus
+$b^t\le b^x b^y$ for every rational $t\le x+y$.
+
+Taking the supremum over all such $t$ gives $b^{x+y}\le b^x b^y$. The two inequalities prove
+$b^{x+y}=b^x b^y$.
+\end{SolutionBlue}
+
+\begin{Reflection}
+The exercise builds real exponents by the same completeness pattern used throughout Lecture~1:
+define the object first on $\mathbb Q$, show the rational definition is independent of the chosen
+fraction, then fill the real gaps with a supremum. Part (d) is the only subtle step. It says the
+algebraic law survives passage from rationals to real suprema, and the density of $\mathbb Q$ is what
+lets the rational approximants approach $x$, $y$, and $x+y$ from below.
+\end{Reflection}
+
+% ------------------------------------------------------------
+\prob{A7}{Rudin, Chapter 1, Exercise 7}
+Fix $b>1$, $y>0$, and prove that there is a unique real $x$ such that $b^x=y$ by completing Rudin's
+outline.
+
+\begin{SolutionBlue}
+For every positive integer $n$,
+\[
+b^n-1=(b-1)(1+b+\cdots+b^{n-1})\ge n(b-1),
+\]
+which proves (a). Applying this to $b^{1/n}$ gives
+\[
+b-1=(b^{1/n})^n-1\ge n(b^{1/n}-1),
+\]
+which is (b). If $t>1$ and $n>(b-1)/(t-1)$, then
+\[
+b^{1/n}-1\le \frac{b-1}{n}<t-1,
+\]
+so $b^{1/n}<t$, proving (c).
+
+For (d), suppose $b^w<y$. Put $t=yb^{-w}>1$. By (c), $b^{1/n}<t$ for all sufficiently large $n$,
+and hence
+\[
+b^{w+1/n}=b^w b^{1/n}<b^w t=y.
+\]
+For (e), suppose $b^w>y$. Put $t=b^w/y>1$. Again $b^{1/n}<t$ for all sufficiently large $n$, so
+\[
+b^{w-1/n}=b^w b^{-1/n}>y.
+\]
+
+Let
+\[
+A=\{w\in\mathbb R:b^w<y\}.
+\]
+The set $A$ is nonempty and bounded above. Indeed, by (a) and the Archimedean property, positive
+integer powers of $b$ eventually exceed both $y$ and $1/y$, so some negative integer belongs to $A$
+and some positive integer bounds $A$ above. Let $x=\sup A$.
+
+If $b^x<y$, part (d) gives $b^{x+1/n}<y$ for some $n$, so $x+1/n\in A$, contradicting that $x$ is an
+upper bound. If $b^x>y$, part (e) gives $b^{x-1/n}>y$ for some $n$; monotonicity then makes
+$x-1/n$ an upper bound of $A$, contradicting the definition of $x$ as the least upper bound. Hence
+$b^x=y$.
+
+Finally, if $x_1<x_2$, then $x_2-x_1>0$, so $b^{x_2-x_1}>1$ and
+\[
+b^{x_2}=b^{x_1}b^{x_2-x_1}>b^{x_1}.
+\]
+Thus $b^x$ is strictly increasing, and at most one $x$ can satisfy $b^x=y$.
+\end{SolutionBlue}
+
+\begin{Reflection}
+This is the logarithm as a supremum argument. The set $A=\{w:b^w<y\}$ records all exponents that are
+still too small. Parts (a)--(e) prove there is no jump at the boundary: if the supremum exponent were
+still below $y$, one could move a little to the right; if it were above $y$, one could move the upper
+bound a little to the left. Completeness supplies the boundary point, and monotonicity supplies
+uniqueness.
+\end{Reflection}
+
+% ------------------------------------------------------------
+\prob{A8}{Rudin, Chapter 1, Exercise 8}
+Prove that no order can be defined in the complex field that turns it into an ordered field.
+\emph{Hint:} $-1$ is a square.
+
+\begin{Solution}
+Suppose, toward a contradiction, that some total order makes $\mathbb C$ an ordered field.
+
+First, every nonzero square is positive. Let $w\neq 0$; by trichotomy $w>0$ or $w<0$. If $w>0$ then
+$w^2=w\cdot w>0$, a product of positives. If $w<0$ then $-w>0$, so $(-w)(-w)>0$; and
+$(-w)(-w)=w^2$, so again $w^2>0$.
+
+Apply this with $w=1$ to get $1=1^2>0$, and adding $-1$ to both sides gives $-1<0$. Apply it with
+$w=i\neq 0$ to get $i^2>0$; but $i^2=-1$, so $-1>0$. Then $-1$ is both positive and negative,
+contradicting trichotomy. Hence no order turns $\mathbb C$ into an ordered field.
+\end{Solution}
+
+\begin{Reflection}
+The hint---$-1$ is a square---is the proof in disguise, and hearing what such a hint says is the real
+exercise. In any ordered field the order is rigid: from the axioms (\xrefL{1.3.3}) a product of
+positives is positive, so two facts get pinned down that ordinarily live apart---every nonzero square
+is positive, and $-1$ is negative. They collide only if some single number is at once $-1$ and a
+square, and the hint supplies exactly that: $-1=i^2$. Hence the natural shape is contradiction
+(\xrefL{0.5.5}).
+
+The argument has two moving parts:
+\begin{enumerate}[leftmargin=1.7em,itemsep=3pt,topsep=2pt,label=\textnormal{(\arabic*)}]
+  \item the lemma ``nonzero squares are positive,'' got by splitting on the sign of $w$ (a clean
+        two-case argument, \xrefL{0.5.7}) and using product-positivity; it gives $1=1^2>0$, hence
+        $-1<0$;
+  \item the collision: apply the lemma to $i\neq 0$ to force $i^2=-1>0$, against $-1<0$, breaking
+        trichotomy.
+\end{enumerate}
+
+Notice the lemma uses only trichotomy and product-positivity, while the collision uses only that $i$
+is a nonzero square root of $-1$.
+
+The reason to remember the problem is that nothing in it is special to $\mathbb C$: in \emph{any}
+ordered field $1>0$ forces $-1<0$ while squares stay $\ge 0$, so a field becomes unorderable the
+instant $-1$ acquires a square root. ``Squares are nonnegative'' is the master constraint an order
+imposes; to show a field admits none, exhibit a quantity the order would call both positive and
+negative.
+\end{Reflection}
+
+% ------------------------------------------------------------
+\prob{A9}{Rudin, Chapter 1, Exercise 9}
+Suppose $z=a+bi$ and $w=c+di$. Define $z<w$ if $a<c$, and also if $a=c$ but $b<d$. Prove that this
+turns the set of complex numbers into an ordered set. Does this ordered set have the least-upper-bound
+property?
+
+\begin{SolutionBlue}
+The relation is lexicographic order. For any two complex numbers $a+bi$ and $c+di$, trichotomy for
+real numbers gives exactly one of $a<c$, $a=c$, or $c<a$. If $a\neq c$, this decides exactly one of
+$z<w$ or $w<z$; if $a=c$, trichotomy for $b$ and $d$ decides exactly one of $b<d$, $b=d$, or $d<b$.
+Thus exactly one of $z<w$, $z=w$, or $w<z$ holds.
+
+Transitivity follows by cases. If $z<w$ and $w<u$, compare first the real parts. A strict increase in
+the real part persists through the chain; if the real parts are equal throughout, transitivity of the
+imaginary parts gives the result. Hence this is an order on $\mathbb C$.
+
+It does not have the least-upper-bound property. Let
+\[
+E=\{a+bi:a<0\}.
+\]
+This set is nonempty and is bounded above: every number $0+ti$ is an upper bound. But there is no
+least upper bound, because if $0+ti$ is an upper bound, then $0+(t-1)i$ is a smaller upper bound.
+\end{SolutionBlue}
+
+\begin{Reflection}
+Lexicographic order makes $\mathbb C$ an ordered set by reading complex numbers like dictionary
+entries: first compare real parts, and use imaginary parts only to break ties. The failure of
+completeness comes from the vertical line over real part $0$; all of it bounds the left half-plane,
+and there is no lowest point on that vertical line.
+\end{Reflection}
+
+% ------------------------------------------------------------
+\prob{A10}{Rudin, Chapter 1, Exercise 10}
+Suppose $z=a+bi$, $w=u+iv$, and
+\[
+a=\left(\frac{|w|+u}{2}\right)^{1/2},\qquad
+b=\left(\frac{|w|-u}{2}\right)^{1/2}.
+\]
+Prove that $z^2=w$ if $v\ge 0$ and that $\overline z^{\,2}=w$ if $v\le 0$. Conclude that every complex
+number, with one exception, has two complex square roots.
+
+\begin{SolutionBlue}
+The displayed quantities are well defined because $|w|\ge |u|$. By construction,
+\[
+a^2-b^2=u.
+\]
+Also,
+\[
+4a^2b^2=(|w|+u)(|w|-u)=|w|^2-u^2=v^2,
+\]
+so $2ab=|v|$. Therefore
+\[
+z^2=(a+bi)^2=(a^2-b^2)+2abi=u+i|v|.
+\]
+If $v\ge0$, this is $u+iv=w$. If $v\le0$, then
+\[
+\overline z^{\,2}=(a-bi)^2=(a^2-b^2)-2abi=u-i|v|=u+iv=w.
+\]
+The exception is $w=0$, whose only square root is $0$. If $w\neq0$, the construction gives one square
+root, and its negative gives a second; a quadratic equation over a field has at most two roots, so
+these are exactly the two square roots.
+\end{SolutionBlue}
+
+\begin{Reflection}
+The formula is just the real and imaginary parts of $(a+bi)^2=u+iv$ solved backward:
+$a^2-b^2=u$ and $2ab=v$. The absolute value decides the sign of the imaginary part. Once one square
+root of a nonzero complex number is found, the other is its negative, and there cannot be a third.
+\end{Reflection}
+
+% ------------------------------------------------------------
+\prob{A11}{Rudin, Chapter 1, Exercise 11}
+If $z$ is a complex number, prove that there exists an $r\ge 0$ and a complex number $w$ with
+$|w|=1$ such that $z=rw$. Are $w$ and $r$ always uniquely determined by $z$?
+
+\begin{SolutionBlue}
+If $z\neq0$, take
+\[
+r=|z|,\qquad w=\frac{z}{|z|}.
+\]
+Then $r>0$, $|w|=|z|/|z|=1$, and $rw=z$.
+
+If $z=0$, take $r=0$ and any complex number $w$ with $|w|=1$, for instance $w=1$; then $z=rw$.
+
+The number $r$ is always unique, since $z=rw$ and $|w|=1$ imply $|z|=r$. When $z\neq0$, $w=z/r$ is
+also unique. When $z=0$, $r=0$ is forced but $w$ can be any unit complex number, so $w$ is not unique.
+\end{SolutionBlue}
+
+\begin{Reflection}
+This is the polar decomposition stripped of angles. The modulus supplies the size $r$, and division
+by the size leaves only direction. The only place direction is undefined is the origin, which explains
+exactly why $w$ fails to be unique only when $z=0$.
+\end{Reflection}
+
+% ------------------------------------------------------------
+\prob{A12}{Rudin, Chapter 1, Exercise 12}
+If $z_1,\dots,z_n$ are complex, prove that
+\[
+|z_1+\cdots+z_n|\le |z_1|+\cdots+|z_n|.
+\]
+
+\begin{SolutionBlue}
+We prove the claim by induction on $n$. For $n=1$ it is equality, and for $n=2$ it is Rudin's
+triangle inequality for complex numbers. Suppose the result holds for $n$ terms. Then
+\[
+\begin{aligned}
+|z_1+\cdots+z_n+z_{n+1}|
+&\le |z_1+\cdots+z_n|+|z_{n+1}|\\
+&\le |z_1|+\cdots+|z_n|+|z_{n+1}|.
+\end{aligned}
+\]
+Thus the inequality holds for every positive integer $n$.
+\end{SolutionBlue}
+
+\begin{Reflection}
+The two-term triangle inequality is the whole engine. Induction lets the same inequality absorb one
+new summand at a time, turning a local estimate into a finite one.
+\end{Reflection}
+
+% ------------------------------------------------------------
+\prob{A13}{Rudin, Chapter 1, Exercise 13}
+If $x$ and $y$ are complex, prove that
+\[
+\bigl||x|-|y|\bigr|\le |x-y|.
+\]
+
+\begin{SolutionBlue}
+By the triangle inequality,
+\[
+|x|=|(x-y)+y|\le |x-y|+|y|,
+\]
+so $|x|-|y|\le |x-y|$. Swapping $x$ and $y$ gives
+\[
+|y|-|x|\le |x-y|.
+\]
+Together these two inequalities say
+\[
+\bigl||x|-|y|\bigr|\le |x-y|.
+\]
+\end{SolutionBlue}
+
+\begin{Reflection}
+This is the reverse triangle inequality. The direct triangle inequality bounds a whole by its pieces;
+rearranging it says that changing a complex number by $x-y$ can change its length by no more than
+$|x-y|$.
+\end{Reflection}
+
+% ------------------------------------------------------------
+\prob{A14}{Rudin, Chapter 1, Exercise 14}
+If $z$ is a complex number such that $|z|=1$, compute
+\[
+|1+z|^2+|1-z|^2.
+\]
+
+\begin{SolutionBlue}
+Since $|z|=1$, we have $z\overline z=1$. Then
+\[
+|1+z|^2=(1+z)(1+\overline z)=2+z+\overline z
+\]
+and
+\[
+|1-z|^2=(1-z)(1-\overline z)=2-z-\overline z.
+\]
+Adding gives
+\[
+|1+z|^2+|1-z|^2=4.
+\]
+\end{SolutionBlue}
+
+\begin{Reflection}
+The mixed terms cancel. Geometrically, this is the parallelogram identity in the special case of the
+two vectors $1$ and $z$ on the unit circle: the two squared diagonal lengths add to $4$.
+\end{Reflection}
+
+% ------------------------------------------------------------
+\prob{A15}{Rudin, Chapter 1, Exercise 15}
+Under what conditions does equality hold in the Schwarz inequality?
+
+\begin{SolutionBlue}
+Let
+\[
+A=\sum_{j=1}^n |a_j|^2,\qquad B=\sum_{j=1}^n |b_j|^2,\qquad
+C=\sum_{j=1}^n a_j\overline{b_j}.
+\]
+In Rudin's proof, if $B>0$ then
+\[
+\sum_{j=1}^n |B a_j-C b_j|^2=B(AB-|C|^2).
+\]
+Equality in Schwarz means $AB=|C|^2$, so the sum of squares on the left is $0$. Hence
+\[
+B a_j=C b_j\qquad(1\le j\le n),
+\]
+which says $a_j=(C/B)b_j$ for every $j$.
+
+If $B=0$, then every $b_j=0$ and equality is automatic. Therefore equality holds exactly when one of
+the two vectors is zero or when there is a complex scalar $\lambda$ such that
+\[
+a_j=\lambda b_j\qquad(1\le j\le n).
+\]
+\end{SolutionBlue}
+
+\begin{Reflection}
+Schwarz becomes an equality precisely when the ``error vector'' in Rudin's proof vanishes. That is
+the algebraic version of linear dependence: one vector is a scalar multiple of the other. If one
+vector is zero, the same description is understood as the degenerate equality case.
+\end{Reflection}
+
+% ------------------------------------------------------------
+\prob{A16}{Rudin, Chapter 1, Exercise 16}
+Suppose $k\ge 3$, $x,y\in\mathbb R^k$, $|x-y|=d>0$, and $r>0$. Prove:
+\begin{enumerate}[leftmargin=1.7em,itemsep=3pt,topsep=2pt,label=\textnormal{(\alph*)}]
+  \item If $2r>d$, there are infinitely many $z\in\mathbb R^k$ such that
+  $|z-x|=|z-y|=r$.
+  \item If $2r=d$, there is exactly one such $z$.
+  \item If $2r<d$, there is no such $z$.
+\end{enumerate}
+How must these statements be modified if $k$ is $2$ or $1$?
+
+\begin{SolutionBlue}
+Let $m=(x+y)/2$ and let $u=(y-x)/d$. Then $|u|=1$. A point $z$ satisfies
+$|z-x|=|z-y|$ exactly when $z-m$ is orthogonal to $u$; geometrically, it lies in the perpendicular
+bisector hyperplane of the segment from $x$ to $y$. For such $z$,
+\[
+|z-x|^2=|z-m|^2+\left(\frac d2\right)^2.
+\]
+Thus the equations $|z-x|=|z-y|=r$ are equivalent to
+\[
+z-m\perp u,\qquad |z-m|^2=r^2-\frac{d^2}{4}.
+\]
+
+If $2r>d$, the right-hand side is positive. In dimension $k\ge3$, the perpendicular subspace has
+dimension $k-1\ge2$, so its sphere of that positive radius contains infinitely many points. If
+$2r=d$, the radius is $0$, so $z=m$ is the unique point. If $2r<d$, the required squared radius is
+negative, so no point exists.
+
+For $k=2$, the perpendicular subspace is one-dimensional: if $2r>d$ there are exactly two points, if
+$2r=d$ one point, and if $2r<d$ none. For $k=1$, the perpendicular subspace is zero-dimensional:
+there is one point when $2r=d$ and no point otherwise.
+\end{SolutionBlue}
+
+\begin{Reflection}
+The problem is the intersection of two equal-radius spheres centered at $x$ and $y$. The midpoint
+separates the geometry from the algebra: first move to the perpendicular bisector, then ask for a
+sphere of radius $\sqrt{r^2-d^2/4}$ inside that perpendicular space. The dimension of that
+perpendicular space is why the answer changes for $k=2$ and $k=1$.
+\end{Reflection}
+
+% ------------------------------------------------------------
+\prob{A17}{Rudin, Chapter 1, Exercise 17}
+Prove that
+\[
+|x+y|^2+|x-y|^2=2|x|^2+2|y|^2
+\]
+if $x,y\in\mathbb R^k$. Interpret this geometrically, as a statement about parallelograms.
+
+\begin{SolutionBlue}
+Using the inner product,
+\[
+|x+y|^2=(x+y)\cdot(x+y)=|x|^2+2x\cdot y+|y|^2
+\]
+and
+\[
+|x-y|^2=(x-y)\cdot(x-y)=|x|^2-2x\cdot y+|y|^2.
+\]
+Adding cancels the cross terms and gives
+\[
+|x+y|^2+|x-y|^2=2|x|^2+2|y|^2.
+\]
+Geometrically, $x$ and $y$ span a parallelogram whose diagonals are $x+y$ and $x-y$; the sum of the
+squares of the diagonals equals the sum of the squares of the four sides.
+\end{SolutionBlue}
+
+\begin{Reflection}
+The identity is algebraic cancellation of the cross terms $2x\cdot y$ and $-2x\cdot y$. Its geometry
+is that the two diagonals of a parallelogram encode the same total squared length as the four sides.
+\end{Reflection}
+
+% ------------------------------------------------------------
+\prob{A18}{Rudin, Chapter 1, Exercise 18}
+If $k\ge2$ and $x\in\mathbb R^k$, prove that there exists $y\in\mathbb R^k$ such that $y\neq0$ but
+$x\cdot y=0$. Is this also true if $k=1$?
+
+\begin{SolutionBlue}
+If $x=0$, take any nonzero $y$. If $x\neq0$, choose an index $j$ with $x_j\neq0$ and choose
+$\ell\neq j$. Define $y$ by
+\[
+y_j=-x_\ell,\qquad y_\ell=x_j,\qquad y_i=0\quad(i\neq j,\ell).
+\]
+Then $y\neq0$, since $y_\ell=x_j\neq0$, and
+\[
+x\cdot y=x_j(-x_\ell)+x_\ell x_j=0.
+\]
+
+For $k=1$ this is not true for every $x$: if $x\neq0$, then $x\cdot y=xy=0$ forces $y=0$.
+\end{SolutionBlue}
+
+\begin{Reflection}
+In dimension at least two there is room to turn one nonzero coordinate into a perpendicular direction.
+In one dimension there is no sideways direction, so only the zero vector is orthogonal to a nonzero
+vector.
+\end{Reflection}
+
+% ------------------------------------------------------------
+\prob{A19}{Rudin, Chapter 1, Exercise 19}
+Suppose $a,b\in\mathbb R^k$. Find $c\in\mathbb R^k$ and $r>0$ such that
+\[
+|x-a|=2|x-b|
+\]
+if and only if $|x-c|=r$. Rudin gives the solution $3c=4b-a$, $3r=2|b-a|$.
+
+\begin{SolutionBlue}
+Assume first that $a\neq b$, so the displayed $r$ is positive. Squaring the equation gives
+\[
+|x-a|^2=4|x-b|^2.
+\]
+Expanding with the inner product,
+\[
+|x|^2-2a\cdot x+|a|^2
+=4|x|^2-8b\cdot x+4|b|^2.
+\]
+Move all terms to one side and complete the square with
+\[
+c=\frac{4b-a}{3}.
+\]
+A direct simplification gives
+\[
+|x-a|^2-4|x-b|^2
+=-3|x-c|^2+\frac{4}{3}|b-a|^2.
+\]
+Thus $|x-a|=2|x-b|$ is equivalent to
+\[
+|x-c|^2=\frac{4}{9}|b-a|^2,
+\]
+or $|x-c|=r$, where
+\[
+r=\frac{2}{3}|b-a|.
+\]
+If $a=b$, the original equation reduces to $|x-a|=2|x-a|$, hence $x=a$; this is the degenerate case
+of the same formula with $r=0$.
+\end{SolutionBlue}
+
+\begin{Reflection}
+This is an Apollonius sphere: the points whose distance from $a$ is twice their distance from $b$ form
+a sphere with center shifted past $b$ away from $a$. The computation is just completing the square
+after expanding the two squared distances.
+\end{Reflection}
+
+% ------------------------------------------------------------
+\prob{A20}{Rudin, Chapter 1, Exercise 20}
+With reference to Rudin's Appendix, suppose property (III) were omitted from the definition of a cut.
+Keep the same definitions of order and addition. Show that the resulting ordered set has the
+least-upper-bound property, that addition satisfies axioms (A1) to (A4) with a slightly different
+zero-element, but that (A5) fails.
+
+\begin{SolutionBlue}
+Call the modified objects \emph{weak cuts}: nonempty proper subsets of $\mathbb Q$ that are downward
+closed, but may have a largest element.
+
+The least-upper-bound proof from Rudin's Appendix still works. If $\mathcal A$ is a nonempty family
+of weak cuts bounded above by a weak cut $\beta$, then
+\[
+\gamma=\bigcup_{\alpha\in\mathcal A}\alpha
+\]
+is nonempty, proper because $\gamma\subseteq\beta$, and downward closed. Hence $\gamma$ is a weak cut.
+It is plainly an upper bound of $\mathcal A$, and any smaller weak cut fails to contain some element
+of some $\alpha\in\mathcal A$, so it is not an upper bound. Thus $\gamma=\sup\mathcal A$.
+
+Addition is still defined by
+\[
+\alpha+\beta=\{r+s:r\in\alpha,\ s\in\beta\}.
+\]
+The sum of two weak cuts is again a weak cut, and commutativity and associativity come from the
+corresponding laws in $\mathbb Q$. The additive identity is now
+\[
+0^\dagger=\{q\in\mathbb Q:q\le0\},
+\]
+not Rudin's original open cut $\{q:q<0\}$. Indeed, if $\alpha$ is downward closed, then
+$\alpha+0^\dagger\subseteq\alpha$, while $p=p+0\in\alpha+0^\dagger$ for every $p\in\alpha$.
+Thus axioms (A1)--(A4) hold.
+
+Axiom (A5) fails. Let
+\[
+\alpha=\{q\in\mathbb Q:q<0\}.
+\]
+If some weak cut $\beta$ satisfied $\alpha+\beta=0^\dagger$, then $0\in\alpha+\beta$, so there would
+be $r<0$ and $s\in\beta$ with $r+s=0$. Thus $s=-r>0$. But then $-s/2\in\alpha$, so
+\[
+(-s/2)+s=s/2>0
+\]
+would belong to $\alpha+\beta$, contradicting $\alpha+\beta=0^\dagger$. Hence this $\alpha$ has no
+additive inverse.
+\end{SolutionBlue}
+
+\begin{Reflection}
+The no-largest-element condition is exactly what separates open cuts from rational endpoint cuts. If
+it is removed, completeness by unions survives and addition still has an identity, but the identity
+becomes the closed cut at $0$. The old open zero-cut then has no additive inverse, so the field
+structure breaks at (A5).
+\end{Reflection}
+
+% ------------------------------------------------------------
+\prob{B}{Induction: Divisibility by $3$}
+Prove by induction that $n^3+2n$ is divisible by $3$ for every integer $n\ge 0$.
+
+\begin{Solution}
+For $n\ge 0$ let $P(n)$ be the statement $3\mid n^3+2n$. The base case $n=0$ holds, since
+$0^3+2\cdot 0=0=3\cdot 0$.
+
+Assume $P(n)$, say $n^3+2n=3k$ with $k\in\mathbb Z$. Then
+\[
+\begin{aligned}
+(n+1)^3+2(n+1)&=\bigl(n^3+3n^2+3n+1\bigr)+(2n+2)\\
+&=(n^3+2n)+3n^2+3n+3\\
+&=3k+3\,(n^2+n+1)=3\,(k+n^2+n+1),
+\end{aligned}
+\]
+and $k+n^2+n+1\in\mathbb Z$, so $3\mid(n+1)^3+2(n+1)$, i.e.\ $P(n+1)$. By induction $P(n)$ holds for
+all $n\ge 0$.
+\end{Solution}
+
+\begin{Reflection}
+``Divisible by $3$ for every $n$'' is indexed by the naturals with successive cases linked by a small
+algebraic change---the signature of induction (\xrefL{1.1.3}, \xrefL{0.6.2}). But induction pays off
+only if the step \emph{reuses} the previous case, so the genuine task is algebraic: write
+$f(n+1)=(n+1)^3+2(n+1)$ as $f(n)$ plus a remainder you can see is a multiple of $3$.
+
+Doing that exposes the increment $3n^2+3n+3=3(n^2+n+1)$, and now the hypothesis in usable form
+($f(n)=3k$ for an actual integer $k$, not the vague ``$3$ divides it'') adds to a multiple of $3$ and
+keeps $f(n+1)$ divisible. That increment is the entire engine.
+
+Seeing the same statement without induction explains \emph{why} it is true, not just \emph{that} it is:
+$n^3+2n=(n-1)\,n\,(n+1)+3n$, and among three consecutive integers one is a multiple of $3$. (The notes
+prove the cousin $3\mid n^3-n$ the identical way at \xrefL{0.6.8}---worth reading side by side.)
+
+The habit to carry: to prove $p\mid f(n)$ by induction, never stare at $f(n+1)$ whole---compute the
+increment $f(n+1)-f(n)$, check it is a multiple of $p$, and divisibility is inherited from one case to
+the next.
+\end{Reflection}
+
+% ------------------------------------------------------------
+\prob{C}{Induction: An Exponential Inequality}
+Prove by induction that $2^n>n^2$ for every integer $n>4$.
+
+\begin{Solution}
+Induct on $n$, starting at $n=5$, the least integer greater than $4$. The base case holds:
+$2^5=32>25=5^2$.
+
+Assume $2^n>n^2$ for some $n\ge 5$. Doubling (multiplication by $2>0$ preserves the inequality),
+$2^{\,n+1}=2\cdot 2^n>2n^2$. Moreover $2n^2\ge(n+1)^2$ for $n\ge 5$, since
+\[
+2n^2-(n+1)^2=n^2-2n-1=(n-1)^2-2\ge(5-1)^2-2=14>0.
+\]
+Combining, $2^{\,n+1}>2n^2\ge(n+1)^2$, which is the statement at $n+1$. By induction $2^n>n^2$ for
+every $n>4$.
+\end{Solution}
+
+\begin{Reflection}
+Two features flag the method. ``For every integer $n>4$'' is an inductive shape (\xrefL{1.1.3}), and
+the oddly specific cutoff $n>4$ is a clue in its own right: it says the inequality is \emph{false}
+below $5$ and the induction must begin exactly where the statement first holds for good. It
+does---$n=2,3,4$ give $4=4$, $8<9$, $16=16$, and only from $n=5$ onward is it true, the same result the
+notes establish at \xrefL{0.6.7}.
+
+The step's idea is that an exponential, once doubled, overshoots a polynomial: $2^{n+1}=2\cdot
+2^n>2n^2$, and $2n^2$ already clears $(n+1)^2$. So the inductive step reduces to a purely polynomial
+inequality, $2n^2\ge(n+1)^2$, i.e.\ $(n-1)^2\ge 2$---which you must check across the \emph{whole} range
+$n\ge 5$, not merely at the base, or the chain could snap somewhere up the line. The hypothesis carries
+the exponential growth; a side inequality, valid throughout, bridges $2n^2$ to $(n+1)^2$.
+
+For any exponential-beats-polynomial claim the recipe is the same: double the hypothesis, reduce the
+step to a polynomial inequality, confirm it on the entire tail, and anchor the base case where the
+statement first becomes permanently true.
+\end{Reflection}
+
+% ------------------------------------------------------------
+\prob{D}{An Equivalence Relation on the Rationals}
+To define $\mathbb Q$, we declared $\frac pq\sim\frac rs\iff ps=rq$ in $\mathbb Z$. Show this relation
+is reflexive, symmetric, and transitive --- an equivalence relation.
+
+\begin{Solution}
+The relation acts on symbols $\frac pq$ with $p,q\in\mathbb Z$ and $q\neq 0$, by $\frac pq\sim\frac
+rs\iff ps=rq$.
+
+Reflexivity is $pq=pq$, which is exactly $\frac pq\sim\frac pq$. Symmetry is immediate: $ps=rq$
+reversed is $rq=ps$, i.e.\ $\frac rs\sim\frac pq$.
+
+For transitivity, suppose $\frac pq\sim\frac rs$ and $\frac rs\sim\frac mn$, so $ps=rq$ and $rn=ms$.
+Multiplying the first by $n$ and the second by $q$, $psn=rqn$ and $rnq=msq$, and since $rqn=rnq$ the
+right-hand sides agree, giving $psn=msq$, that is $s\,(pn)=s\,(mq)$. As $s\neq 0$ and $\mathbb Z$ has
+no zero divisors, we cancel $s$ to get $pn=mq$, i.e.\ $\frac pq\sim\frac mn$. Being reflexive,
+symmetric, and transitive, $\sim$ is an equivalence relation.
+\end{Solution}
+
+\begin{Reflection}
+On its face this asks you to check the three clauses of an equivalence relation (\xrefL{0.4.16}), but
+the deeper clue is \emph{which} relation: the very rule our construction of $\mathbb Q$ rests on
+(\xrefL{1.2.2}), deciding when two fraction symbols name the same rational. So it is not a drill but
+the well-definedness check that makes $\mathbb Q$ a legitimate object---and the reason one rational has
+many names (\xrefL{1.2.3}).
+
+That reframing locates the content. Reflexivity and symmetry fall straight out of equality of integers
+($pq=pq$; and $ps=rq$ reversed is $rq=ps$), so everything real lives in transitivity, where the shared
+symbol $\frac rs$ must be eliminated. From $ps=rq$ and $rn=ms$ you cannot chain directly, so you
+manufacture a common factor---multiply to reach $s\,(pn)=s\,(mq)$---and cancel $s$.
+
+That cancellation is the whole game, and it is legal only because $s\neq 0$ and $\mathbb Z$ is an
+integral domain; it is exactly the step that consumes the nonzero-denominator convention. Allow $s=0$
+and transitivity can fail, which is precisely why $\mathbb Q$ is built from fractions with nonzero
+denominators (\xrefL{1.2.2}).
+
+The lesson generalises: an equation-defined relation is typically shown transitive by combining its two
+defining equations into one that shares a factor and then cancelling, and such cancellation is licensed
+in an integral domain exactly when the shared factor is nonzero.
+\end{Reflection}
+
+% ------------------------------------------------------------
+\prob{E}{An Inequality with Square Roots}
+Prove that if real numbers $a,b,c$ satisfy $ab=c$ then either $a\le\sqrt c$ or $b\le\sqrt c$.
+
+\begin{Solution}
+The symbol $\sqrt c$ is defined only for $c\ge 0$, so that is the domain of the statement (for $c<0$ it
+is not well-posed, and $ab=c$ alone permits $c<0$, e.g.\ $a=1$, $b=-1$). Write $\sqrt c\ge 0$ for the
+nonnegative root, so $(\sqrt c)^2=c$.
+
+Suppose, toward a contradiction, that $ab=c$ yet $a>\sqrt c$ and $b>\sqrt c$---the negation of the
+conclusion. Since $\sqrt c\ge 0$, both $a$ and $b$ are positive. Multiplying $a>\sqrt c$ by $b>0$
+gives $ab>\sqrt c\,b$, and multiplying $b>\sqrt c$ by $\sqrt c\ge 0$ gives $\sqrt c\,b\ge(\sqrt
+c)^2=c$. Hence $ab>c$, contradicting $ab=c$. Therefore $a\le\sqrt c$ or $b\le\sqrt c$.
+\end{Solution}
+
+\begin{Reflection}
+The conclusion is a disjunction, and disjunctions resist a head-on attack because you cannot say in
+advance which alternative holds; the ``or'' is itself the clue to negate. Assuming \emph{both}
+$a>\sqrt c$ and $b>\sqrt c$ collapses the two unknowns into one usable conjunction---the
+proving-disjunctions and negation strategy of \xrefL{0.5.8} and \xrefL{0.5.11}, on the connective laws
+of \xrefL{0.1.3}.
+
+A quieter clue comes first: a radical $\sqrt c$ appears, defined only for $c\ge 0$, so that is the
+genuine domain of the problem rather than an extra hypothesis ($ab=c$ by itself allows $c<0$). Pinning
+the domain hands you $\sqrt c\ge 0$ and $(\sqrt c)^2=c$, the facts the argument leans on.
+
+Now the negation does the work: $a,b>\sqrt c\ge 0$ makes both positive, which is what licenses
+multiplying the two inequalities in an ordered field (\xrefL{1.3.3}), yielding $ab>(\sqrt c)^2=c$
+against $ab=c$. The picture to keep is a threshold---$\sqrt c$ is a gate, and if a product equals $c$
+its two factors cannot both stand strictly above the gate. The $\le$ cannot be tightened to $<$, as
+$a=b=\sqrt c$ shows, so equality must be allowed.
+
+Two reusable moves fall out: to prove ``$P$ or $Q$,'' assume $\neg P$ and $\neg Q$ together and hunt
+for a contradiction; and to weigh a product against a threshold $T$, compare each factor against
+$\sqrt T$.
+\end{Reflection}
+
+% ------------------------------------------------------------
+\prob{F}{Rudin, Chapter 2, Exercise 2}
+A complex number $z$ is \emph{algebraic} if there are integers $a_0,\dots,a_n$, not all zero, with
+$a_0z^n+a_1z^{n-1}+\cdots+a_n=0$. Prove that the set of all algebraic numbers is countable.
+\emph{Hint:} for each $N$ there are finitely many equations with $n+|a_0|+\cdots+|a_n|=N$.
+
+\begin{Solution}
+To each integer polynomial $a_0z^n+\cdots+a_n$ (coefficients not all zero) assign the \emph{height}
+\[
+N=n+|a_0|+|a_1|+\cdots+|a_n|\ge 1.
+\]
+Fix $N\ge 1$. A height-$N$ polynomial has $n\le N$ and $|a_i|\le N$, so there are at most $N+1$ choices
+for $n$ and at most $(2N+1)^{n+1}$ for the coefficients; hence only finitely many integer polynomials
+have height $N$. Each is nonzero of degree $\le N$, so it has at most $N$ roots in $\mathbb C$.
+Therefore the set $A_N$ of roots of all height-$N$ polynomials is a finite union of finite sets, hence
+finite.
+
+Every algebraic number is a root of some integer polynomial, of some height $N\ge 1$, so it lies in
+$A_N$; conversely each element of every $A_N$ is algebraic. Thus $\mathbb A=\bigcup_{N=1}^{\infty}A_N$
+is a countable union of finite sets, so it is at most countable. Finally $\mathbb A$ is infinite, since
+every integer $k$ is a root of $z-k$; an infinite, at-most-countable set is countable, so $\mathbb A$
+is countable.
+\end{Solution}
+
+\begin{Reflection}
+``Prove this set is countable'' has, in our notes, essentially one playbook: present the set as a
+countable union of finite or countable pieces---the quotable \factref{countable-union}{``a countable
+union of countable sets is countable''}, with ``a subset of a countable set is finite or countable''
+(\xrefL{2.1.9}) in support. The art is choosing the slicing, and the hint points straight at it:
+organise the polynomials by an integer \emph{height} $N=n+\sum|a_i|$. Why a height is the right device
+is the part to understand---it must be \emph{finite-to-one}, only finitely many objects sharing each
+value, and this one is, since $N$ simultaneously caps the degree ($n\le N$) and every coefficient
+($|a_i|\le N$).
+
+From there the steps are short, each closed by a specific fact:
+\begin{enumerate}[leftmargin=1.7em,itemsep=3pt,topsep=2pt,label=\textnormal{(\arabic*)}]
+  \item finitely many polynomials per height, and a nonzero degree-$n$ polynomial has at most $n$
+        roots, so each height contributes only finitely many algebraic numbers;
+  \item assembling over all heights gives $\bigcup_N A_N$, a countable union of finite sets, hence at
+        most countable;
+  \item ``at most countable'' upgrades to ``countable'' only once you note the set is infinite---every
+        integer $k$ is a root of $z-k$, and $\mathbb Z$ is countable (\xrefL{2.1.4}).
+\end{enumerate}
+
+That last step is the easy one to forget. And the transferable idea is the height itself: anything
+assembled from finite integer data---polynomials, finite words over a finite alphabet, finite
+sequences---can be sliced into finite layers by a well-chosen integer ``size'' with finite fibres, and
+then ``countable union of countable sets'' finishes the job.
+\end{Reflection}
+
+\end{document}

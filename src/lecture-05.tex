@@ -1,0 +1,238 @@
+%% ============================================================
+%%  Lecture 5 -- Tuesday, 9 June 2026
+%%  Subfile of main.tex: compiles standalone OR as part of the book.
+%%  Built from sources/2026-06-09/ (board-transcript.md [Gate-1 verified], outline.md).
+%% ============================================================
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+
+\beginlecture{5}{Tuesday, 9 June 2026}%
+  {Sequences: Convergence, Cauchy Completeness, and \texorpdfstring{$\mathbb R^k$}{Rk}}
+
+\epigraph{A mathematician who is not also something of a poet will never be a complete mathematician.}{Karl Weierstrass}
+
+\begin{lecturecontents}{Contents of this lecture}
+  \item \hyperlink{5.1}{5.1\quad Convergence in a metric space}
+  \item \hyperlink{5.2}{5.2\quad The algebra of limits and convergence in $\mathbb R^k$}
+  \item \hyperlink{5.3}{5.3\quad Subsequences}
+  \item \hyperlink{5.4}{5.4\quad Cauchy sequences and completeness}
+  \item \hyperlink{5.5}{5.5\quad Completeness of compact spaces and of $\mathbb R^k$}
+\end{lecturecontents}
+
+\bigskip
+\noindent\textbf{Overview.} A sequence converges to $p$ when it eventually lies in every ball about
+$p$. Two things must hold: the terms must settle, \emph{and} a limit must exist in the space---the
+second can fail. We develop the calculus of limits (the open-set view, uniqueness, boundedness, the
+algebra of limits in $\mathbb R/\mathbb C$, coordinatewise convergence in $\mathbb R^k$), then
+\emph{subsequences}---every sequence in a compact space has a convergent one---and finally
+\emph{Cauchy sequences} and \emph{completeness}: a Cauchy sequence is one whose terms bunch together,
+every convergent sequence is Cauchy, and a space is \emph{complete} when the converse holds. Compact
+spaces and $\mathbb R^k$ are complete.
+
+\clearpage
+% ============================================================
+\sub{5.1}{Convergence in a metric space}
+
+\begin{Obj}{Definition}{5.1.1}{Convergent sequence}
+A sequence $\{p_n\}$ in $(X,d)$ (\xrefL{2.1.6})\note{We index from $n=1$ here (Rudin's convention), so $\tfrac1n$ is always defined; the sequence definition \xrefL{2.1.6} permits $n=0$, which changes nothing.} \emph{converges} (\R{3.1}) to $p\in X$ if for every $\eps>0$
+there is an $N$ with $d(p_n,p)<\eps$ for all $n\ge N$. We write $p_n\to p$ or $\lim_{n\to\infty}
+p_n=p$, and call $p$ the \emph{limit}.
+\end{Obj}
+
+\begin{ObjL}{Remark}{5.1.2}{Two things must happen}
+Convergence asks both that the terms settle \emph{and} that a limit exist \emph{in $X$}. The latter
+can fail: in $X=(0,\infty)$ with the usual metric, $p_n=\tfrac1n$ has terms that settle, yet
+diverges---its would-be limit $0$ is not in $X$.
+\end{ObjL}
+
+\begin{Obj}{Proposition}{5.1.3}{Basic properties of limits}
+Let $\{p_n\}$ be a sequence in $(X,d)$.
+\begin{enumerate}
+  \item $p_n\to p\iff$ every open set $U\ni p$ contains $p_n$ for all but finitely many $n$;
+  \item limits are unique: if $p_n\to p$ and $p_n\to p'$ then $p=p'$;
+  \item if $\{p_n\}$ converges then it is bounded;
+  \item if $p$ is a cluster point of $E\subseteq X$, some sequence in $E\setminus\{p\}$ converges to $p$.
+\end{enumerate}
+\end{Obj}
+\begin{Prf}{5.1.3}{Direct Proof of the Four Properties.}{[Direct]\quad cf.\ \R{3.2}. Uniqueness needs no Archimedean property: $d(p,p')<2\eps$ for all $\eps>0$ already forces $d(p,p')=0$.}
+\item For the open-set criterion, if $p_n\to p$ and $U\ni p$ is open, some $B_r(p)\subseteq U$; past
+  the $N$ for $\eps=r$, $p_n\in B_r(p)\subseteq U$. Conversely, $B_\eps(p)$ is open and contains $p$,
+  so it holds $p_n$ for all but finitely many $n$; past those, $d(p_n,p)<\eps$.
+\item For uniqueness, given $\eps>0$, $d(p,p')\le d(p,p_n)+d(p_n,p')<2\eps$ for large $n$. As this
+  holds for \emph{every} $\eps>0$, $d(p,p')=0$, so $p=p'$.
+\item For boundedness, take $N$ with $d(p_n,p)<1$ for $n\ge N$ ($\eps=1$). With $r=1+\max\{0,d(p_1,p),
+  \dots,d(p_{N-1},p)\}$, every $p_n\in B_r(p)$, so $\{p_n\}$ is bounded.
+\item For the cluster-point claim, pick for each $n$ a point $p_n\in B_{1/n}(p)\cap E$ with $p_n\neq
+  p$ (possible since $p$ is a cluster point). Then $d(p_n,p)<\tfrac1n$, so $p_n\to p$.
+\end{Prf}
+
+\begin{Fig}{5.1.4}{A cluster point is a limit of points of $E$}{Choosing $p_n\in B_{1/n}(p)\cap E$ with $p_n\neq p$ produces a sequence in $E$ converging to the cluster point $p$ (\xref{5.1.3}(d)).}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \draw[cuBlueDk] (-0.3,0)--(5,0) node[right]{$E$};
+  \foreach \x in {0.5,1.6,2.5,3.1,3.45,3.65,3.78}{\filldraw[figTerm] (\x,0) circle (1.3pt);}
+  \node[figTerm,above=3pt] at (0.5,0){\scriptsize$p_1$};
+  \node[figTerm,above=3pt] at (1.6,0){\scriptsize$p_2$};
+  \node[figTerm,above=3pt] at (2.5,0){\scriptsize$p_3$};
+  \draw[figLim,thick,fill=white] (4.0,0) circle (2pt) node[below=4pt,figLim]{$p$};
+\end{tikzpicture}
+\end{Fig}
+
+% ============================================================
+\sub{5.2}{The algebra of limits and convergence in \texorpdfstring{$\mathbb R^k$}{Rk}}
+
+\begin{Obj}{Proposition}{5.2.1}{The algebra of limits}
+Let $s_n\to s$ and $t_n\to t$ in $\mathbb R$ (or $\mathbb C$). Then $s_n+t_n\to s+t$; $cs_n\to cs$ for
+any constant $c$; $s_nt_n\to st$; and $1/s_n\to1/s$ provided $s_n,s\neq0$.
+\end{Obj}
+\begin{Prf}{5.2.1}{Proof of the Algebra of Limits by Adding and Subtracting Cross Terms.}{[A4]\quad cf.\ \R{3.3}.}
+\item For the sum, $|(s_n+t_n)-(s+t)|\le|s_n-s|+|t_n-t|<\tfrac\eps2+\tfrac\eps2=\eps$ once both
+  terms are $<\tfrac\eps2$.
+\item For a scalar $c\neq0$, $|cs_n-cs|=|c|\,|s_n-s|<|c|\cdot\tfrac{\eps}{|c|}=\eps$; the case $c=0$
+  is trivial.
+\item For the product, writing $s_nt_n-st=(s_n-s)(t_n-t)+s(t_n-t)+t(s_n-s)$, the last two terms
+  $\to0$ by the scalar case, and $|(s_n-s)(t_n-t)|<\eps^2$ eventually; so $s_nt_n\to st$.
+\item For the reciprocal, since $s_n\to s\neq0$, eventually $|s_n|>\tfrac12|s|$, so
+  \[ \Big|\tfrac1{s_n}-\tfrac1s\Big|=\frac{|s_n-s|}{|s_n|\,|s|}<\frac{2}{|s|^2}\,|s_n-s|\to0. \]
+\end{Prf}
+
+\begin{Obj}{Proposition}{5.2.2}{Coordinatewise convergence in $\mathbb R^k$}
+For $x_n=(\alpha_{1,n},\dots,\alpha_{k,n})$ and $x=(\alpha_1,\dots,\alpha_k)$ in $\mathbb R^k$,
+\[ x_n\to x \iff \alpha_{j,n}\to\alpha_j\ \text{for every }j=1,\dots,k. \]
+\end{Obj}
+\begin{Prf}{5.2.2}{Proof of Coordinatewise Convergence by Comparing the Norm with Its Coordinates.}{[A4]\quad cf.\ \R{3.4}.}
+\item ($\Rightarrow$) Each $|\alpha_{j,n}-\alpha_j|\le\|x_n-x\|=\big(\sum_i|\alpha_{i,n}-\alpha_i|^2
+  \big)^{1/2}\to0$.
+\item ($\Leftarrow$) Given $\eps>0$, choose $N_j$ with $|\alpha_{j,n}-\alpha_j|<\eps/\sqrt k$ for
+  $n\ge N_j$; with $N=\max_j N_j$,
+  \[ \|x_n-x\|=\Big(\sum_{j=1}^k|\alpha_{j,n}-\alpha_j|^2\Big)^{1/2}<\Big(k\cdot\tfrac{\eps^2}{k}
+     \Big)^{1/2}=\eps. \]
+\end{Prf}
+
+\noindent The same argument works for any $p$-norm $\|\cdot\|_p$ or the sup norm; under the discrete
+metric, $p_n\to p$ iff $p_n=p$ for all but finitely many $n$.
+
+% ============================================================
+\sub{5.3}{Subsequences}
+
+\begin{Obj}{Definition}{5.3.1}{Subsequence}
+Given a sequence $\{p_n\}$ and indices $n_1<n_2<n_3<\cdots$, the sequence $\{p_{n_k}\}$ is a
+\emph{subsequence} of $\{p_n\}$ (\R{3.5}). For instance $a_n=(-1)^n$ diverges, yet its even and odd
+subsequences converge, to $+1$ and $-1$.
+\end{Obj}
+
+\begin{Fig}{5.3.2}{A divergent sequence with convergent subsequences}{$a_n=(-1)^n$ never settles, but its even terms sit at $+1$ and its odd terms at $-1$: $a_{2k}\to1$ and $a_{2k+1}\to-1$ (\xref{5.3.1}).}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \draw[cuBlueDk] (-2.4,0)--(2.4,0) node[right]{$\mathbb R$};
+  \filldraw[figLim] (1,0) circle (2pt) node[above=4pt,figLim]{$+1$};
+  \filldraw[figLim] (-1,0) circle (2pt) node[above=4pt,figLim]{$-1$};
+  \node[figLim,below=3pt] at (1,0){\scriptsize$a_2,a_4,\dots$};
+  \node[figLim,below=3pt] at (-1,0){\scriptsize$a_1,a_3,\dots$};
+\end{tikzpicture}
+\end{Fig}
+
+\begin{Obj}{Theorem}{5.3.3}{Convergent subsequences}
+\begin{enumerate}
+  \item In a compact metric space, every sequence has a convergent subsequence.
+  \item Every bounded sequence in $\mathbb R^k$ has a convergent subsequence.
+\end{enumerate}
+\end{Obj}
+\begin{Prf}{5.3.3}{Proof of the Convergent-Subsequence Theorem by Extraction at a Cluster Point.}{[A8]\quad uses \xrefL{4.3.3}, \xrefL{4.3.1}; cf.\ \R{3.6}.}
+\item For~(a), if $\{p_n\}$ takes only finitely many values, one value recurs infinitely often,
+  giving a constant---hence convergent---subsequence. Otherwise the set $\{p_n\}$ is infinite, so by
+  Bolzano--Weierstrass (\xrefL{4.3.3}) it has a cluster point $p$. Choose $n_1<n_2<\cdots$ with
+  $d(p_{n_k},p)<\tfrac1k$ (each ball $B_{1/k}(p)$ meets the infinite value-set in terms of
+  arbitrarily large index); then $p_{n_k}\to p$.
+\item For~(b), a bounded sequence in $\mathbb R^k$ lies in a $k$-cell, which is compact
+  (\xrefL{4.3.1}); now apply~(a).
+\end{Prf}
+
+% ============================================================
+\sub{5.4}{Cauchy sequences and completeness}
+
+\begin{Obj}{Definition}{5.4.1}{Cauchy sequence}
+A sequence $\{p_n\}$ in $(X,d)$ is a \emph{Cauchy sequence} (\R{3.8}) if for every $\eps>0$ there is
+an $N$ with $d(p_m,p_n)<\eps$ for all $m,n\ge N$. No limit is named.
+\end{Obj}
+
+\begin{Obj}{Proposition}{5.4.2}{Convergent sequences are Cauchy}
+Every convergent sequence is Cauchy.
+\end{Obj}
+\begin{Prf}{5.4.2}{Direct Proof that Convergent Sequences Are Cauchy by Halving $\eps$.}{[A4]\quad cf.\ \R{3.11}.}
+\item If $p_n\to p$, given $\eps>0$ take $N$ with $d(p_n,p)<\tfrac\eps2$ for $n\ge N$. Then for
+  $m,n\ge N$, $d(p_m,p_n)\le d(p_m,p)+d(p,p_n)<\tfrac\eps2+\tfrac\eps2=\eps$.
+\end{Prf}
+
+\begin{Obj}{Definition}{5.4.3}{Complete metric space}
+$(X,d)$ is \emph{complete} (\R{3.12}) if every Cauchy sequence in $X$ converges. Thus $\mathbb R$,
+$\mathbb R^k$, $\mathbb C$, and every compact space are complete (\xref{5.5.3}), while $\mathbb Q$ and
+$(0,1)$ are not---a sequence of rationals approaching $\sqrt2$ is Cauchy but has no rational limit. A closed subset of a complete space is itself complete (a Cauchy sequence in it converges in the
+ambient space, and the limit lies in the subset since it is closed).
+\end{Obj}
+
+\begin{Obj}{Theorem}{5.4.4}{Cauchy completion}
+Every metric space $(X,d)$ embeds isometrically as a dense subspace of a complete metric space
+$(\widehat X,\widehat d\,)$, essentially unique, where $\widehat X$ is the set of Cauchy sequences in
+$X$ modulo $\{p_n\}\sim\{q_n\}\iff d(p_n,q_n)\to0$. (Adjoining the suprema of bounded sets to
+$\mathbb Q$ to build $\mathbb R$, Lecture~1, is this construction in disguise.)
+\end{Obj}
+\PrfRef{5.4.4}{Construction of the Completion by Equivalence Classes of Cauchy Sequences.}{Rudin, Exercise~3.24; each $p\in X$ maps to the class of the constant sequence $[p,p,\dots]$.}
+
+% ============================================================
+\sub{5.5}{Completeness of compact spaces and of \texorpdfstring{$\mathbb R^k$}{Rk}}
+
+\begin{Obj}{Definition}{5.5.1}{Diameter and the tail of a sequence}
+The \emph{diameter} of a nonempty $E\subseteq X$ is $\operatorname{diam}E=\sup_{p,q\in E}d(p,q)$
+(\R{3.9}) (finite iff $E$ is bounded). The \emph{tail} of $\{p_n\}$ at $N$ is $E_N=\{p_N,p_{N+1},\dots\}$. Then
+$\{p_n\}$ is Cauchy $\iff\operatorname{diam}E_N\to0$.\note{$\operatorname{diam}E_N\le\eps$ says exactly that $d(p_m,p_n)\le\eps$ for all $m,n\ge N$.}
+\end{Obj}
+
+\begin{Obj}{Proposition}{5.5.2}{Diameter and nested compacts}
+Let $(X,d)$ be a metric space.
+\begin{enumerate}
+  \item $\operatorname{diam}E=\operatorname{diam}\overline E$ for every nonempty $E\subseteq X$;
+  \item a nested sequence $K_1\supseteq K_2\supseteq\cdots$ of nonempty compact sets with
+    $\operatorname{diam}K_n\to0$ has $\bigcap_n K_n$ a single point.
+\end{enumerate}
+\end{Obj}
+\begin{Prf}{5.5.2}{Proof of the Diameter and Nested-Compact Claims by Approximation and Contradiction.}{[A4$+$A9]\quad uses \xrefL{4.2.2}; cf.\ \R{3.10}.}
+\item For~(1), $E\subseteq\overline E$ gives $\operatorname{diam}E\le\operatorname{diam}\overline E$.
+  For $p,q\in\overline E$ and $\eps>0$, pick $p',q'\in E$ with $d(p,p'),d(q,q')\le\eps$; then
+  $d(p,q)\le d(p,p')+d(p',q')+d(q',q)\le\operatorname{diam}E+2\eps$. Taking the supremum over $p,q$
+  and letting $\eps\to0$, $\operatorname{diam}\overline E\le\operatorname{diam}E$.
+\item For~(2), $K=\bigcap_n K_n\neq\emptyset$ (\xrefL{4.2.2}). If $K$ held two distinct points then
+  $\operatorname{diam}K>0$; but $K\subseteq K_n$ gives $\operatorname{diam}K\le\operatorname{diam}K_n
+  \to0$, a contradiction. So $K$ is a single point.
+\end{Prf}
+
+\begin{Obj}{Theorem}{5.5.3}{Compact spaces and $\mathbb R^k$ are complete}
+A compact metric space is complete; and $\mathbb R^k$ (with the usual metric) is complete.
+\end{Obj}
+\begin{Prf}{5.5.3}{Proof of Completeness by Trapping the Limit in Shrinking Tails.}{[A7]\quad uses \xrefL{4.1.3}, \xrefL{4.3.5}, \xref{5.5.2}; cf.\ \R{3.11}. Here $\overline{E_N}$ is compact as a closed subset of the compact $X$ (in $\mathbb R^k$, closed-and-bounded).}
+\item For the compact case, let $\{p_n\}$ be Cauchy in compact $X$. The tail-closures $\overline{E_N}$ are
+  closed in $X$, hence compact (\xrefL{4.1.3}), are nested, and $\operatorname{diam}\overline{E_N}=\operatorname{diam}
+  E_N\to0$ (Cauchy, \xref{5.5.2}(1)). By \xref{5.5.2}(2), $\bigcap_N\overline{E_N}=\{p\}$, and then
+  $p_n\to p$: given $\eps>0$, $\operatorname{diam}\overline{E_N}\le\eps$ for large $N$ forces
+  $d(p_n,p)\le\eps$ there.
+\item For $\mathbb R^k$, a Cauchy sequence is bounded---take $N$ with $\|p_m-p_n\|<1$ for $m,n\ge N$,
+  so the tail lies in $B_1(p_N)$ while the finitely many earlier terms are bounded---hence its closure
+  is closed and bounded, so compact (Heine--Borel, \xrefL{4.3.5}); a Cauchy sequence in that compact
+  set converges by the first part. So every Cauchy sequence in $\mathbb R^k$ converges.
+\end{Prf}
+
+\begin{Fig}{5.5.4}{Trapping the limit in shrinking tails}{For a Cauchy sequence the tail-closures $\overline{E_1}\supseteq\overline{E_2}\supseteq\cdots$ are nested compacts with $\operatorname{diam}\overline{E_N}\to0$; their single common point is the limit (proof of \xref{5.5.3}).}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \draw[figTerm] (0,0) ellipse (2.2 and 1.35);
+  \draw[figTerm] (0.4,0.05) ellipse (1.5 and 0.92);
+  \draw[figTerm] (0.66,0.1) ellipse (0.9 and 0.55);
+  \draw[figTerm] (0.85,0.13) ellipse (0.45 and 0.28);
+  \filldraw[figLim] (1.02,0.15) circle (1.6pt) node[right=2pt,figLim]{$p$};
+  \node[figTerm] at (-1.55,0.95){$\overline{E_1}$};
+  \node[figTerm] at (-0.7,0.62){\scriptsize$\overline{E_2}$};
+\end{tikzpicture}
+\end{Fig}
+
+% per-lecture Index of Objects -- standalone compile only; the book uses the master index.
+\ifSubfilesClassLoaded{\clearpage\objindex}{}
+
+\end{document}

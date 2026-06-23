@@ -1,0 +1,19 @@
+# LaTeX build byproducts — keep src/ source-only
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.idx
+*.ilg
+*.ind
+*.log
+*.lof
+*.loo
+*.lot
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+*.pdf

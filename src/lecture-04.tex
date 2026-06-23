@@ -1,0 +1,237 @@
+%% ============================================================
+%%  Lecture 4 -- Thursday, 4 June 2026
+%%  Subfile of main.tex: compiles standalone OR as part of the book.
+%%  Built from sources/2026-06-04/ (board-transcript.md [Gate-1 verified], outline.md).
+%% ============================================================
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+
+\beginlecture{4}{Thursday, 4 June 2026}%
+  {Compactness: Heine--Borel and Bolzano--Weierstrass}
+
+\epigraph{Mathematics is the science of the infinite.}{Hermann Weyl}
+
+\begin{lecturecontents}{Contents of this lecture}
+  \item \hyperlink{4.1}{4.1\quad Compactness, closedness, and boundedness}
+  \item \hyperlink{4.2}{4.2\quad The finite-intersection property and nested sets}
+  \item \hyperlink{4.3}{4.3\quad Heine--Borel and Bolzano--Weierstrass}
+  \item \hyperlink{4.4}{4.4\quad Interior, closure, and connectedness}
+\end{lecturecontents}
+
+\bigskip
+\noindent\textbf{Overview.} Lecture~3 defined compactness---every open cover has a finite subcover
+(\xrefL{3.4.1})---and showed it is intrinsic (\xrefL{3.4.4}). Here we draw out its consequences: a
+compact set is closed and bounded, a closed subset of a compact set is compact, and nested nonempty
+compact sets meet. Specialising to $\mathbb R^k$ through nested intervals and $k$-cells yields the two
+pillars of the subject---\emph{Heine--Borel} (in $\mathbb R^k$, compact $=$ closed and bounded) and
+\emph{Bolzano--Weierstrass} (every bounded infinite set has a cluster point). A short topological
+coda---interior, closure, connectedness---closes the chapter.
+
+\clearpage
+% ============================================================
+\sub{4.1}{Compactness, closedness, and boundedness}
+
+\begin{Obj}{Theorem}{4.1.1}{A compact set is closed and bounded}
+A compact subset $K$ of a metric space $(X,d)$ is closed and bounded (\xref{4.3.4}).\note{Bounded: fix any $p$; the
+balls $B_n(p)$ ($n\ge1$) cover $K$, so finitely many do, and $K\subseteq B_N(p)$ for the largest $N$.}
+\end{Obj}
+\begin{Prf}{4.1.1}{Direct Proof that the Complement Is Open.}{[Direct]\quad ball separation; cf.\ \R{2.34}.}
+\item If $K=\emptyset$ it is closed and bounded vacuously, so assume $K\neq\emptyset$. Fix $p\notin K$.
+  For each $q\in K$ set $r_q=\tfrac12 d(p,q)>0$; the triangle inequality makes
+  $B_{r_q}(p)\cap B_{r_q}(q)=\emptyset$.
+\item The balls $\{B_{r_q}(q)\}_{q\in K}$ cover $K$, so by compactness finitely many do:
+  $K\subseteq B_{r_{q_1}}(q_1)\cup\cdots\cup B_{r_{q_n}}(q_n)$.
+\item Put $r=\min(r_{q_1},\dots,r_{q_n})>0$. Then $B_r(p)$ is disjoint from every $B_{r_{q_i}}(q_i)$,
+  hence from $K$. So $p$ is interior to $K^c$; as $p\notin K$ was arbitrary, $K^c$ is open and $K$ is closed.
+\end{Prf}
+
+\begin{Fig}{4.1.2}{Separating a point from a compact set}{For $p\notin K$ and $q\in K$, the balls of radius $r_q=\tfrac12 d(p,q)$ about $p$ and $q$ are disjoint; as $q$ ranges over $K$ they cover it, and a finite subcover walls $p$ off --- so $K^c$ is open (proof of \xref{4.1.1}).}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \fill[cuBlueLt!30] (3.6,0) ellipse (1.5 and 0.95);
+  \draw[cuBlueDk] (3.6,0) ellipse (1.5 and 0.95);
+  \node[cuBlueDk] at (4.6,0.7){$K$};
+  \filldraw (0,0) circle (1.3pt) node[left=2pt]{$p$};
+  \filldraw[figTerm] (2.6,0) circle (1.3pt) node[above=4pt]{$q$};
+  \draw[cuBlueDk,dashed] (0,0) circle (1.3);
+  \draw[figTerm,dashed] (2.6,0) circle (1.3);
+  \draw[cuBlueDk,<->] (0,-0.18)--(2.6,-0.18) node[midway,below]{\scriptsize$d(p,q)$};
+\end{tikzpicture}
+\end{Fig}
+
+\begin{Obj}{Proposition}{4.1.3}{A closed subset of a compact set is compact}
+If $K$ is compact and $F\subseteq K$ is closed in $K$, then $F$ is compact.
+\end{Obj}
+\begin{Prf}{4.1.3}{Direct Proof that a Closed Subset of a Compact Set Is Compact.}{[Direct]\quad cf.\ \R{2.35}.}
+\item Let $\{V_\alpha\}$ be an open cover of $F$. Since $F$ is closed, $F^c$ is open in $K$, and
+  $\{V_\alpha\}\cup\{F^c\}$ is an open cover of $K$.
+\item By compactness, finitely many cover $K$:
+  $K\subseteq V_{\alpha_1}\cup\cdots\cup V_{\alpha_n}\cup F^c$.
+\item Since $F\cap F^c=\emptyset$, dropping $F^c$ still covers $F$: $F\subseteq V_{\alpha_1}\cup\cdots
+  \cup V_{\alpha_n}$. So every open cover of $F$ has a finite subcover, and $F$ is compact.
+\end{Prf}
+
+% ============================================================
+\sub{4.2}{The finite-intersection property and nested sets}
+
+\begin{Obj}{Proposition}{4.2.1}{The finite-intersection property}
+Let $\{K_\alpha\}$ be a family of nonempty compact subsets of $X$ such that every finite subfamily has
+nonempty intersection. Then $\bigcap_\alpha K_\alpha\neq\emptyset$.
+\end{Obj}
+\begin{Prf}{4.2.1}{Proof by Contradiction of the Finite-Intersection Property.}{[A9]\quad uses \xref{4.1.1}; cf.\ \R{2.36}.}
+\item Suppose $\bigcap_\alpha K_\alpha=\emptyset$ and fix one $K_1$. Then $K_1\cap\bigcap_{\alpha\neq1}
+  K_\alpha=\emptyset$, i.e.\ $K_1\subseteq\big(\bigcap_{\alpha\neq1}K_\alpha\big)^c=\bigcup_{\alpha\neq1}
+  K_\alpha^c$.
+\item Each $K_\alpha$ is compact, hence closed (\xref{4.1.1}), so each $K_\alpha^c$ is open:
+  $\{K_\alpha^c\}_{\alpha\neq1}$ is an open cover of $K_1$.
+\item By compactness of $K_1$, finitely many cover it: $K_1\subseteq K_{\alpha_1}^c\cup\cdots\cup
+  K_{\alpha_n}^c$, i.e.\ $K_1\cap K_{\alpha_1}\cap\cdots\cap K_{\alpha_n}=\emptyset$ --- a finite
+  subfamily with empty intersection, contradicting the hypothesis.
+\end{Prf}
+
+\begin{Obj}{Corollary}{4.2.2}{Nested nonempty compact sets meet}
+A nested sequence $K_1\supseteq K_2\supseteq\cdots$ of nonempty compact sets has
+$\bigcap_n K_n\neq\emptyset$.
+\end{Obj}
+
+\begin{Obj}{Proposition}{4.2.3}{Nested closed intervals in $\mathbb R$}
+A nested sequence of nonempty closed intervals $I_n=[a_n,b_n]$ ($I_{n+1}\subseteq I_n$) has
+$\bigcap_n I_n=[\,\sup_n a_n,\ \inf_n b_n\,]\neq\emptyset$.
+\end{Obj}
+\begin{Prf}{4.2.3}{Proof by a Supremum Argument that Nested Closed Intervals Meet.}{[A5]\quad uses \xrefL{1.6.1}; cf.\ \R{2.38}.}
+\item Nesting gives $a_1\le a_2\le\cdots\le b_2\le b_1$, so every $b_m$ is an upper bound for
+  $\{a_n\}$. By the least-upper-bound property (\xrefL{1.6.1}), $\alpha=\sup_n a_n$ exists and
+  $a_n\le\alpha\le b_n$ for all $n$; thus $\alpha\in\bigcap_n I_n$.
+\item Moreover $x\in\bigcap_n I_n\iff a_n\le x\le b_n\ \forall n\iff\sup_n a_n\le x\le\inf_n b_n$, so
+  $\bigcap_n I_n=[\sup_n a_n,\inf_n b_n]$.
+\end{Prf}
+
+\begin{Fig}{4.2.4}{Nested closed intervals}{A descending chain $[a_1,b_1]\supseteq[a_2,b_2]\supseteq\cdots$ shares every point of $[\sup_n a_n,\inf_n b_n]$ --- in particular it is never empty (\xref{4.2.3}).}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \draw[cuBlueDk] (-0.3,0)--(8.3,0) node[right]{$\mathbb R$};
+  \foreach \a/\b/\yy in {0.5/7.5/0, 1.5/6.5/0.42, 2.5/5.7/0.84}{
+    \draw[figTerm,thick] (\a,\yy)--(\b,\yy);
+    \draw[figTerm,thick] (\a,\yy-0.11)--(\a,\yy+0.11);
+    \draw[figTerm,thick] (\b,\yy-0.11)--(\b,\yy+0.11);
+  }
+  \node[figTerm,below=1pt] at (0.5,0){\scriptsize$a_1$};
+  \node[figTerm,below=1pt] at (7.5,0){\scriptsize$b_1$};
+  \node[figTerm,above=1pt] at (2.5,0.84){\scriptsize$a_3$};
+  \node[figTerm,above=1pt] at (5.7,0.84){\scriptsize$b_3$};
+  \draw[figLim,thick,fill=white] (4.1,0) circle (2pt);
+  \node[figLim,below=5pt] at (4.1,0){\scriptsize$\sup_n a_n\le\,\cdot\,\le\inf_n b_n$};
+\end{tikzpicture}
+\end{Fig}
+
+\begin{Obj}{Definition}{4.2.5}{$k$-cell}
+A \emph{$k$-cell} (\R{2.17}) is a product of closed intervals
+\[ I=[a_1,b_1]\times[a_2,b_2]\times\cdots\times[a_k,b_k]\subseteq\mathbb R^k. \]
+\end{Obj}
+
+\begin{Obj}{Proposition}{4.2.6}{Nested $k$-cells meet}
+A nested sequence of nonempty $k$-cells $I_1\supseteq I_2\supseteq\cdots$ has
+$\bigcap_n I_n\neq\emptyset$.
+\end{Obj}
+\begin{Prf}{4.2.6}{Proof Coordinatewise that Nested $k$-Cells Meet.}{[A5]\quad applies \xref{4.2.3} in each coordinate; cf.\ \R{2.39}.}
+\item Write $I_n=[a_1^{(n)},b_1^{(n)}]\times\cdots\times[a_k^{(n)},b_k^{(n)}]$. For each fixed
+  coordinate $i$ the intervals $[a_i^{(n)},b_i^{(n)}]$ are nested, so by \xref{4.2.3} some
+  $\alpha_i\in\bigcap_n[a_i^{(n)},b_i^{(n)}]$.
+\item Then $\alpha=(\alpha_1,\dots,\alpha_k)\in\bigcap_n I_n$.
+\end{Prf}
+
+% ============================================================
+\sub{4.3}{Heine--Borel and Bolzano--Weierstrass}
+
+\begin{Obj}{Theorem}{4.3.1}{Every $k$-cell is compact}
+Every $k$-cell $I\subseteq\mathbb R^k$ is compact.
+\end{Obj}
+\begin{Prf}{4.3.1}{Proof by Repeated Bisection that the $k$-cell Is Compact.}{[A7]\quad bisection and nested cells (\xref{4.2.6}); cf.\ \R{2.40}.}
+\item Let $\delta=\big(\sum_{i=1}^k(b_i-a_i)^2\big)^{1/2}$, so $d(x,y)\le\delta$ for all $x,y\in I$.
+  Suppose $I$ is \emph{not} compact: some open cover $\{G_\alpha\}$ has no finite subcover.
+\item Bisecting each edge at its midpoint splits $I$ into $2^k$ sub-cells. If each had a finite
+  subcover, so would $I$; hence some sub-cell $I_1$ has none. Iterating gives nested cells
+  $I\supseteq I_1\supseteq I_2\supseteq\cdots$, each without a finite subcover, with
+  $\operatorname{diam}I_n\le 2^{-n}\delta$ (each bisection halves every edge, hence the diagonal).
+\item By \xref{4.2.6} some $x\in\bigcap_n I_n$. As $\{G_\alpha\}$ covers $I$, $x\in G_{\alpha_0}$ for
+  some $\alpha_0$, and $G_{\alpha_0}$ open gives $r>0$ with $B_r(x)\subseteq G_{\alpha_0}$. Choose $N$
+  with $2^{-N}\delta<r$ (Archimedean, \xrefL{1.7.1}); then $I_N\subseteq B_r(x)\subseteq G_{\alpha_0}$
+  --- so $I_N$ is covered by the single $G_{\alpha_0}$, contradicting that it has no finite subcover.
+\end{Prf}
+
+\begin{Fig}{4.3.2}{Bisecting a $k$-cell}{A $k$-cell without a finite subcover has a $2^k$-bisection inheriting the defect; iterating gives nested cells $I\supset I_1\supset I_2$ of diameter $\to0$, trapping a point that a single cover element must contain (proof of \xref{4.3.1}).}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \draw[cuBlueDk] (0,0) rectangle (4,3);
+  \node[cuBlueDk,above=1pt] at (3.7,3){$I$};
+  \draw[cuBlueDk,dashed] (2,0)--(2,3);
+  \draw[cuBlueDk,dashed] (0,1.5)--(4,1.5);
+  \fill[figTerm!18] (0,0) rectangle (2,1.5);
+  \node[figTerm] at (1.5,1.18){$I_1$};
+  \draw[figTerm,dashed] (1,0)--(1,1.5);
+  \draw[figTerm,dashed] (0,0.75)--(2,0.75);
+  \fill[figLim!30] (1,0) rectangle (2,0.75);
+  \node[figLim] at (1.5,0.37){\scriptsize$I_2$};
+\end{tikzpicture}
+\end{Fig}
+
+\begin{Obj}{Theorem}{4.3.3}{Bolzano--Weierstrass}
+Every infinite subset $E$ of a compact metric space\note{Rudin reserves the name
+\emph{Bolzano--Weierstrass} (\R{2.42}) for the bounded-$\mathbb R^k$ case; the general compact
+statement here is \R{2.37}, whence the $\mathbb R^k$ case follows by enclosing a bounded set in a
+$k$-cell (\xref{4.3.1}).} $K$ has a cluster point in $K$.
+\end{Obj}
+\begin{Prf}{4.3.3}{Proof by Contradiction that $E$ Would Be Finite.}{[A9]\quad cf.\ \R{2.37}.}
+\item Suppose no point of $K$ is a cluster point of $E$. Then each $q\in K$ has $r_q>0$ with
+  $B_{r_q}(q)\cap E\subseteq\{q\}$.
+\item The balls $\{B_{r_q}(q)\}_{q\in K}$ cover $K$; by compactness finitely many do. Each holds at
+  most one point of $E$, so $E$ is finite --- contradicting that $E$ is infinite.
+\end{Prf}
+
+\begin{Obj}{Definition}{4.3.4}{Bounded set}
+$E\subseteq X$ is \emph{bounded} (\R{2.18}) if $E\subseteq B_r(p)$ for some $p\in X$ and $r>0$.
+\end{Obj}
+
+\begin{Obj}{Theorem}{4.3.5}{Heine--Borel}
+For $E\subseteq\mathbb R^k$ the following are equivalent:\note{The equivalence (a)$\iff$(b) is
+\emph{special to $\mathbb R^k$}: in a general metric space a compact set is closed and bounded
+(\xref{4.1.1}), but closed-and-bounded need not be compact.}
+\begin{enumerate}
+  \item $E$ is closed and bounded;
+  \item $E$ is compact;
+  \item every infinite subset of $E$ has a cluster point in $E$.
+\end{enumerate}
+\end{Obj}
+\begin{Prf}{4.3.5}{Proof of the Heine--Borel Theorem by Cycling (a)$\Rightarrow$(b)$\Rightarrow$(c)$\Rightarrow$(a).}{[A9$+$A4]\quad uses \xref{4.1.3}, \xref{4.3.1}, \xref{4.3.3}; cf.\ \R{2.41}.}
+\item \textnormal{(a)$\Rightarrow$(b).} Bounded $E$ lies in some $k$-cell $I$; $I$ is compact
+  (\xref{4.3.1}) and $E\subseteq I$ is closed, so $E$ is compact (\xref{4.1.3}).
+\item \textnormal{(b)$\Rightarrow$(c).} This is Bolzano--Weierstrass (\xref{4.3.3}).
+\item \textnormal{(c)$\Rightarrow$(a), contrapositive.} If $E$ is \emph{not closed}, a cluster point
+  $q\notin E$ exists; choose $p_n\in E$ with $\|p_n-q\|<\tfrac1n$. The set $\{p_n\}$ is infinite (a
+  finite range would repeat some value $p\in E$ infinitely, forcing $q=p\in E$), and its only
+  possible cluster point is $q\notin E$: any $y\in E$ has $\|p_n-y\|\ge\|q-y\|-\tfrac1n\ge\tfrac12
+  \|q-y\|$ eventually. If $E$ is \emph{not bounded}, choose $p_n\in E$ with $\|p_n\|>n$; then
+  $\{p_n\}$ is infinite (the norms are unbounded) with no cluster point, since any $B_1(y)$ holds
+  only finitely many $p_n$. Either way (c) fails.
+\end{Prf}
+
+% ============================================================
+\sub{4.4}{Interior, closure, and connectedness}
+
+\begin{Obj}{Definition}{4.4.1}{Interior and closure}
+For $E\subseteq X$, the \emph{interior} $\mathring E$ is the set of interior points of $E$
+(\xrefL{2.3.3}); it is open, and $E$ is open iff $E=\mathring E$. The \emph{closure} (\R{2.27}) is
+\[ \overline E=E\cup\{\text{cluster points of }E\}\ (\xrefL{3.2.1}); \]
+it is closed --- indeed the smallest closed set containing $E$.\note{If $C\supseteq E$ is closed then
+$C$ contains every cluster point of $E$, so $C\supseteq\overline E$; and $\overline E$ is itself
+closed, so it is the least such set.}
+\end{Obj}
+
+\begin{Obj}{Definition}{4.4.2}{Connected and disconnected}
+A metric space $(X,d)$ is \emph{connected} (\R{2.45}) if its only subsets that are both open and closed
+(``clopen'') are $\emptyset$ and $X$. Equivalently, $X$ is \emph{disconnected} when $X=A\cup B$ for
+nonempty, disjoint, open sets $A,B$.
+\end{Obj}
+
+% per-lecture Index of Objects -- standalone compile only; the book uses the master index.
+\ifSubfilesClassLoaded{\clearpage\objindex}{}
+
+\end{document}
