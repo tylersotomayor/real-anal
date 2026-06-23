@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Notes in Modern Analysis — MATH S4061</title>
+<meta name="description" content="Lecture notes for MATH S4061, Introduction to Modern Analysis I, Columbia University, Summer 2026. Based on the lectures of Andre Carneiro.">
+<style>
+  :root{
+    --ink:#1a1a1a; --muted:#5b6168; --rule:#e3e6ea;
+    --cu:#1f4e79; --cu-dk:#16385a; --bg:#fbfcfd; --card:#ffffff;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font:17px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  .wrap{max-width:760px; margin:0 auto; padding:48px 22px 72px}
+  header{border-bottom:2px solid var(--cu); padding-bottom:22px; margin-bottom:8px}
+  .kicker{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--cu); font-weight:700; margin:0 0 10px}
+  h1{font-size:30px; line-height:1.2; margin:0 0 8px; color:var(--cu-dk); font-weight:800; letter-spacing:-.01em}
+  .sub{color:var(--muted); margin:2px 0; font-size:15.5px}
+  .sub em{color:var(--ink); font-style:normal; font-weight:600}
+  h2{font-size:14px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); font-weight:700; margin:42px 0 14px}
+  .full{
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    background:var(--cu); color:#fff; text-decoration:none; border-radius:12px;
+    padding:18px 22px; margin-top:26px; box-shadow:0 1px 2px rgba(16,40,70,.18);
+    transition:background .15s ease, transform .05s ease;
+  }
+  .full:hover{background:var(--cu-dk)}
+  .full:active{transform:translateY(1px)}
+  .full .t{font-weight:700; font-size:18px}
+  .full .d{opacity:.85; font-size:14px; margin-top:2px}
+  .full .go{font-size:14px; font-weight:700; white-space:nowrap; opacity:.95}
+  ul.lectures{list-style:none; margin:0; padding:0}
+  ul.lectures li{margin:0 0 10px}
+  a.lec{
+    display:block; text-decoration:none; color:inherit; background:var(--card);
+    border:1px solid var(--rule); border-radius:10px; padding:14px 16px;
+    transition:border-color .15s ease, box-shadow .15s ease;
+  }
+  a.lec:hover{border-color:var(--cu); box-shadow:0 1px 3px rgba(16,40,70,.08)}
+  a.lec .num{color:var(--cu); font-weight:700; font-size:13px; letter-spacing:.06em; text-transform:uppercase}
+  a.lec .ttl{font-weight:600; margin:3px 0 1px}
+  a.lec .meta{color:var(--muted); font-size:13.5px}
+  footer{margin-top:48px; padding-top:18px; border-top:1px solid var(--rule); color:var(--muted); font-size:13.5px}
+  footer a{color:var(--cu); text-decoration:none}
+  footer a:hover{text-decoration:underline}
+  .note{font-size:13px; color:var(--muted); margin-top:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="kicker">Columbia University &middot; Department of Mathematics</p>
+    <h1>Notes in Modern Analysis</h1>
+    <p class="sub"><em>MATH&nbsp;S4061</em> &middot; Introduction to Modern Analysis&nbsp;I &middot; Summer&nbsp;2026</p>
+    <p class="sub">Based on the lectures of Andre Carneiro &middot; student notes by Tyler Sotomayor</p>
+  </header>
+
+  <a class="full" href="notes-in-modern-analysis.pdf">
+    <span>
+      <span class="t">Complete notes &mdash; full edition (PDF)</span>
+      <span class="d">All lectures bound together, with the course list of facts and index of objects.</span>
+    </span>
+    <span class="go">Open&nbsp;&rarr;</span>
+  </a>
+
+  <h2>Individual lectures</h2>
+  <ul class="lectures">
+    <li><a class="lec" href="chapter-00.pdf">
+      <div class="num">Chapter 0 &middot; Foundations</div>
+      <div class="ttl">Logic, Sets, Functions, and the Craft of Proof</div>
+      <div class="meta">Course preliminaries</div></a></li>
+
+    <li><a class="lec" href="lecture-01.pdf">
+      <div class="num">Lecture 1</div>
+      <div class="ttl">From the Naturals to the Reals: Induction, Ordered Fields, and Completeness</div>
+      <div class="meta">Tuesday, 26 May 2026</div></a></li>
+
+    <li><a class="lec" href="lecture-02.pdf">
+      <div class="num">Lecture 2</div>
+      <div class="ttl">Counting the Infinite, and the Geometry of Distance: Countability and Metric Spaces</div>
+      <div class="meta">Thursday, 28 May 2026</div></a></li>
+
+    <li><a class="lec" href="lecture-03.pdf">
+      <div class="num">Lecture 3</div>
+      <div class="ttl">The Topology of Metric Spaces: Open and Closed Sets, and Compactness</div>
+      <div class="meta">Tuesday, 2 June 2026</div></a></li>
+
+    <li><a class="lec" href="lecture-04.pdf">
+      <div class="num">Lecture 4</div>
+      <div class="ttl">Compactness: Heine&ndash;Borel and Bolzano&ndash;Weierstrass</div>
+      <div class="meta">Thursday, 4 June 2026</div></a></li>
+
+    <li><a class="lec" href="lecture-05.pdf">
+      <div class="num">Lecture 5</div>
+      <div class="ttl">Sequences: Convergence, Cauchy Completeness, and &#8477;<sup>k</sup></div>
+      <div class="meta">Tuesday, 9 June 2026</div></a></li>
+
+    <li><a class="lec" href="lecture-06.pdf">
+      <div class="num">Lecture 6</div>
+      <div class="ttl">Monotone Convergence, the Squeeze Theorem, and the Upper and Lower Limits</div>
+      <div class="meta">Thursday, 11 June 2026</div></a></li>
+
+    <li><a class="lec" href="lecture-07.pdf">
+      <div class="num">Lecture 7</div>
+      <div class="ttl">Function Limits, Continuity, and the Topology of Continuous Maps</div>
+      <div class="meta">Thursday, 18 June 2026</div></a></li>
+  </ul>
+
+  <footer>
+    <p>Compiled June&nbsp;23,&nbsp;2026. These are student lecture notes shared for classmates&rsquo; reference; any errors are my own.</p>
+    <p class="note">Contact: <a href="mailto:tyler.sotomayor@columbia.edu">tyler.sotomayor@columbia.edu</a></p>
+  </footer>
+</div>
+</body>
+</html>
