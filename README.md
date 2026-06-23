@@ -4,7 +4,7 @@ Public lecture notes for **MATH S4061, Introduction to Modern Analysis I**
 (Columbia University, Summer 2026), based on the lectures of Andre Carneiro.
 Student notes by Tyler Sotomayor.
 
-**Read online:** https://tylersotomayor.github.io/real-analysis/
+**Read online:** https://tylersotomayor.github.io/real-anal/
 
 This repository hosts the published PDFs only:
 
