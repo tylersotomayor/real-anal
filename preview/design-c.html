@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Notes in Modern Analysis — Design C (Editorial)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#184890; --navy-dk:#0f2c57; --cublue:#b9d9eb; --cublue-soft:#d7e8f3;
+    --ink:#15181c; --muted:#5d636b; --rule:#e6e9ed; --bg:#ffffff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,sans-serif;line-height:1.6;
+    -webkit-font-smoothing:antialiased}
+  .hero{background:linear-gradient(155deg,#1b4f9c 0%,var(--navy) 55%,var(--navy-dk) 100%);color:#fff;
+    padding:40px 0 46px}
+  .hero-in{max-width:840px;margin:0 auto;padding:0 28px}
+  .hero img{height:30px;width:auto;display:block;margin-bottom:34px}
+  .hero h1{font-family:"Space Grotesk",sans-serif;font-size:46px;line-height:1.04;
+    letter-spacing:-.02em;font-weight:700;margin:0 0 14px;max-width:13ch}
+  .hero .course{font-family:"Space Grotesk",sans-serif;font-size:14px;letter-spacing:.04em;
+    color:var(--cublue);font-weight:500;margin:0}
+  .hero .byline{color:#c9dcf0;font-size:14.5px;margin:5px 0 0;opacity:.92}
+  .wrap{max-width:840px;margin:0 auto;padding:0 28px 84px}
+  .full{display:flex;align-items:center;justify-content:space-between;gap:20px;
+    text-decoration:none;color:var(--ink);background:var(--cublue-soft);
+    border:1px solid var(--cublue);border-radius:16px;padding:22px 26px;margin:-26px 0 0;
+    position:relative;box-shadow:0 14px 34px -18px rgba(15,44,87,.5);transition:transform .12s}
+  .full:hover{transform:translateY(-2px)}
+  .full .lab{font-family:"Space Grotesk",sans-serif;font-size:11px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--navy);font-weight:600}
+  .full .t{font-weight:700;font-size:19px;margin-top:3px;color:var(--navy-dk)}
+  .full .d{font-size:13.5px;color:var(--muted);margin-top:3px}
+  .full .go{font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:15px;color:#fff;
+    background:var(--navy);border-radius:999px;padding:11px 20px;white-space:nowrap}
+  h2{font-family:"Space Grotesk",sans-serif;font-size:13px;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--navy);font-weight:600;margin:56px 0 4px}
+  .count{color:var(--muted);font-weight:400;font-family:"Inter",sans-serif;letter-spacing:0;text-transform:none;font-size:13px}
+  ul{list-style:none;margin:18px 0 0;padding:0}
+  a.lec{display:grid;grid-template-columns:54px 1fr auto;gap:18px;align-items:center;
+    text-decoration:none;color:inherit;padding:18px 6px;border-top:1px solid var(--rule)}
+  a.lec:last-child{border-bottom:1px solid var(--rule)}
+  a.lec:hover .ttl{color:var(--navy)}
+  a.lec:hover .arr{transform:translateX(3px);color:var(--navy)}
+  .n{font-family:"Space Grotesk",sans-serif;font-size:26px;font-weight:600;color:var(--cublue);
+    line-height:1;letter-spacing:-.02em}
+  .n small{display:block;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);
+    font-family:"Inter",sans-serif;font-weight:600;margin-top:4px}
+  .ttl{font-weight:600;font-size:16px;line-height:1.33;transition:color .14s}
+  .meta{color:var(--muted);font-size:13px;margin-top:3px}
+  .arr{color:var(--rule);font-size:18px;transition:transform .14s,color .14s}
+  footer{margin-top:54px;padding-top:22px;border-top:2px solid var(--navy);color:var(--muted);font-size:13.5px}
+  footer a{color:var(--navy);text-decoration:none;font-weight:500}footer a:hover{text-decoration:underline}
+  .full .lab,.full .t,.full .d{display:block}
+</style>
+</head>
+<body>
+  <div class="hero">
+    <div class="hero-in">
+      <img src="assets/cu-math-white.svg" alt="Columbia Mathematics">
+      <h1>Notes in Modern Analysis</h1>
+      <p class="course">MATH&nbsp;S4061 &middot; INTRODUCTION TO MODERN ANALYSIS&nbsp;I &middot; SUMMER&nbsp;2026</p>
+      <p class="byline">Based on the lectures of Andre Carneiro &middot; student notes by Tyler Sotomayor</p>
+    </div>
+  </div>
+  <div class="wrap">
+    <a class="full" href="https://tylersotomayor.github.io/real-anal/notes-in-modern-analysis.pdf">
+      <span>
+        <span class="lab">Complete edition</span>
+        <span class="t">Read the full notes</span>
+        <span class="d">All lectures bound together, with the course list of facts and index of objects.</span>
+      </span>
+      <span class="go">Open PDF</span>
+    </a>
+
+    <h2>Lectures <span class="count">&nbsp;— Chapter 0 through Lecture 8</span></h2>
+    <ul>
+      <li><a class="lec" href="https://tylersotomayor.github.io/real-anal/chapter-00.pdf"><span class="n">0<small>Ch</small></span><span><span class="ttl">Foundations: Logic, Sets, Functions, and the Craft of Proof</span><div class="meta">Course preliminaries</div></span><span class="arr">&rarr;</span></a></li>
+      <li><a class="lec" href="https://tylersotomayor.github.io/real-anal/lecture-01.pdf"><span class="n">1<small>Lec</small></span><span><span class="ttl">From the Naturals to the Reals: Induction, Ordered Fields, and Completeness</span><div class="meta">Tuesday, 26 May 2026</div></span><span class="arr">&rarr;</span></a></li>
+      <li><a class="lec" href="https://tylersotomayor.github.io/real-anal/lecture-02.pdf"><span class="n">2<small>Lec</small></span><span><span class="ttl">Counting the Infinite, and the Geometry of Distance: Countability and Metric Spaces</span><div class="meta">Thursday, 28 May 2026</div></span><span class="arr">&rarr;</span></a></li>
+      <li><a class="lec" href="https://tylersotomayor.github.io/real-anal/lecture-03.pdf"><span class="n">3<small>Lec</small></span><span><span class="ttl">The Topology of Metric Spaces: Open and Closed Sets, and Compactness</span><div class="meta">Tuesday, 2 June 2026</div></span><span class="arr">&rarr;</span></a></li>
+      <li><a class="lec" href="https://tylersotomayor.github.io/real-anal/lecture-04.pdf"><span class="n">4<small>Lec</small></span><span><span class="ttl">Compactness: Heine&ndash;Borel and Bolzano&ndash;Weierstrass</span><div class="meta">Thursday, 4 June 2026</div></span><span class="arr">&rarr;</span></a></li>
+      <li><a class="lec" href="https://tylersotomayor.github.io/real-anal/lecture-05.pdf"><span class="n">5<small>Lec</small></span><span><span class="ttl">Sequences: Convergence, Cauchy Completeness, and &#8477;<sup>k</sup></span><div class="meta">Tuesday, 9 June 2026</div></span><span class="arr">&rarr;</span></a></li>
+      <li><a class="lec" href="https://tylersotomayor.github.io/real-anal/lecture-06.pdf"><span class="n">6<small>Lec</small></span><span><span class="ttl">Monotone Convergence, the Squeeze Theorem, and the Upper and Lower Limits</span><div class="meta">Thursday, 11 June 2026</div></span><span class="arr">&rarr;</span></a></li>
+      <li><a class="lec" href="https://tylersotomayor.github.io/real-anal/lecture-07.pdf"><span class="n">7<small>Lec</small></span><span><span class="ttl">Function Limits, Continuity, and the Topology of Continuous Maps</span><div class="meta">Thursday, 18 June 2026</div></span><span class="arr">&rarr;</span></a></li>
+      <li><a class="lec" href="https://tylersotomayor.github.io/real-anal/lecture-08.pdf"><span class="n">8<small>Lec</small></span><span><span class="ttl">Derivatives, Taylor&rsquo;s Theorem, and Analyticity</span><div class="meta">Tuesday, 23 June 2026</div></span><span class="arr">&rarr;</span></a></li>
+    </ul>
+
+    <footer>
+      <p>Compiled June&nbsp;25,&nbsp;2026. Student lecture notes shared for classmates&rsquo; reference; any errors are my own.</p>
+      <p style="margin-top:6px">LaTeX source: <a href="https://github.com/tylersotomayor/real-anal/tree/main/src">github.com/tylersotomayor/real-anal</a> &middot; Errata: <a href="mailto:tyler.sotomayor@columbia.edu">tyler.sotomayor@columbia.edu</a></p>
+    </footer>
+  </div>
+</body>
+</html>
