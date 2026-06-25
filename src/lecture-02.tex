@@ -27,13 +27,14 @@ sets, and his diagonal argument shows $\mathbb R$ is strictly larger than $\math
 with $\mathbb Q$ a vanishingly ``thin'' subset. Second, what is the right language for
 \emph{distance}? Metric spaces distil the Euclidean norm into three axioms, and the open sets they
 generate are the gateway to topology, where the rest of the course lives.
+The companion text is Rudin, Chapter~2, especially \R{2.1}--\R{2.19}.
 
 \clearpage
 % ============================================================
 \sub{2.1}{Counting the infinite: countable and uncountable sets}
 
 \begin{Obj}{Definition}{2.1.1}{Injective, surjective, bijective}
-Let $f:X\to Y$ be a function.
+Let $f:X\to Y$ be a function (cf.\ \R{2.1}--\R{2.3}).
 \begin{itemize}
   \item $f$ is \emph{injective} if $f(x)=f(x')\Rightarrow x=x'$ (distinct inputs give distinct outputs);
   \item $f$ is \emph{surjective} if every $y\in Y$ equals $f(x)$ for some $x\in X$;
@@ -42,17 +43,20 @@ Let $f:X\to Y$ be a function.
 \end{Obj}
 
 \begin{Obj}{Definition}{2.1.2}{Equinumerous sets; finite, countable, uncountable}
-Sets $X$ and $Y$ are \emph{equinumerous}, written $X\sim Y$, if there is a bijection $f:X\to Y$. With
+Sets $X$ and $Y$ are \emph{equinumerous}, written $X\sim Y$, if there is a bijection $f:X\to Y$
+(\R{2.3}). With
 $J_0=\emptyset$ and $J_n=\{1,\dots,n\}$, a set $X$ is
 \begin{itemize}
   \item \emph{finite} if $X\sim J_n$ for some $n$, and \emph{infinite} otherwise;
   \item \emph{countable} if $X\sim\mathbb N$;
   \item \emph{uncountable} if it is infinite and $X\not\sim\mathbb N$.
 \end{itemize}
+This packages Rudin's finite/countable terminology \R{2.4}--\R{2.7}.
 \end{Obj}
 
 \begin{Obj}{Proposition}{2.1.3}{Equinumerosity is an equivalence relation}
-The relation $\sim$ is reflexive, symmetric, and transitive.
+The relation $\sim$ is reflexive, symmetric, and transitive. This is the basic relation behind
+\R{2.3}.
 \end{Obj}
 \begin{Prf}{2.1.3}{Direct Proof that Equinumerosity is an Equivalence Relation.}{[Direct]\quad bijections invert and compose, with $(g\circ f)^{-1}=f^{-1}\circ g^{-1}$.}
 \item For reflexivity, the identity $\mathrm{id}_X:X\to X$, $x\mapsto x$, is a bijection, so $X\sim X$.
@@ -64,7 +68,7 @@ The relation $\sim$ is reflexive, symmetric, and transitive.
 \begin{ObjL}{Example}{2.1.4}{$\mathbb Z$ is countable}
 The identity shows $\mathbb N$ is countable. For $\mathbb Z$, interleave the signs:
 \[ f:\mathbb N\to\mathbb Z,\qquad f(n)=\begin{cases} n/2 & n\text{ even},\\[2pt] -(n+1)/2 & n\text{ odd},\end{cases} \]
-a bijection that lists $\mathbb Z$ as $0,-1,1,-2,2,-3,3,\dots$.
+a bijection that lists $\mathbb Z$ as $0,-1,1,-2,2,-3,3,\dots$ (cf.\ \R{2.12}--\R{2.13}).
 \end{ObjL}
 
 \begin{Fig}{2.1.5}{$\mathbb N$ counts $\mathbb Z$}{The bijection of \xref{2.1.4} walks outward from $0$ in alternating steps, reaching every integer exactly once.}
@@ -82,6 +86,7 @@ a bijection that lists $\mathbb Z$ as $0,-1,1,-2,2,-3,3,\dots$.
 \begin{Obj}{Definition}{2.1.6}{Sequences and the listing criterion}
 A \emph{sequence} in a set $X$ is a function $f:\mathbb N\to X$, written $\{x_n\}_{n\in\mathbb N}$ with
 $x_n=f(n)$. Thus $X$ is countable precisely when some sequence lists every element of $X$ exactly once.
+Rudin's sequence definition is \R{2.7}.
 \end{Obj}
 
 \begin{ObjL}{Example}{2.1.7}{$\mathbb Q$ is countable}
@@ -107,9 +112,9 @@ $\mathbb Z\times\mathbb Z$, which a diagonal sweep lists as a single sequence.
 \end{Fig}
 
 \begin{Obj}{Proposition}{2.1.9}{An infinite subset of a countable set is countable}
-If $X$ is countable and $A\subseteq X$ is infinite, then $A$ is countable.
+If $X$ is countable and $A\subseteq X$ is infinite, then $A$ is countable (\R{2.8}).
 \end{Obj}
-\begin{Prf}{2.1.9}{Proof by Recursive Selection of Indices that the Subset is Countable.}{[A10]\quad the recursion is an induction, justified at each step by $A$ being infinite.}
+\begin{Prf}{2.1.9}{Proof by Recursive Selection of Indices that the Subset is Countable.}{[A10]\quad cf.\ \R{2.8}; the recursion is an induction, justified at each step by $A$ being infinite.}
 \item Write $X=\{x_n\}_{n\in\mathbb N}$, every element listed once (\xref{2.1.6}).
 \item Choose indices recursively: let $n_0$ be the least index with $x_{n_0}\in A$; having chosen
   $n_0<\cdots<n_k$, let $n_{k+1}$ be the least index $>n_k$ with $x_{n_{k+1}}\in A$. Such an index
@@ -166,13 +171,15 @@ The interval $[0,1]\subseteq\mathbb R$ is uncountable.
 \begin{Obj}{Corollary}{2.1.13}{$\mathbb R$ is uncountable}
 Were $\mathbb R$ countable, its infinite subset $[0,1]$ would be countable too (\xref{2.1.9}); but
 it is not (\xref{2.1.12}). So $\mathbb R$ is uncountable.
+Compare Rudin's diagonal proof for binary sequences \R{2.14} and later perfect-set result \R{2.43}.
 \end{Obj}
 
 \begin{ObjL}{Remark}{2.1.14}{$\mathbb Q$ is thin in $\mathbb R$}
 Thus $\mathbb Q$ is countable yet dense (\xrefL{1.7.2}), while $\mathbb R$ is uncountable: the
 rationals are a vanishingly small part of the line. Made precise by measure, $\mathbb Q$---indeed
 any countable set---has Lebesgue length zero, so a real drawn from any distribution with a density
-is irrational with probability $1$.
+is irrational with probability $1$. Compare the countability results in \R{2.12}--\R{2.13} and
+the diagonal uncountability result \R{2.14}; the measure language is later perspective.
 \end{ObjL}
 
 % ============================================================
@@ -208,20 +215,22 @@ $(\mathbb R,|\cdot|)$ with $d(x,y)=|x-y|$ is a metric space, as are $(\mathbb Z,
 $(\mathbb N,|\cdot|)$, and $(\mathbb Q,|\cdot|)$. More generally any subset $Y$ of a metric space
 $(X,d)$ is itself a metric space under the restricted distance $d|_{Y\times Y}$. The Euclidean space
 $(\mathbb R^n,d_2)$, $d_2(x,y)=\big(\sum_{i=1}^n|x_i-y_i|^2\big)^{1/2}$, is the prototype.
+These are Rudin's basic metric examples (cf.\ \R{2.16}).
 \end{ObjL}
 
 \begin{ObjL}{Example}{2.2.4}{The $p$-metrics and the discrete metric}
 On $\mathbb R^n$, for $p\ge1$,\note{The board writes $p>1$; in fact $d_p$ is a metric for every $p\ge1$, with $d_1$ and $d_\infty$ the boundary cases.}
 \[ d_p(x,y)=\Big(\sum_{i=1}^n|x_i-y_i|^p\Big)^{1/p},\qquad d_\infty(x,y)=\max_i|x_i-y_i|. \]
 On any set $X$, the \emph{discrete metric}---$d(x,y)=0$ if $x=y$ and $1$ otherwise---is a metric.
-The triangle inequality for $d_p$ is Minkowski's inequality, taken here as a standard fact.
+The triangle inequality for $d_p$ is Minkowski's inequality, taken here as a standard fact
+(cf.\ \R{2.16}).
 \end{ObjL}
 
 \begin{ObjL}{Example}{2.2.5}{Metrics on a function space}
 Let $C=C[0,1]$ be the continuous functions $f:[0,1]\to\mathbb R$. Both
 \[ d_\infty(f,g)=\sup_{[0,1]}|f-g| \qquad\text{and}\qquad d_1(f,g)=\int_0^1|f(x)-g(x)|\,dx \]
 are metrics on $C$. Here $d_\infty$ is finite because a continuous function on $[0,1]$ is bounded,
-and $d_1(f,g)=0$ forces $f=g$ since $|f-g|$ is continuous.
+and $d_1(f,g)=0$ forces $f=g$ since $|f-g|$ is continuous. As metric examples, compare \R{2.16}.
 \end{ObjL}
 
 % ============================================================
@@ -233,6 +242,7 @@ be phrased using open sets alone. Everything starts with the open ball.
 \begin{Obj}{Definition}{2.3.1}{Open ball}
 In a metric space $(X,d)$, the \emph{open ball} of radius $r>0$ about $p\in X$ is
 \[ B_r(p)=\{\,x\in X:d(x,p)<r\,\}. \]
+Rudin calls this a neighbourhood of $p$ in \R{2.18}.
 \end{Obj}
 
 \begin{Fig}{2.3.2}{An open ball takes the shape of its metric}{Same centre, same radius: an interval in $(\mathbb R,|\cdot|)$, a round disk under $d_2$, a diamond under $d_1$, a square under $d_\infty$---each the set $\{x:d(x,p)<r\}$ of \xref{2.3.1}.}
@@ -274,6 +284,7 @@ interior (\R{2.18}). Conversely, $p$ fails to be interior exactly when $B_r(p)\n
 \begin{ObjL}{Remark}{2.3.4}{Openness is relative}
 Openness is meaningful only \emph{relative to the ambient space}: one says ``$E$ is open in $X$,''
 never merely ``$E$ is open.'' The same set can be open in one metric space and not in another.
+This anticipates Rudin's relative-openness theorem \R{2.30}.
 \end{ObjL}
 
 \begin{Obj}{Proposition}{2.3.5}{Every open ball is open}
@@ -303,7 +314,8 @@ In any metric space $(X,d)$, the ball $B_r(p)$ is open in $X$, for every $p\in X
 
 \begin{ObjL}{Remark}{2.3.7}{A recipe for proving openness}
 To show $E$ is open in $X$: (1)~take an arbitrary $p\in E$; (2)~produce a radius $r_p>0$ (guided by
-the geometry); (3)~verify $B_{r_p}(p)\subseteq E$. The proof of \xref{2.3.5} is the model.
+the geometry); (3)~verify $B_{r_p}(p)\subseteq E$. The proof of \xref{2.3.5} is the model, and
+this is the working form of \R{2.18}--\R{2.19}.
 \end{ObjL}
 
 % per-lecture Index of Objects -- standalone compile only; the book uses the master index.

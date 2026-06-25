@@ -142,7 +142,8 @@ $h\in\mathbb R^n$ has no comparable division operation, so the higher-dimensiona
 subtracts a candidate linear map and asks that the remaining vector error be smaller than
 $\|h\|$. Complex differentiability is a special two-dimensional exception: identifying
 $\mathbb R^2$ with $\mathbb C$ restores division by a nonzero increment, but imposes a much
-stronger condition than ordinary real differentiability.
+stronger condition than ordinary real differentiability. Compare the vector-valued
+one-parameter derivative in \R{5.16}.
 \end{ObjL}
 
 % ============================================================
@@ -167,6 +168,7 @@ If $f$ is differentiable at $x_0$, then $f$ is continuous at $x_0$ (\R{5.2}).
 
 \begin{Obj}{Corollary}{8.2.2}{Discontinuity obstructs differentiability}
 If $f$ is not continuous at $x_0$, then $f$ is not differentiable at $x_0$.
+This is the contrapositive of Rudin's differentiability-implies-continuity theorem \R{5.2}.
 \end{Obj}
 
 \begin{Prf}{8.2.2}{Proof by Contrapositive.}{[A9]}
@@ -392,7 +394,7 @@ tames the oscillation of $\sin(1/x)$ near $0$.}
 Define $f(0)=0$ and $f(x)=\sin(1/x)$ for $x\ne0$. Along sequences approaching $0$, the values
 can approach different limits; for example one may choose points where $\sin(1/x)=1$ and
 others where $\sin(1/x)=-1$. Thus $f$ is not continuous at $0$, and by \xref{8.2.2} it is not
-differentiable there.
+differentiable there (cf.\ \R{5.6}).
 \end{ObjL}
 
 \begin{ObjL}{Example}{8.3.3}{$x\sin(1/x)$ is continuous but not differentiable at $0$}
@@ -423,7 +425,8 @@ differentiable at $0$, yet $f'$ is not continuous at $0$ (\R{5.6}).
 \begin{ObjL}{Remark}{8.3.5}{The hierarchy already separates}
 The three examples show that differentiability is stronger than continuity, and continuous
 differentiability is stronger than differentiability. Each extra factor of $x$ narrows the
-envelope around the oscillation and buys one more degree of regularity at the origin.
+envelope around the oscillation and buys one more degree of regularity at the origin
+(cf.\ \R{5.6}).
 \end{ObjL}
 
 % ============================================================
@@ -493,7 +496,7 @@ This is Fermat's interior-extremum theorem (\R{5.8}).
 \begin{ObjL}{Remark}{8.4.4}{Why the hypotheses matter}
 The point must be interior because the proof uses both sides. At an endpoint only one one-sided
 inequality is available. The converse also fails: $f(x)=x^3$ has $f'(0)=0$, but $0$ is not a
-local extremum.
+local extremum (cf.\ \R{5.8}).
 \end{ObjL}
 
 \begin{Obj}{Proposition}{8.4.5}{Rolle's theorem}
@@ -636,7 +639,7 @@ continuous (\R{5.12}).
 \begin{ObjL}{Remark}{8.5.2}{What Darboux rules out}
 Darboux's theorem forbids derivatives from having jump discontinuities, because a jump would
 skip the intermediate values. The theorem does not say that derivatives are continuous:
-\xref{8.3.4} gives a derivative with an oscillatory discontinuity at $0$.
+\xref{8.3.4} gives a derivative with an oscillatory discontinuity at $0$ (cf.\ \R{5.12}).
 \end{ObjL}
 
 % ============================================================
@@ -763,13 +766,13 @@ Define
 \]
 This function is $C^\infty$, and all derivatives at $0$ vanish. Its Taylor series at $0$ is
 therefore identically $0$, but $f(x)>0$ for $x\ne0$. Hence smoothness does not imply real
-analyticity.
+analyticity. This is beyond Rudin's finite Taylor theorem \R{5.15}.
 \end{Obj}
 \fails{the claim that knowing all derivatives at one point determines a smooth real function.}
 
 \begin{Obj}{Theorem}{8.7.3}{Weierstrass Function}
 There exists a continuous function $W:\mathbb R\to\mathbb R$ that is differentiable at no
-point.
+point. This is an advanced separation result beyond Rudin Chapter~5.
 \end{Obj}
 
 \PrfRef{8.7.3}{Quoted Advanced Result.}{This theorem is stated as part of the regularity
@@ -803,13 +806,14 @@ forcing
 \[
   \left|\frac{f^{(n)}(\xi)}{n!}(t-\alpha)^n\right|\longrightarrow0,
 \]
-then the Taylor polynomials converge back to $f$ near $\alpha$.
+then the Taylor polynomials converge back to $f$ near $\alpha$. Compare the finite
+Lagrange-remainder control in \R{5.15}.
 \end{ObjL}
 
 \begin{Obj}{Theorem}{8.7.6}{Holomorphic functions are analytic}
 Let $U\subseteq\mathbb C$ be open. If $f:U\to\mathbb C$ is complex differentiable at every
 point of $U$, then $f$ is complex analytic: near each point of $U$, it is represented by a
-convergent power series.
+convergent power series. This complex-analysis theorem is beyond Rudin Chapter~5.
 \end{Obj}
 
 \PrfRef{8.7.6}{Quoted Theorem from Complex Analysis.}{The result is recorded to contrast
@@ -820,7 +824,8 @@ Over $\mathbb R$, the classes $C^1,C^2,\ldots,C^\infty,C^\omega$ do not collapse
 $\mathbb C$, the hypothesis is not ordinary real differentiability of a map
 $\mathbb R^2\to\mathbb R^2$; it is complex differentiability on an open set, a much more rigid
 condition. Under that holomorphic hypothesis, one derivative already forces local power-series
-representation.
+representation. This is the contrast with Rudin's finite Taylor theorem \R{5.15} and beyond the
+real-variable scope of Chapter~5.
 \end{ObjL}
 
 % per-lecture Index of Objects -- standalone compile only; the book uses the master index.

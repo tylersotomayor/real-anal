@@ -31,6 +31,7 @@ topological operation: preimages of open sets are open, compositions are continu
 sets have compact images, connected sets have connected images, and the classical extreme-value
 and intermediate-value theorems become consequences. The lecture closes with homeomorphisms and
 the compactness theorem that upgrades pointwise continuity to uniform continuity.
+The companion text is Rudin, Chapter~4, especially \R{4.1}--\R{4.26}.
 
 \clearpage
 % ============================================================
@@ -42,6 +43,8 @@ $x,y\in[a,b]$ such that
 \[
   f(x)\le f(z)\le f(y)\qquad\text{for every }z\in[a,b].
 \]
+This is the interval case of Rudin's extreme-value theorem (\R{4.16}); the proof is deferred
+until compactness of images is available in \xref{7.5.2}.
 \end{Obj}
 
 \begin{Fig}{7.1.2}{The calculus picture of extrema}{A continuous real-valued function on a
@@ -76,12 +79,13 @@ $\lim_{n\to\infty}p_n=p$ in the $\eps$--$N$ sense. A sequence is simply a functi
 \[
   f:\mathbb N\to X,\qquad n\mapsto p_n,
 \]
-and asks what happens as $n$ gets large.
+and asks what happens as $n$ gets large (cf.\ \R{2.7}, \R{3.1}).
 \end{ObjL}
 
 \begin{Obj}{Definition}{7.1.4}{Function limit in metric spaces}
 Let $(X,d_X)$ and $(Y,d_Y)$ be metric spaces, let $E\subseteq X$, let $p$ be a cluster point of
-$E$, and let $f:E\to Y$. We say that the \emph{limit of $f$ as $x\to p$ is $q$} if for every
+$E$, and let $f:E\to Y$. We say that the \emph{limit of $f$ as $x\to p$ is $q$}
+(\R{4.1}) if for every
 $\eps>0$ there exists $\delta_{p,\eps}>0$ such that
 \[
   0<d_X(x,p)<\delta_{p,\eps}
@@ -140,8 +144,9 @@ cluster point of $E$. Then
   f(x_n)\to q
   \ \text{for every sequence } \{x_n\}\subseteq E\setminus\{p\} \text{ with } x_n\to p .
 \]
+This is Rudin's sequential characterization of function limits (\R{4.2}).
 \end{Obj}
-\begin{Prf}{7.1.6}{Proof by the $\eps$--$\delta$ Definition and Its Contrapositive.}{[A2$+$A11]\quad use $\delta_n=1/n$ in the reverse direction.}
+\begin{Prf}{7.1.6}{Proof by the $\eps$--$\delta$ Definition and Its Contrapositive.}{[A2$+$A11]\quad cf.\ \R{4.2}; use $\delta_n=1/n$ in the reverse direction.}
 \item Suppose $\lim_{x\to p}f(x)=q$ and let $\{x_n\}\subseteq E\setminus\{p\}$ satisfy $x_n\to p$.
   Given $\eps>0$, choose $\delta>0$ such that
   \[
@@ -167,7 +172,7 @@ statement, prove $A\Rightarrow B$ and $\neg A\Rightarrow\neg B$.
 \sub{7.2}{Continuity and composition}
 
 \begin{Obj}{Definition}{7.2.1}{Continuity at a point}
-Let $f:E\to Y$ and let $p\in E$. The function $f$ is \emph{continuous at $p$} if
+Let $f:E\to Y$ and let $p\in E$. The function $f$ is \emph{continuous at $p$} (\R{4.5}) if
 \[
   \lim_{x\to p}f(x)=f(p).
 \]
@@ -178,24 +183,25 @@ Equivalently, for every $\eps>0$ there exists $\delta_{\eps,p}>0$ such that
   d_Y\bigl(f(x),f(p)\bigr)<\eps .
 \]
 For continuity the ball around $p$ is not punctured: the point $x=p$ is allowed, and the limit
-value is required to be exactly $f(p)$.
+value is required to be exactly $f(p)$ (cf.\ \R{4.6} when $p$ is a cluster point).
 \end{Obj}
 
 \begin{Obj}{Definition}{7.2.2}{Continuity on a set}
-A function $f:E\to Y$ is \emph{continuous on $E$} if it is continuous at every $p\in E$.
+A function $f:E\to Y$ is \emph{continuous on $E$} if it is continuous at every $p\in E$
+(\R{4.5}).
 \end{Obj}
 
 \begin{ObjL}{Remark}{7.2.3}{Isolated points}
 If $p$ is an isolated point of $E$, then $f$ is continuous at $p$ vacuously: for a sufficiently
-small ball, there are no points of $E$ near $p$ except $p$ itself.
+small ball, there are no points of $E$ near $p$ except $p$ itself (cf.\ \R{4.5}).
 \end{ObjL}
 
 \begin{Obj}{Proposition}{7.2.4}{Composition of continuous functions}
 If $f:X\to Y$ is continuous at $x$ and $g:Y\to Z$ is continuous at $f(x)$, then
 $g\circ f:X\to Z$ is continuous at $x$. Consequently, the composition of continuous functions is
-continuous.
+continuous (\R{4.7}).
 \end{Obj}
-\begin{Prf}{7.2.4}{Proof by an $\eps$--$\eta$--$\delta$ Chase.}{[A3]}
+\begin{Prf}{7.2.4}{Proof by an $\eps$--$\eta$--$\delta$ Chase.}{[A3]\quad cf.\ \R{4.7}.}
 \item Let $\eps>0$. Since $g$ is continuous at $f(x)$, there exists $\eta>0$ such that
   \[
     d_Y(y,f(x))<\eta
@@ -255,6 +261,7 @@ The sequential criterion gives the same result at a glance:
   \quad\Longrightarrow\quad
   g(f(x_n))\to g(f(x)).
 \]
+This is the sequential version of \R{4.7}, using \R{4.2}.
 \end{ObjL}
 
 % ============================================================
@@ -265,14 +272,16 @@ The constant function $f(x)\equiv c$ is continuous: given $\eps>0$, every value 
 lies in $(c-\eps,c+\eps)$, so any $\delta>0$ works. The identity $f(x)=x$ is continuous by taking
 $\delta=\eps$. Building from constants and the identity through the algebra of limits and
 composition, every polynomial is continuous, and every rational function $p(x)/q(x)$ is
-continuous where $q(x)\ne0$.
+continuous where $q(x)\ne0$ (cf.\ \R{4.9}--\R{4.11}).
 \end{ObjL}
 
 \begin{Obj}{Proposition}{7.3.2}{The reciprocal is continuous on $(0,\infty)$}
 The function $f(t)=1/t$ is continuous on $(0,\infty)$, but the required $\delta$ depends on both
 the point $x$ and $\eps$.
+This is a concrete $\eps$--$\delta$ proof of the reciprocal case covered abstractly by
+\R{4.9}.
 \end{Obj}
-\begin{Prf}{7.3.2}{Direct $\eps$--$\delta$ Proof for the Reciprocal.}{[A3]\quad the point-dependence is the point of the example.}
+\begin{Prf}{7.3.2}{Direct $\eps$--$\delta$ Proof for the Reciprocal.}{[A3]\quad cf.\ \R{4.9}; the point-dependence is the point of the example.}
 \item Fix $x>0$ and $\eps>0$. If $|t-x|<\delta$, then
   \[
     \left|\frac1t-\frac1x\right|=\frac{|t-x|}{tx}.
@@ -318,7 +327,7 @@ flat.}
 \begin{ObjL}{Remark}{7.3.4}{Target and domain roles}
 The $\eps$ always measures closeness in the target $Y$; the $\delta$ always measures closeness in
 the domain $X$. In \xref{7.3.2} the roles do not swap. Only the size of $\delta$ changes with the
-base point.
+base point (cf.\ \R{4.5}--\R{4.8}).
 \end{ObjL}
 
 \begin{ObjL}{Remark}{7.3.5}{Power series and familiar functions}
@@ -328,7 +337,7 @@ Power series define continuous functions inside their radius of convergence. In 
 \]
 is continuous, and similarly $\sin x$, $\cos x$, $\tan x$, and the other familiar functions are
 continuous on their natural domains. Compare the radius-of-convergence discussion in
-\xrefL{6.6.11}.
+\xrefL{6.6.11} and Rudin's power-series radius theorem \R{3.39}.
 \end{ObjL}
 
 \begin{ObjL}{Example}{7.3.6}{Standard discontinuities}
@@ -341,6 +350,7 @@ The floor function $\lfloor x\rfloor$ is discontinuous at each integer. The piec
   \end{cases}
 \]
 is discontinuous at $0$, since $\lim_{x\to0^+}f(x)=1$ while $\lim_{x\to0^-}f(x)=0$.
+Compare Rudin's catalogue of discontinuity examples in \R{4.27}.
 \end{ObjL}
 
 \begin{Obj}{Definition}{7.3.7}{Type I and Type II discontinuities}
@@ -351,6 +361,7 @@ For a real function discontinuous at $x_0$, the one-sided limits classify the di
   \item Type II: at least one one-sided limit fails to exist. This is often called an
         essential discontinuity.
 \end{itemize}
+This matches Rudin's first-kind/second-kind terminology (\R{4.25}--\R{4.26}).
 \end{Obj}
 
 \begin{Fig}{7.3.8}{Type I discontinuities}{A jump has different one-sided limits; a removable
@@ -390,7 +401,7 @@ The function
   \end{cases}
 \]
 has no limit at $0$. Near $0$ the graph oscillates infinitely often between $-1$ and $1$; for
-different sequences $x_n\to0$, the values $f(x_n)$ can approach different limits.
+different sequences $x_n\to0$, the values $f(x_n)$ can approach different limits (cf.\ \R{4.27}).
 \end{ObjL}
 
 \begin{Fig}{7.3.10}{A Type II discontinuity}{The graph of $\sin(1/x)$ oscillates indefinitely
@@ -414,8 +425,9 @@ near $0$, so no single limiting value can govern all approaches to $0$.}
 \begin{Obj}{Proposition}{7.4.1}{Sequential characterization of continuity}
 A function $f:E\to Y$ is continuous at $p\in E$ if and only if for every sequence
 $\{x_n\}\subseteq E$ with $x_n\to p$, one has $f(x_n)\to f(p)$.
+This specializes Rudin's sequential limit criterion to continuity (cf.\ \R{4.2}, \R{4.6}).
 \end{Obj}
-\begin{Prf}{7.4.1}{Proof by Specializing the Limit Criterion.}{[A2$+$A11]\quad the reverse direction again uses $\delta_n=1/n$.}
+\begin{Prf}{7.4.1}{Proof by Specializing the Limit Criterion.}{[A2$+$A11]\quad cf.\ \R{4.2}; the reverse direction again uses $\delta_n=1/n$.}
 \item If $f$ is continuous at $p$, apply \xref{7.1.6} with $q=f(p)$; the non-punctured case causes
   no issue, since a sequence equal to $p$ along a subsequence already has image equal to $f(p)$
   along that subsequence.
@@ -437,6 +449,8 @@ $V\subseteq Y$ containing $f(p)$, there is an open set $U\subseteq X$ containing
   \qquad\text{equivalently}\qquad
   U\subseteq f^{-1}(V).
 \]
+This is the pointwise neighbourhood form underlying Rudin's global open-set characterization
+(\R{4.8}).
 \end{Obj}
 \begin{Prf}{7.4.2}{Proof by Translating Balls into Open Neighbourhoods.}{[A3]}
 \item If $f$ is continuous at $p$ and $V\subseteq Y$ is open with $f(p)\in V$, choose
@@ -456,8 +470,9 @@ $V\subseteq Y$ containing $f(p)$, there is an open set $U\subseteq X$ containing
 \begin{Obj}{Proposition}{7.4.3}{Global open-set characterization of continuity}
 A function $f:X\to Y$ is continuous on $X$ if and only if $f^{-1}(V)$ is open in $X$ for every
 open set $V\subseteq Y$.
+This is Rudin's open-set characterization of continuity (\R{4.8}).
 \end{Obj}
-\begin{Prf}{7.4.3}{Proof by Pulling Back Open Balls.}{[Direct]}
+\begin{Prf}{7.4.3}{Proof by Pulling Back Open Balls.}{[Direct]\quad cf.\ \R{4.8}.}
 \item Suppose $f$ is continuous and let $V\subseteq Y$ be open. To show $f^{-1}(V)$ is open, take
   $x\in f^{-1}(V)$. Since $V$ is open, there is $\eps>0$ with
   $B_\eps(f(x))\subseteq V$. Continuity at $x$ gives $\delta>0$ with
@@ -477,8 +492,9 @@ open set $V\subseteq Y$.
 
 \begin{Obj}{Proposition}{7.4.4}{Composition via preimages}
 The composition of continuous functions is continuous.
+This is a second proof of \R{4.7}, using \R{4.8}.
 \end{Obj}
-\begin{Prf}{7.4.4}{Proof by the Open-Set Characterization.}{[Direct]\quad a second proof of \xref{7.2.4}.}
+\begin{Prf}{7.4.4}{Proof by the Open-Set Characterization.}{[Direct]\quad a second proof of \xref{7.2.4}; cf.\ \R{4.8}.}
 \item Let $X\xrightarrow{\,f\,}Y\xrightarrow{\,g\,}Z$ with $f$ and $g$ continuous, and let
   $V\subseteq Z$ be open.
 \item Since $g$ is continuous, $g^{-1}(V)$ is open in $Y$. Since $f$ is continuous,
@@ -496,7 +512,7 @@ images, commute exactly with composition.
 \begin{ObjL}{Remark}{7.4.5}{Pugh's moral}
 The sequential criterion is often the easiest way to check continuity at a glance: to test
 continuity at $p$, push every sequence $x_n\to p$ through the function and see whether
-$f(x_n)\to f(p)$.
+$f(x_n)\to f(p)$ (cf.\ \R{4.2}).
 \end{ObjL}
 
 % ============================================================
@@ -507,9 +523,9 @@ If $f:X\to Y$ is continuous and $X$ is compact, then the image
 \[
   f(X)=\{y\in Y:\exists\,x\in X\text{ with }f(x)=y\}
 \]
-is compact in $Y$.
+is compact in $Y$ (\R{4.14}).
 \end{Obj}
-\begin{Prf}{7.5.1}{Proof by Pulling Back an Open Cover.}{[A6]\quad uses \xref{7.4.3}.}
+\begin{Prf}{7.5.1}{Proof by Pulling Back an Open Cover.}{[A6]\quad cf.\ \R{4.14}; uses \xref{7.4.3}.}
 \item Let $\{V_\alpha\}$ be an open cover of $f(X)$, with each $V_\alpha$ open in $Y$.
   Since $f$ is continuous, each $f^{-1}(V_\alpha)$ is open in $X$.
 \item These preimages cover $X$:
@@ -533,8 +549,10 @@ $m,M\in[a,b]$ such that
 \[
   f(m)\le f(x)\le f(M)\qquad\text{for all }x\in[a,b].
 \]
+This is Rudin's extreme-value theorem for real-valued continuous functions on compact
+domains (\R{4.16}).
 \end{Obj}
-\begin{Prf}{7.5.2}{Proof by Compactness of the Image.}{[A6$+$A5]\quad uses \xref{7.5.1} and Heine--Borel.}
+\begin{Prf}{7.5.2}{Proof by Compactness of the Image.}{[A6$+$A5]\quad cf.\ \R{4.16}; uses \xref{7.5.1} and Heine--Borel.}
 \item The interval $[a,b]$ is compact, so $f([a,b])$ is compact by \xref{7.5.1}. By
   Heine--Borel in $\mathbb R$, it is closed and bounded.
 \item Since $f([a,b])$ is bounded, the real numbers
@@ -562,13 +580,13 @@ $X=A\cup B$ where
 \]
 Such a decomposition is called a \emph{separation}. Equivalently, the only clopen subsets of
 $X$ are $\emptyset$ and $X$ itself. In $\mathbb R$, the connected subsets are exactly the
-intervals.
+intervals (cf.\ \R{2.45}, \R{2.47}).
 \end{Obj}
 
 \begin{Obj}{Theorem}{7.5.4}{Continuous image of a connected set}
-If $X$ is connected and $f:X\to Y$ is continuous, then $f(X)$ is connected.
+If $X$ is connected and $f:X\to Y$ is continuous, then $f(X)$ is connected (\R{4.22}).
 \end{Obj}
-\begin{Prf}{7.5.4}{Proof by Pulling Back a Separation.}{[A9]\quad uses \xref{7.4.3}.}
+\begin{Prf}{7.5.4}{Proof by Pulling Back a Separation.}{[A9]\quad cf.\ \R{4.22}; uses \xref{7.4.3}.}
 \item Suppose for contradiction that $f(X)=A\cup B$ is a separation of $f(X)$: the sets
   $A$ and $B$ are nonempty, disjoint, and open in the subspace $f(X)$.
 \item Then $f^{-1}(A)$ and $f^{-1}(B)$ cover $X$, are disjoint, and are open in $X$ by continuity.
@@ -581,8 +599,9 @@ If $X$ is connected and $f:X\to Y$ is continuous, then $f(X)$ is connected.
 \begin{Obj}{Corollary}{7.5.5}{Intermediate value theorem}
 Let $f:[a,b]\to\mathbb R$ be continuous and assume, without loss of generality, that
 $f(a)\le f(b)$. Then for every $y\in[f(a),f(b)]$ there exists $x\in[a,b]$ with $f(x)=y$.
+This is the intermediate-value theorem (\R{4.23}).
 \end{Obj}
-\begin{Prf}{7.5.5}{Proof by Connectedness of the Image.}{[Direct]\quad compactness gives closed and bounded; connectedness gives an interval.}
+\begin{Prf}{7.5.5}{Proof by Connectedness of the Image.}{[Direct]\quad cf.\ \R{4.23}; compactness gives closed and bounded; connectedness gives an interval.}
 \item The interval $[a,b]$ is connected, so $f([a,b])$ is connected by \xref{7.5.4}. Since connected
   subsets of $\mathbb R$ are intervals, $f([a,b])$ is an interval.
 \item This interval contains $f(a)$ and $f(b)$, and therefore contains every
@@ -601,14 +620,15 @@ them that preserves the open-set structure in both directions.
 \begin{Obj}{Definition}{7.6.1}{Homeomorphism}
 A \emph{homeomorphism} is a continuous bijection $f:X\to Y$ whose inverse
 $f^{-1}:Y\to X$ is also continuous. If such an $f$ exists, then $X$ and $Y$ are
-\emph{homeomorphic}.
+\emph{homeomorphic}. Rudin uses the compact-domain theorem for continuous bijections in
+\R{4.17}.
 \end{Obj}
 
 \begin{Obj}{Theorem}{7.6.2}{A continuous bijection from a compact domain is a homeomorphism}
 Let $f:X\to Y$ be continuous and bijective. If $X$ is compact, then $f^{-1}:Y\to X$ is
-continuous, so $f$ is a homeomorphism.
+continuous, so $f$ is a homeomorphism (\R{4.17}).
 \end{Obj}
-\begin{Prf}{7.6.2}{Proof by Showing the Inverse Pulls Back Opens to Opens.}{[A6]\quad compactness makes continuous images of closed sets closed.}
+\begin{Prf}{7.6.2}{Proof by Showing the Inverse Pulls Back Opens to Opens.}{[A6]\quad cf.\ \R{4.17}; compactness makes continuous images of closed sets closed.}
 \item To prove $f^{-1}$ is continuous, it is enough to show that for every open
   $V\subseteq X$, the preimage of $V$ under $f^{-1}$ is open in $Y$. Since $f$ is a bijection,
   \[
@@ -632,7 +652,7 @@ Let
 \]
 This map is a continuous bijection onto the unit circle, but $[0,2\pi)$ is not compact and
 $\varphi^{-1}$ is not continuous: points on $S^1$ approaching $(1,0)$ from the fourth quadrant
-have arguments tending to $2\pi$, while $\varphi^{-1}(1,0)=0$.
+have arguments tending to $2\pi$, while $\varphi^{-1}(1,0)=0$ (cf.\ \R{4.21}).
 \end{Obj}
 \fails{the claim that every continuous bijection is automatically a homeomorphism.}
 
@@ -640,20 +660,21 @@ have arguments tending to $2\pi$, while $\varphi^{-1}(1,0)=0$.
 The proof of \xref{7.6.2} says that $f^{-1}$ is continuous exactly when $f$ carries open sets to
 open sets; equivalently, it is enough here that $f$ carry closed sets to closed sets. On a compact
 domain this is automatic: closed subsets of $X$ are compact, continuous images of compact sets are
-compact, and compact subsets of a metric space are closed.
+compact, and compact subsets of a metric space are closed (cf.\ \R{4.17}).
 \end{ObjL}
 
 \begin{ObjL}{Remark}{7.6.5}{Recognising homeomorphic spaces}
 The basic homeomorphism questions are: given metric spaces $M$ and $N$, are they homeomorphic, and
 what are the continuous maps $M\to N$? Typical comparison examples include the unit circle, a
-trefoil knot, the perimeter of a square, the $2$-torus, $[0,1]$, and the unit disc.
+trefoil knot, the perimeter of a square, the $2$-torus, $[0,1]$, and the unit disc. Compare the
+compact-domain homeomorphism theorem \R{4.17} and circle example \R{4.21}.
 \end{ObjL}
 
 % ============================================================
 \sub{7.7}{Uniform continuity}
 
 \begin{Obj}{Definition}{7.7.1}{Uniform continuity}
-A function $f:X\to Y$ is \emph{uniformly continuous} on $X$ if for every $\eps>0$ there exists
+A function $f:X\to Y$ is \emph{uniformly continuous} on $X$ (\R{4.18}) if for every $\eps>0$ there exists
 $\delta_\eps>0$ such that
 \[
   d_X(p,q)<\delta_\eps
@@ -665,9 +686,9 @@ point.
 \end{Obj}
 
 \begin{Obj}{Theorem}{7.7.2}{Compactness gives uniform continuity}
-If $X$ is compact and $f:X\to Y$ is continuous, then $f$ is uniformly continuous.
+If $X$ is compact and $f:X\to Y$ is continuous, then $f$ is uniformly continuous (\R{4.19}).
 \end{Obj}
-\begin{Prf}{7.7.2}{Proof by a Finite Half-Radius Cover.}{[A6$+$A4]\quad the half-radius leaves room for nearby points.}
+\begin{Prf}{7.7.2}{Proof by a Finite Half-Radius Cover.}{[A6$+$A4]\quad cf.\ \R{4.19}; the half-radius leaves room for nearby points.}
 \item Let $\eps>0$. Since $f$ is continuous at each $p\in X$, choose $\delta(p)>0$ such that
   \[
     d_X(p,q)<\delta(p)
@@ -726,7 +747,7 @@ explicit continuity estimate from \xref{7.3.2},
 \]
 Thus no single $\delta$ works for all $x>0$. The domain $(0,\infty)$ is not compact, so
 \xref{7.7.2} does not apply. On a compact interval $[a,b]$ with $a>0$, the same function is
-uniformly continuous.
+uniformly continuous. Compare Rudin's noncompact-domain counterexamples in \R{4.20}.
 \end{Obj}
 \fails{the claim that ordinary continuity on a noncompact domain implies uniform continuity.}
 
@@ -734,7 +755,7 @@ uniformly continuous.
 Compactness upgrades continuity in three recurring ways: a continuous image of a compact set is
 compact (\xref{7.5.1}); a continuous bijection from a compact domain is a homeomorphism
 (\xref{7.6.2}); and a continuous map from a compact domain is uniformly continuous
-(\xref{7.7.2}).
+(\xref{7.7.2}). These are \R{4.14}, \R{4.17}, and \R{4.19}.
 \end{ObjL}
 
 % per-lecture Index of Objects -- standalone compile only; the book uses the master index.

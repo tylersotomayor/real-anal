@@ -27,6 +27,7 @@ sets, the clean duality $E$ open $\iff E^c$ closed, how openness is \emph{relati
 and finally \emph{compactness}: the open-cover/finite-subcover property that, unlike open or closed,
 is \emph{intrinsic} to a set. One method recurs throughout: to show a set is open, write it as a
 union of balls centred at its own points.
+The companion text is Rudin, Chapter~2, especially \R{2.18}--\R{2.33}.
 
 \clearpage
 % ============================================================
@@ -38,6 +39,7 @@ Let $A$ be an index set and $V_\alpha\subseteq X$ for each $\alpha\in A$. The \e
 \[ \bigcup_{\alpha\in A}V_\alpha=\{x:x\in V_\alpha\text{ for some }\alpha\},\qquad
    \bigcap_{\alpha\in A}V_\alpha=\{x:x\in V_\alpha\text{ for every }\alpha\}; \]
 in particular $p\in\bigcap_{\alpha}V_\alpha \iff p\in V_\alpha$ for all $\alpha$.
+This is the indexed-family notation of \R{2.9}.
 \end{Obj}
 
 \begin{Obj}{Proposition}{3.1.2}{Unions and finite intersections of open sets}
@@ -60,11 +62,12 @@ Let $(X,d)$ be a metric space with $V_\alpha\subseteq X$ open for every $\alpha\
 The bound $r=\min r_i$ becomes an infimum that may vanish. In $(\mathbb R,|\cdot|)$ the open
 intervals $I_n=(-\tfrac1n,\tfrac1n)$ satisfy
 \[ \bigcap_{n\ge1} I_n=\{0\}, \]
-which is not open in $\mathbb R$. So "finite" in \xref{3.1.2}(2) cannot be dropped.
+which is not open in $\mathbb R$. So "finite" in \xref{3.1.2}(2) cannot be dropped
+(cf.\ \R{2.24}).
 \end{ObjL}
 
 \begin{Obj}{Proposition}{3.1.4}{$X$ and $\emptyset$ are open}
-In any metric space $(X,d)$, both $X$ and $\emptyset$ are open in $X$.
+In any metric space $(X,d)$, both $X$ and $\emptyset$ are open in $X$ (cf.\ \R{2.24}).
 \end{Obj}
 \begin{Prf}{3.1.4}{Direct Proof that $X$ and $\emptyset$ Are Open, the Second Case Vacuously.}{[Direct]}
 \item For any $p\in X$ and any $r>0$, $B_r(p)\subseteq X$, so every point of $X$ is interior: $X$ is open.
@@ -73,6 +76,7 @@ In any metric space $(X,d)$, both $X$ and $\emptyset$ are open in $X$.
 
 \begin{Obj}{Proposition}{3.1.5}{Open sets are exactly unions of open balls}
 A set $V\subseteq X$ is open if and only if it is a union of open balls.
+This is the union-of-neighbourhoods viewpoint behind \R{2.19} and \R{2.24}.
 \end{Obj}
 \begin{Prf}{3.1.5}{Constructive Proof that Open Sets Are Exactly Unions of Open Balls.}{[Constr]\quad balls are open by \xrefL{2.3.5}; the converse uses \xref{3.1.2}.}
 \item If $V$ is open, each $p\in V$ has an $r_p>0$ with $B_{r_p}(p)\subseteq V$. Every ball lies in
@@ -98,7 +102,7 @@ $q\in E$ with $q\in B_r(p)$ and $q\neq p$. Consequently a finite set has no clus
 
 \begin{Obj}{Definition}{3.2.2}{Isolated point}
 A point $p\in E$ is an \emph{isolated point} of $E$ if some ball meets $E$ only at $p$: there is
-$r>0$ with $B_r(p)\cap E=\{p\}$.
+$r>0$ with $B_r(p)\cap E=\{p\}$ (\R{2.18}).
 \end{Obj}
 
 \begin{Fig}{3.2.3}{Isolated versus cluster points}{Left: $p$ is \emph{isolated} --- a ball meets $E$ only at $p$. Right: $p$ is a \emph{cluster point} --- every ball, however small, meets $E$ away from $p$ (\xref{3.2.1}, \xref{3.2.2}).}
@@ -124,7 +128,7 @@ $r>0$ with $B_r(p)\cap E=\{p\}$.
 \begin{Obj}{Definition}{3.2.4}{Closed set}
 $E$ is \emph{closed in $X$} if it contains all of its cluster points: whenever $p\in X$ is a cluster
 point of $E$, $p\in E$. To prove $E$ is \emph{not} closed, exhibit one cluster point of $E$ lying
-outside $E$.
+outside $E$ (\R{2.18}).
 \end{Obj}
 
 \begin{ObjL}{Example}{3.2.5}{Cluster points and closedness}
@@ -140,6 +144,8 @@ In $(\mathbb R,|\cdot|)$:
   \item Every real is a cluster point of $\mathbb Q$ (by density, \xrefL{1.7.2}); $\mathbb Q$ is far
     from closed.
 \end{itemize}
+Compare Rudin's limit-point and closed-set definitions in \R{2.18} and the nearby limit-point
+facts in \R{2.20}.
 \end{ObjL}
 
 \begin{Fig}{3.2.6}{The cluster point of $\{1/n\}$}{The points $1/n$ bunch arbitrarily close to $0$, so every ball about $0$ meets $E=\{1/n\}$; yet $0\notin E$, so $E$ is not closed (\xref{3.2.5}).}
@@ -157,7 +163,7 @@ In $(\mathbb R,|\cdot|)$:
 "Closed" is relative: say "$E$ is closed \emph{in} $X$." And open and closed are not opposites---in
 $(\mathbb R,|\cdot|)$ a set may be open, closed, neither, or both (here $p<q$). The interval $(p,q)$ is open;
 $[p,q]$ is closed; $(p,q]$ is neither; $\mathbb Q$ is neither; and $\emptyset$ and $X$ are
-\emph{both} ("clopen").
+\emph{both} ("clopen"). Compare the complement duality and set algebra in \R{2.23}--\R{2.24}.
 \end{ObjL}
 
 \begin{Obj}{Theorem}{3.2.8}{$E$ open $\iff E^c$ closed}
@@ -233,7 +239,7 @@ $B_r^Y(p)=\{x\in Y:d(x,p)<r\}=B_r(p)\cap Y$.)
 
 \begin{ObjL}{Remark}{3.3.3}{Openness by balls at its own points}
 The recurring method, used in \xref{3.1.5} and \xref{3.3.1}: to prove a set is open, write it as a
-union of open balls centred at its own points.
+union of open balls centred at its own points (cf.\ \R{2.19}, \R{2.30}).
 \end{ObjL}
 
 % ============================================================
@@ -247,6 +253,7 @@ $\alpha_1,\dots,\alpha_n$ with $K\subseteq V_{\alpha_1}\cup\cdots\cup V_{\alpha_
 candidate "closed and bounded" depends on the ambient space and the metric; the open-cover
 definition is \emph{intrinsic} (\xref{3.4.4}) and survives passage to continuous images, which is
 why it is the right notion.}
+This combines Rudin's open-cover definition \R{2.31} and compactness definition \R{2.32}.
 \end{Obj}
 
 \begin{ObjL}{Example}{3.4.2}{Two non-compact sets}
@@ -257,6 +264,8 @@ In $(\mathbb R,|\cdot|)$:
   \item $(-1,1)$ is not compact: $V_n=(-1+\tfrac1n,1-\tfrac1n)$ ($n\ge2$) cover $(-1,1)$, yet any
     finite subfamily is contained in the largest $V_N$, missing points near $\pm1$.
 \end{itemize}
+These are direct open-cover failures for Rudin's compactness definition \R{2.32}; compare the
+Heine--Borel theorem \R{2.41}.
 \end{ObjL}
 
 \begin{Fig}{3.4.3}{An open cover with no finite subcover}{The intervals $V_n=(-1+\tfrac1n,1-\tfrac1n)$ cover $(-1,1)$, but each stops short of $\pm1$; a finite subfamily reaches only the largest $V_N$ --- so $(-1,1)$ is not compact (\xref{3.4.2}).}
