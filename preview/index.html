@@ -12,70 +12,80 @@
   :root{--navy:#184890;--navy-dk:#102f5f;--cublue:#b9d9eb;--ink:#16191d;--muted:#5b6168;--rule:#e5e8ec;--bg:#f6f8fa;--card:#fff}
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--ink);font-family:"Inter",-apple-system,BlinkMacSystemFont,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
-  .wrap{max-width:1080px;margin:0 auto;padding:48px 24px 80px}
-  header{border-bottom:1px solid var(--rule);padding-bottom:22px;margin-bottom:34px}
+  .wrap{max-width:1000px;margin:0 auto;padding:48px 24px 80px}
+  header{border-bottom:1px solid var(--rule);padding-bottom:22px;margin-bottom:30px}
   .kick{font-size:12.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--navy);font-weight:700;margin:0 0 8px}
   h1{font-size:28px;font-weight:800;letter-spacing:-.02em;margin:0 0 8px;color:var(--navy-dk)}
-  .lede{color:var(--muted);font-size:15px;margin:0;max-width:60ch}
+  .lede{color:var(--muted);font-size:15px;margin:0;max-width:64ch}
   .lede a{color:var(--navy);text-decoration:none;font-weight:600}.lede a:hover{text-decoration:underline}
-  .note{display:inline-block;margin-top:12px;font-size:12.5px;color:var(--navy);background:#eaf3f9;border:1px solid var(--cublue);border-radius:999px;padding:5px 12px;font-weight:500}
-  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-  @media(max-width:820px){.grid{grid-template-columns:1fr}}
+  .news{margin:18px 0 6px;display:flex;gap:10px;flex-wrap:wrap}
+  .tagpill{font-size:12px;color:var(--navy);background:#eaf3f9;border:1px solid var(--cublue);border-radius:999px;padding:5px 12px;font-weight:500}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:8px}
+  @media(max-width:760px){.grid{grid-template-columns:1fr}}
   .card{background:var(--card);border:1px solid var(--rule);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .15s,transform .1s,border-color .15s;text-decoration:none;color:inherit}
-  .card:hover{border-color:var(--cublue);box-shadow:0 12px 30px -14px rgba(16,47,95,.3);transform:translateY(-2px)}
-  .shot{height:300px;overflow:hidden;border-bottom:1px solid var(--rule);background:#fff}
+  .card:hover{border-color:var(--cublue);box-shadow:0 14px 34px -16px rgba(16,47,95,.32);transform:translateY(-2px)}
+  .shot{height:330px;overflow:hidden;border-bottom:1px solid var(--rule);background:#fff}
   .shot img{width:100%;display:block;object-fit:cover;object-position:top}
-  .body{padding:18px 18px 20px}
+  .body{padding:18px 20px 22px}
   .tag{font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--navy)}
-  .name{font-size:19px;font-weight:700;margin:3px 0 6px;color:var(--navy-dk)}
-  .desc{font-size:13.5px;color:var(--muted);margin:0 0 14px;min-height:54px}
+  .name{font-size:21px;font-weight:700;margin:3px 0 6px;color:var(--navy-dk)}
+  .desc{font-size:14px;color:var(--muted);margin:0 0 14px;min-height:42px}
   .open{font-size:14px;font-weight:700;color:var(--navy)}
   .star{display:inline-block;margin-left:6px;font-size:11px;color:#b8860b;font-weight:700;letter-spacing:.04em}
-  footer{margin-top:40px;color:var(--muted);font-size:13px}
+  .feature{margin:40px 0 0;background:var(--card);border:1px solid var(--rule);border-radius:14px;overflow:hidden}
+  .feature .cap{padding:18px 20px 4px}
+  .feature .cap .tag{color:var(--navy)}
+  .feature .cap h3{margin:4px 0 4px;font-size:18px;color:var(--navy-dk)}
+  .feature .cap p{margin:0 0 12px;color:var(--muted);font-size:13.5px;max-width:70ch}
+  .feature img{width:100%;display:block;border-top:1px solid var(--rule)}
+  footer{margin-top:38px;color:var(--muted);font-size:13px}
+  footer a{color:var(--navy);text-decoration:none;font-weight:500}footer a:hover{text-decoration:underline}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <p class="kick">Columbia | Mathematics &middot; MATH S4061</p>
-    <h1>Landing-page design previews</h1>
-    <p class="lede">Three directions for <em>Notes in Modern Analysis</em>, each built on the official Columbia Mathematics wordmark and palette. Click any card to open the full, interactive page. The live site at <a href="../">tylersotomayor.github.io/real-anal</a> is unchanged.</p>
-    <span class="note">Drafts &middot; not linked from the live page</span>
+    <p class="kick">Columbia | Mathematics &middot; MATH S4061 &middot; Round 2</p>
+    <h1>Direction B &mdash; header variations</h1>
+    <p class="lede">Two treatments of the design you picked. Both keep the Spectral serif and the crown wordmark, and both now add a <b>Problem Sets</b> section and <b>reveal each unit&rsquo;s topics when you hover</b>. Click a card to open the full, interactive page. The live site at <a href="../">tylersotomayor.github.io/real-anal</a> is unchanged.</p>
+    <div class="news">
+      <span class="tagpill">＋ Problem Sets section (Homework 1&ndash;3)</span>
+      <span class="tagpill">＋ Hover a row to preview its contents</span>
+    </div>
   </header>
 
   <div class="grid">
-    <a class="card" href="design-a.html">
-      <div class="shot"><img src="thumbs/design-a.png" alt="Design A preview"></div>
+    <a class="card" href="design-b1.html">
+      <div class="shot"><img src="thumbs/design-b1.png" alt="B1 blue-header preview"></div>
       <div class="body">
-        <div class="tag">Direction A</div>
-        <div class="name">Refined</div>
-        <p class="desc">The polished evolution of the current site &mdash; clean Inter sans, card layout, official Columbia blue. Familiar and crisp.</p>
+        <div class="tag">Variation B1</div>
+        <div class="name">Blue header</div>
+        <p class="desc">The white crown wordmark on a deep Columbia-blue band, then the serif content on white. Bolder, more branded.</p>
         <div class="open">Open full preview &rarr;</div>
       </div>
     </a>
 
-    <a class="card" href="design-b.html">
-      <div class="shot"><img src="thumbs/design-b.png" alt="Design B preview"></div>
+    <a class="card" href="design-b2.html">
+      <div class="shot"><img src="thumbs/design-b2.png" alt="B2 classic-header preview"></div>
       <div class="body">
-        <div class="tag">Direction B <span class="star">&#9733; recommended</span></div>
-        <div class="name">Institutional</div>
-        <p class="desc">Spectral serif, centered crown, thin blue rules &mdash; echoes the notes&rsquo; own PDF title page. Reads like a Columbia department publication.</p>
-        <div class="open">Open full preview &rarr;</div>
-      </div>
-    </a>
-
-    <a class="card" href="design-c.html">
-      <div class="shot"><img src="thumbs/design-c.png" alt="Design C preview"></div>
-      <div class="body">
-        <div class="tag">Direction C</div>
-        <div class="name">Editorial</div>
-        <p class="desc">A deep Columbia-blue hero with the white crown logo and large Space Grotesk numerals. Modern, bold, eye-catching.</p>
+        <div class="tag">Variation B2</div>
+        <div class="name">Classic header</div>
+        <p class="desc">The white, centered header you already liked &mdash; blue crown and rules &mdash; now with the new section and hover previews.</p>
         <div class="open">Open full preview &rarr;</div>
       </div>
     </a>
   </div>
 
-  <footer>Preview workspace &middot; pick a direction (or a hybrid) and it becomes the live page.</footer>
+  <div class="feature">
+    <div class="cap">
+      <div class="tag">New interaction</div>
+      <h3>Hover a lecture to preview its contents</h3>
+      <p>Each row reveals a panel with that unit&rsquo;s actual topics, pulled from the notes &mdash; shown here on Lecture&nbsp;1, Lecture&nbsp;7, and Homework&nbsp;2. (Open a preview and move your mouse over the rows to try it.)</p>
+    </div>
+    <img src="thumbs/design-b2-hover.png" alt="Hover-reveal demonstration">
+  </div>
+
+  <footer>Round 1 directions for reference: <a href="design-a.html">A — Refined</a> &middot; <a href="design-b.html">B — Institutional</a> &middot; <a href="design-c.html">C — Editorial</a>. &nbsp;Pick a header (or ask for tweaks) and it becomes the live page.</footer>
 </div>
 </body>
 </html>

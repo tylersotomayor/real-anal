@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Notes in Modern Analysis — B1 (Blue header)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#184890;--navy-dk:#102f5f;--cublue:#b9d9eb;--ink:#1c2024;--muted:#646a72;
+    --rule:#dfe3e8;--bg:#fdfdfb;--prevbg:#eef5fb}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Spectral",Georgia,serif;
+    line-height:1.62;-webkit-font-smoothing:antialiased}
+
+  .band{background:linear-gradient(160deg,#1c4f9c,var(--navy) 60%,var(--navy-dk));color:#fff;
+    text-align:center;padding:44px 26px 40px}
+  .band img{height:34px;width:auto;margin-bottom:26px}
+  .wrule{height:1px;background:rgba(255,255,255,.45);width:74%;max-width:430px;margin:0 auto}
+  .band h1{font-weight:600;font-size:39px;line-height:1.1;letter-spacing:.005em;margin:22px 0 10px}
+  .band .sub{font-style:italic;font-size:18px;color:#cfe1f4;margin:0 0 22px;font-weight:400}
+  .band .course{font-family:"Inter",sans-serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--cublue);font-weight:600;margin:20px 0 4px}
+  .band .byline{font-size:15px;color:#dce8f6;margin:0}
+
+  .wrap{max-width:720px;margin:0 auto;padding:8px 26px 84px}
+  .full{display:block;text-align:center;text-decoration:none;color:var(--navy-dk);
+    margin:34px auto 4px;padding:18px 24px;border:1.5px solid var(--navy);border-radius:4px;
+    max-width:440px;transition:background .15s,color .15s}
+  .full:hover{background:var(--navy);color:#fff}
+  .full .t{font-weight:600;font-size:18px}
+  .full .d{font-family:"Inter",sans-serif;font-size:12.5px;opacity:.82;margin-top:4px}
+
+  h2{text-align:center;font-family:"Inter",sans-serif;font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--muted);font-weight:600;margin:52px 0 4px}
+  .h2rule{height:1px;background:var(--rule);margin:0 0 4px}
+  .list{list-style:none;margin:0;padding:0}
+  .list li{border-bottom:1px solid var(--rule)}
+  a.row{display:grid;grid-template-columns:104px 1fr;gap:14px;align-items:baseline;
+    text-decoration:none;color:inherit;padding:15px 8px;transition:background .13s}
+  a.row:hover{background:#f3f7fc}
+  a.row:hover .ttl{color:var(--navy)}
+  .num{font-family:"Inter",sans-serif;font-size:12px;letter-spacing:.05em;text-transform:uppercase;
+    color:var(--muted);font-weight:600;white-space:nowrap}
+  .ttl{display:block;font-size:17px;line-height:1.4;font-weight:500;transition:color .14s}
+  .meta{display:block;font-family:"Inter",sans-serif;color:var(--muted);font-size:12.5px;margin-top:2px}
+  .prev{display:block;font-family:"Inter",sans-serif;font-size:12.5px;line-height:1.55;color:var(--navy);
+    background:var(--prevbg);border-left:2px solid var(--cublue);border-radius:0 5px 5px 0;
+    max-height:0;opacity:0;overflow:hidden;padding:0 12px;
+    transition:max-height .33s ease,opacity .26s ease,padding .33s ease,margin-top .33s ease}
+  a.row:hover .prev{max-height:120px;opacity:1;padding:9px 12px;margin-top:9px}
+  .prev .lab{font-weight:600;letter-spacing:.06em;text-transform:uppercase;font-size:10.5px;
+    color:var(--muted);margin-right:6px}
+
+  footer{text-align:center;margin-top:48px;padding-top:22px;border-top:1px solid var(--navy);
+    color:var(--muted);font-size:14px;font-style:italic}
+  footer .ln{font-family:"Inter",sans-serif;font-style:normal;font-size:12.5px;margin-top:7px}
+  footer a{color:var(--navy);text-decoration:none}footer a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+  <div class="band">
+    <img src="assets/cu-math-white.svg" alt="Columbia Mathematics">
+    <div class="wrule"></div>
+    <h1>Notes in Modern Analysis</h1>
+    <p class="sub">Based on the Lectures of Andre Carneiro</p>
+    <div class="wrule"></div>
+    <p class="course">MATH&nbsp;S4061 &middot; Introduction to Modern Analysis&nbsp;I &middot; Summer&nbsp;2026</p>
+    <p class="byline">Student notes by Tyler Sotomayor</p>
+  </div>
+
+  <div class="wrap">
+    <a class="full" href="https://tylersotomayor.github.io/real-anal/notes-in-modern-analysis.pdf">
+      <div class="t">Read the complete notes</div>
+      <div class="d">All lectures, problem sets, the course list of facts, and the index of objects (PDF)</div>
+    </a>
+
+    <h2>Lecture Notes</h2>
+    <div class="h2rule"></div>
+    <ul class="list">
+      <li><a class="row" href="https://tylersotomayor.github.io/real-anal/chapter-00.pdf"><span class="num">Chapter&nbsp;0</span><span><span class="ttl">Foundations: Logic, Sets, Functions, and the Craft of Proof</span><span class="meta">Course preliminaries</span><span class="prev"><span class="lab">In this unit</span>Logic &amp; quantifiers &middot; sets &middot; relations &amp; functions &middot; the craft of proof &middot; mathematical induction</span></span></a></li>
+      <li><a class="row" href="https://tylersotomayor.github.io/real-anal/lecture-01.pdf"><span class="num">Lecture&nbsp;1</span><span><span class="ttl">From the Naturals to the Reals: Induction, Ordered Fields, and Completeness</span><span class="meta">Tuesday, 26 May 2026</span><span class="prev"><span class="lab">In this lecture</span>Induction &middot; ordered fields &middot; why the rationals are not enough &middot; the supremum &middot; the real number system &middot; the Archimedean property &amp; density</span></span></a></li>
+      <li><a class="row" href="https://tylersotomayor.github.io/real-anal/lecture-02.pdf"><span class="num">Lecture&nbsp;2</span><span><span class="ttl">Counting the Infinite, and the Geometry of Distance: Countability and Metric Spaces</span><span class="meta">Thursday, 28 May 2026</span><span class="prev"><span class="lab">In this lecture</span>Countable &amp; uncountable sets &middot; metric spaces &middot; open sets and open balls</span></span></a></li>
+      <li><a class="row" href="https://tylersotomayor.github.io/real-anal/lecture-03.pdf"><span class="num">Lecture&nbsp;3</span><span><span class="ttl">The Topology of Metric Spaces: Open and Closed Sets, and Compactness</span><span class="meta">Tuesday, 2 June 2026</span><span class="prev"><span class="lab">In this lecture</span>The algebra of open sets &middot; limit points &amp; closed sets &middot; the subspace topology &middot; compactness</span></span></a></li>
+      <li><a class="row" href="https://tylersotomayor.github.io/real-anal/lecture-04.pdf"><span class="num">Lecture&nbsp;4</span><span><span class="ttl">Compactness: Heine&ndash;Borel and Bolzano&ndash;Weierstrass</span><span class="meta">Thursday, 4 June 2026</span><span class="prev"><span class="lab">In this lecture</span>Compactness, closedness &amp; boundedness &middot; nested sets &amp; the finite-intersection property &middot; Heine&ndash;Borel &amp; Bolzano&ndash;Weierstrass &middot; interior, closure &amp; connectedness</span></span></a></li>
+      <li><a class="row" href="https://tylersotomayor.github.io/real-anal/lecture-05.pdf"><span class="num">Lecture&nbsp;5</span><span><span class="ttl">Sequences: Convergence, Cauchy Completeness, and &#8477;<sup>k</sup></span><span class="meta">Tuesday, 9 June 2026</span><span class="prev"><span class="lab">In this lecture</span>Convergence in a metric space &middot; the algebra of limits in &#8477;<sup>k</sup> &middot; subsequences &middot; Cauchy sequences &amp; completeness</span></span></a></li>
+      <li><a class="row" href="https://tylersotomayor.github.io/real-anal/lecture-06.pdf"><span class="num">Lecture&nbsp;6</span><span><span class="ttl">Monotone Convergence, the Squeeze Theorem, and the Upper and Lower Limits</span><span class="meta">Thursday, 11 June 2026</span><span class="prev"><span class="lab">In this lecture</span>Monotone sequences &middot; comparison &amp; squeeze &middot; the upper and lower limits &middot; standard limits &middot; introduction to series</span></span></a></li>
+      <li><a class="row" href="https://tylersotomayor.github.io/real-anal/lecture-07.pdf"><span class="num">Lecture&nbsp;7</span><span><span class="ttl">Function Limits, Continuity, and the Topology of Continuous Maps</span><span class="meta">Thursday, 18 June 2026</span><span class="prev"><span class="lab">In this lecture</span>Function limits &middot; continuity &amp; composition &middot; discontinuities &middot; open-set characterizations &middot; continuous images of compact &amp; connected sets &middot; homeomorphisms &middot; uniform continuity</span></span></a></li>
+      <li><a class="row" href="https://tylersotomayor.github.io/real-anal/lecture-08.pdf"><span class="num">Lecture&nbsp;8</span><span><span class="ttl">Derivatives, Taylor&rsquo;s Theorem, and Analyticity</span><span class="meta">Tuesday, 23 June 2026</span><span class="prev"><span class="lab">In this lecture</span>Derivatives as first-order approximations &middot; rules for derivatives &middot; extrema &amp; the Mean Value Theorem &middot; Darboux&rsquo;s theorem &middot; Taylor&rsquo;s theorem &middot; real &amp; complex analyticity</span></span></a></li>
+    </ul>
+
+    <h2>Problem Sets</h2>
+    <div class="h2rule"></div>
+    <ul class="list">
+      <li><a class="row" href="https://tylersotomayor.github.io/real-anal/homework-1.pdf"><span class="num">Homework&nbsp;1</span><span><span class="ttl">The Real Numbers</span><span class="meta">Rudin, Chapters 1&ndash;2</span><span class="prev"><span class="lab">In this set</span>Induction &middot; an equivalence relation &middot; an ordered-field obstruction &mdash; with worked solutions and reflections</span></span></a></li>
+      <li><a class="row" href="https://tylersotomayor.github.io/real-anal/homework-2.pdf"><span class="num">Homework&nbsp;2</span><span><span class="ttl">The Topology of Metric Spaces</span><span class="meta">Rudin, Chapter 2</span><span class="prev"><span class="lab">In this set</span>Limit points &middot; compactness &middot; perfect, connected &amp; separable sets &mdash; with worked solutions and reflections</span></span></a></li>
+      <li><a class="row" href="https://tylersotomayor.github.io/real-anal/homework-3.pdf"><span class="num">Homework&nbsp;3</span><span><span class="ttl">Sequences, Series, and Continuity</span><span class="meta">Rudin, Chapters 3&ndash;4</span><span class="prev"><span class="lab">In this set</span>Sequences &middot; series &middot; continuity &mdash; with worked solutions and reflections</span></span></a></li>
+    </ul>
+
+    <footer>
+      Compiled June&nbsp;25,&nbsp;2026. Student lecture notes shared for classmates&rsquo; reference; any errors are my own.
+      <div class="ln">Source: <a href="https://github.com/tylersotomayor/real-anal/tree/main/src">github.com/tylersotomayor/real-anal</a> &middot; Errata: <a href="mailto:tyler.sotomayor@columbia.edu">tyler.sotomayor@columbia.edu</a></div>
+    </footer>
+  </div>
+</body>
+</html>
